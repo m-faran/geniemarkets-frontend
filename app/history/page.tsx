@@ -9,6 +9,7 @@ import {
 } from "@/lib/utils";
 import { useState, useMemo } from "react";
 import { History, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { ClaimCard } from "@/components/claim-card";
 
 const ROUNDS_PER_PAGE = 10;
 
@@ -53,8 +54,8 @@ export default function HistoryPage() {
   });
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-      <div className="mb-8">
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 space-y-6">
+      <div>
         <h1 className="flex items-center gap-3 text-3xl font-bold text-white">
           <History className="h-8 w-8 text-violet-400" />
           Round History
@@ -63,6 +64,9 @@ export default function HistoryPage() {
           Browse past rounds and their results.
         </p>
       </div>
+
+      <ClaimCard />
+
 
       {isLoading || totalRounds === 0 ? (
         <div className="flex items-center justify-center py-20">

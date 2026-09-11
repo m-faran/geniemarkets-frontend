@@ -1,7 +1,7 @@
 "use client";
 
 import { usePrivy, useFundWallet, useSendTransaction } from "@privy-io/react-auth";
-import { useReadContract } from "wagmi";
+import { useReadContract, useAccount } from "wagmi";
 import { erc20Abi, USDC_ADDRESS } from "@/lib/contracts";
 import { formatUsdc, formatUsdcDollar, truncateAddress } from "@/lib/utils";
 import { encodeFunctionData } from "viem";
@@ -17,11 +17,10 @@ import {
 import { useState, useCallback } from "react";
 
 export function WalletPanel() {
-  const { user, authenticated } = usePrivy();
+  const { authenticated } = usePrivy();
+  const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
   const { sendTransaction } = useSendTransaction();
-
-  const walletAddress = user?.wallet?.address as `0x${string}` | undefined;
 
   const { data: balance } = useReadContract({
     address: USDC_ADDRESS,
@@ -88,7 +87,7 @@ export function WalletPanel() {
           data: transferData,
           chainId: sepolia.id,
         },
-        { uiOptions: { showWalletUIs: true } }
+        { sponsor: true, uiOptions: { showWalletUIs: true } }
       );
       setTransferSuccess(true);
       setTransferTo("");

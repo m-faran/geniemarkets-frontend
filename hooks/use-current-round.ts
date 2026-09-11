@@ -61,38 +61,109 @@ export function useCurrentRound() {
       }
     : undefined;
 
-  // Countdown timer
-  const [timeRemaining, setTimeRemaining] = useState<number>(0);
+  // Dual countdown timers & current timestamp
+  const [currentTime, setCurrentTime] = useState<number>(() =>
+    Math.floor(Date.now() / 1000)
+  );
 
   useEffect(() => {
-    if (!round) return;
-
-    const getTarget = () => {
-      if (round.phase === RoundPhase.OpenBetting) return round.openCutoff;
-      if (round.phase === RoundPhase.CloseBetting) return round.closeCutoff;
-      return 0;
-    };
-
-    const target = getTarget();
-    if (!target) {
-      setTimeRemaining(0);
-      return;
-    }
-
-    const tick = () => {
-      const now = Math.floor(Date.now() / 1000);
-      setTimeRemaining(Math.max(0, target - now));
-    };
-
-    tick();
-    const interval = setInterval(tick, 1000);
+    const interval = setInterval(() => {
+      setCurrentTime(Math.floor(Date.now() / 1000));
+    }, 1000);
     return () => clearInterval(interval);
-  }, [round]);
+  }, []);
+
+  const openTimeRemaining = round
+    ? Math.max(0, round.openCutoff - currentTime)
+    : 0;
+  const closeTimeRemaining = round
+    ? Math.max(0, round.closeCutoff - currentTime)
+    : 0;
+
+  const isOpenCutoffPassed = round ? currentTime >= round.openCutoff : false;
+  const isCloseCutoffPassed = round ? currentTime >= round.closeCutoff : false;
+
+  const isOpenBettingActive = Boolean(
+    round && round.phase === RoundPhase.OpenBetting && !isOpenCutoffPassed
+  );
+  const isCloseBettingActive = Boolean(
+    round &&
+      (round.phase === RoundPhase.OpenBetting ||
+        round.phase === RoundPhase.OpenPending ||
+        round.phase === RoundPhase.CloseBetting) &&
+      !isCloseCutoffPassed
+  );
+
+  const isOpenDrawReady = Boolean(
+    round && round.phase === RoundPhase.OpenBetting && isOpenCutoffPassed
+  );
+  const isCloseDrawReady = Boolean(
+    round && round.phase === RoundPhase.CloseBetting && isCloseCutoffPassed
+  );
+
+  const EMERGENCY_TIMEOUT = 86400; // 24 hours
+  const isEmergencyStale = Boolean(
+    round &&
+      ((round.phase === RoundPhase.OpenPending &&
+        currentTime > round.openCutoff + EMERGENCY_TIMEOUT) ||
+        (round.phase === RoundPhase.ClosePending &&
+          currentTime > round.closeCutoff + EMERGENCY_TIMEOUT))
+  );
+
+  // Backward compatibility: default timer for current active phase
+  const timeRemaining =
+    round?.phase === RoundPhase.OpenBetting
+      ? openTimeRemaining
+      : closeTimeRemaining;
+
+  // Previous round lookup (if roundId > 1)
+  const prevRoundId =
+    roundId && roundId > 1n ? roundId - 1n : undefined;
+  const { data: rawPrevRound } = useReadContract({
+    address: GENIE_MARKETS_ADDRESS,
+    abi: genieMarketsAbi,
+    functionName: "s_rounds",
+    args: prevRoundId !== undefined ? [prevRoundId] : undefined,
+    query: {
+      enabled: prevRoundId !== undefined,
+      refetchInterval: 10000,
+    },
+  });
+
+  const pr = rawPrevRound as readonly unknown[] | undefined;
+  const previousRound: RoundData | undefined = pr
+    ? {
+        phase: Number(pr[0]) as RoundPhase,
+        openCutoff: Number(pr[1]),
+        closeCutoff: Number(pr[2]),
+        settledAt: Number(pr[3]),
+        openD1: Number(pr[6]),
+        openD2: Number(pr[7]),
+        openD3: Number(pr[8]),
+        closeD1: Number(pr[9]),
+        closeD2: Number(pr[10]),
+        closeD3: Number(pr[11]),
+        openSingle: Number(pr[12]),
+        closeSingle: Number(pr[13]),
+        pairResult: Number(pr[14]),
+      }
+    : undefined;
 
   return {
     roundId,
     round,
+    prevRoundId,
+    previousRound,
     timeRemaining,
+    openTimeRemaining,
+    closeTimeRemaining,
+    isOpenCutoffPassed,
+    isCloseCutoffPassed,
+    isOpenBettingActive,
+    isCloseBettingActive,
+    isOpenDrawReady,
+    isCloseDrawReady,
+    isEmergencyStale,
     refetch: () => {
       refetchId();
       refetchRound();
@@ -109,3 +180,4 @@ export function formatCountdown(seconds: number): string {
   if (h > 0) return `${pad(h)}:${pad(m)}:${pad(s)}`;
   return `${pad(m)}:${pad(s)}`;
 }
+

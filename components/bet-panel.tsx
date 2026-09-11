@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { usePrivy, useFundWallet } from "@privy-io/react-auth";
-import { useCurrentRound } from "@/hooks/use-current-round";
+import { useAccount } from "wagmi";
+import { useCurrentRound, formatCountdown } from "@/hooks/use-current-round";
 import { usePlaceBet } from "@/hooks/use-place-bet";
 import {
-  RoundPhase,
   BetType,
   BET_TYPE_LABELS,
   PAYOUTS,
@@ -27,39 +27,38 @@ import {
 const QUICK_AMOUNTS = ["1", "5", "10", "25"];
 
 export function BetPanel() {
-  const { login, authenticated, user, ready } = usePrivy();
+  const { login, authenticated, ready } = usePrivy();
+  const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
-  const { roundId, round } = useCurrentRound();
-  const { placeBet, step, error, reset, balance, allowance } = usePlaceBet();
+  const {
+    roundId,
+    round,
+    openTimeRemaining,
+    closeTimeRemaining,
+    isOpenBettingActive,
+    isCloseBettingActive,
+  } = useCurrentRound();
+  const { placeBet, step, error, reset, balance } = usePlaceBet();
 
+  const [marketSide, setMarketSide] = useState<"open" | "close">("open");
   const [selectedBetType, setSelectedBetType] = useState<BetType>(
     BetType.OpenSingle
   );
   const [pick, setPick] = useState<string>("");
   const [wager, setWager] = useState<string>("");
 
-  const walletAddress = user?.wallet?.address as `0x${string}` | undefined;
   const hasBalance = balance && balance > 0n;
 
-  // Determine which bet types are available
-  const availableBetTypes: BetType[] = (() => {
-    if (!round) return [];
-    if (round.phase === RoundPhase.OpenBetting) {
-      return [BetType.OpenSingle, BetType.OpenTrio, BetType.Pair];
-    }
-    if (
-      round.phase === RoundPhase.CloseBetting ||
-      round.phase === RoundPhase.OpenPending
-    ) {
-      return [BetType.CloseSingle, BetType.CloseTrio];
-    }
-    return [];
-  })();
+  // Active bet type depending on marketSide
+  const activeBetType = selectedBetType;
+  const isOpenBet =
+    activeBetType === BetType.OpenSingle ||
+    activeBetType === BetType.OpenTrio ||
+    activeBetType === BetType.Pair;
 
-  // Ensure selected type is valid for current phase
-  const activeBetType = availableBetTypes.includes(selectedBetType)
-    ? selectedBetType
-    : availableBetTypes[0];
+  const isMarketOpenForBet = isOpenBet
+    ? isOpenBettingActive
+    : isCloseBettingActive;
 
   // Pick validation
   const getPickMax = () => {
@@ -101,7 +100,7 @@ export function BetPanel() {
       : "$0.00";
 
   const handlePlaceBet = async () => {
-    if (!roundId || !isPickValid || !isWagerValid) return;
+    if (!roundId || !isPickValid || !isWagerValid || !isMarketOpenForBet) return;
     await placeBet(roundId, activeBetType, pickNum, wager);
   };
 
@@ -114,18 +113,14 @@ export function BetPanel() {
     }
   };
 
-  // Cannot bet if round is not in a betting phase
-  if (!round || availableBetTypes.length === 0) {
+  if (!round) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6">
-        <p className="text-center text-sm text-zinc-500">
-          {!round
-            ? "Loading…"
-            : "Betting is closed for this round. Wait for the next one."}
-        </p>
+      <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6 text-center">
+        <p className="text-sm text-zinc-500">Loading round data…</p>
       </div>
     );
   }
+
 
   // Success state
   if (step === "success") {
@@ -157,9 +152,82 @@ export function BetPanel() {
         Place Your Bet
       </h3>
 
-      {/* Bet Type Tabs */}
+      {/* Market Selector Tabs */}
+      <div className="mb-4 grid grid-cols-2 gap-2 rounded-xl bg-white/5 p-1">
+        <button
+          onClick={() => {
+            setMarketSide("open");
+            if (
+              selectedBetType !== BetType.OpenSingle &&
+              selectedBetType !== BetType.OpenTrio &&
+              selectedBetType !== BetType.Pair
+            ) {
+              setSelectedBetType(BetType.OpenSingle);
+              setPick("");
+            }
+          }}
+          className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-bold transition-all ${
+            marketSide === "open"
+              ? "bg-violet-600 text-white shadow-lg shadow-violet-600/25"
+              : "text-zinc-400 hover:text-white"
+          }`}
+        >
+          <span>Open Market</span>
+          <span
+            className={`rounded-md px-1.5 py-0.5 text-[10px] font-semibold ${
+              isOpenBettingActive
+                ? marketSide === "open"
+                  ? "bg-white/20 text-white"
+                  : "bg-green-500/10 text-green-400"
+                : "bg-white/5 text-zinc-500"
+            }`}
+          >
+            {isOpenBettingActive
+              ? formatCountdown(openTimeRemaining)
+              : "Closed"}
+          </span>
+        </button>
+
+        <button
+          onClick={() => {
+            setMarketSide("close");
+            if (
+              selectedBetType !== BetType.CloseSingle &&
+              selectedBetType !== BetType.CloseTrio
+            ) {
+              setSelectedBetType(BetType.CloseSingle);
+              setPick("");
+            }
+          }}
+          className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-bold transition-all ${
+            marketSide === "close"
+              ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
+              : "text-zinc-400 hover:text-white"
+          }`}
+        >
+          <span>Close Market</span>
+          <span
+            className={`rounded-md px-1.5 py-0.5 text-[10px] font-semibold ${
+              isCloseBettingActive
+                ? marketSide === "close"
+                  ? "bg-white/20 text-white"
+                  : "bg-blue-500/10 text-blue-400"
+                : "bg-white/5 text-zinc-500"
+            }`}
+          >
+            {isCloseBettingActive
+              ? formatCountdown(closeTimeRemaining)
+              : "Closed"}
+          </span>
+        </button>
+      </div>
+
+      {/* Bet Types for Selected Market */}
       <div className="mb-5 flex gap-1.5 rounded-xl bg-white/5 p-1">
-        {availableBetTypes.map((bt) => (
+        {(marketSide === "open"
+          ? [BetType.OpenSingle, BetType.Pair, BetType.OpenTrio]
+          : [BetType.CloseSingle, BetType.CloseTrio]
+        ).map((bt) => (
           <button
             key={bt}
             onClick={() => {
@@ -168,11 +236,17 @@ export function BetPanel() {
             }}
             className={`flex-1 rounded-lg px-3 py-2 text-xs font-semibold transition-all ${
               activeBetType === bt
-                ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20"
+                ? marketSide === "open"
+                  ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20"
+                  : "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
                 : "text-zinc-400 hover:bg-white/5 hover:text-white"
             }`}
           >
-            {BET_TYPE_LABELS[bt]}
+            {bt === BetType.OpenSingle || bt === BetType.CloseSingle
+              ? "Single (9x)"
+              : bt === BetType.Pair
+                ? "Pair (90x)"
+                : "Trio (140-600x)"}
           </button>
         ))}
       </div>
@@ -203,7 +277,9 @@ export function BetPanel() {
                 onClick={() => setPick(i.toString())}
                 className={`rounded-xl py-3 text-lg font-bold transition-all ${
                   pick === i.toString()
-                    ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20"
+                    ? marketSide === "open"
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-600/20"
+                      : "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
                     : "bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white"
                 }`}
               >
@@ -278,7 +354,7 @@ export function BetPanel() {
         </div>
       )}
 
-      {/* Action Button — Four-state flow */}
+      {/* Action Button */}
       {!ready ? (
         <button
           disabled
@@ -318,6 +394,13 @@ export function BetPanel() {
           <Loader2 className="h-4 w-4 animate-spin" />
           Placing Bet…
         </button>
+      ) : !isMarketOpenForBet ? (
+        <button
+          disabled
+          className="w-full rounded-xl bg-white/5 py-3 text-sm font-semibold text-zinc-500"
+        >
+          {isOpenBet ? "Open Market Cutoff Passed" : "Close Market Cutoff Passed"}
+        </button>
       ) : (
         <button
           onClick={handlePlaceBet}
@@ -325,7 +408,7 @@ export function BetPanel() {
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 transition-all hover:bg-violet-500 disabled:bg-white/5 disabled:text-zinc-600 disabled:shadow-none"
         >
           <ShieldCheck className="h-4 w-4" />
-          Place Bet
+          Place Bet ({BET_TYPE_LABELS[activeBetType]})
         </button>
       )}
 
@@ -339,3 +422,4 @@ export function BetPanel() {
     </div>
   );
 }
+

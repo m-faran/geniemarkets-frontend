@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePrivy, useFundWallet } from "@privy-io/react-auth";
-import { useReadContract } from "wagmi";
+import { useReadContract, useAccount } from "wagmi";
 import { erc20Abi, USDC_ADDRESS } from "@/lib/contracts";
 import { formatUsdcDollar, truncateAddress } from "@/lib/utils";
 import {
@@ -15,9 +15,9 @@ import {
 } from "lucide-react";
 
 export function NavBar() {
-  const { login, logout, authenticated, user, ready } = usePrivy();
+  const { login, logout, authenticated, ready } = usePrivy();
+  const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
-  const walletAddress = user?.wallet?.address as `0x${string}` | undefined;
 
   const { data: balance } = useReadContract({
     address: USDC_ADDRESS,

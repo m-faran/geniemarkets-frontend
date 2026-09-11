@@ -1,6 +1,6 @@
 "use client";
 
-import { useReadContract } from "wagmi";
+import { useReadContract, usePublicClient, useAccount } from "wagmi";
 import { useSendTransaction } from "@privy-io/react-auth";
 import { encodeFunctionData } from "viem";
 import {
@@ -11,18 +11,16 @@ import {
 } from "@/lib/contracts";
 import { parseUsdc, BetType } from "@/lib/utils";
 import { useState, useCallback } from "react";
-import { usePrivy } from "@privy-io/react-auth";
 import { sepolia } from "viem/chains";
 
 type PlaceBetStep = "idle" | "approving" | "betting" | "success" | "error";
 
 export function usePlaceBet() {
-  const { user } = usePrivy();
+  const { address: walletAddress } = useAccount();
   const { sendTransaction } = useSendTransaction();
+  const publicClient = usePublicClient();
   const [step, setStep] = useState<PlaceBetStep>("idle");
   const [error, setError] = useState<string | null>(null);
-
-  const walletAddress = user?.wallet?.address as `0x${string}` | undefined;
 
   // Check current USDC allowance
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
@@ -64,16 +62,29 @@ export function usePlaceBet() {
             functionName: "approve",
             args: [GENIE_MARKETS_ADDRESS, amount],
           });
-          await sendTransaction(
+          const tx = await sendTransaction(
             {
               to: USDC_ADDRESS,
               data: approveData,
               chainId: sepolia.id,
             },
-            { uiOptions: { showWalletUIs: true } }
+            { sponsor: true, uiOptions: { showWalletUIs: true } }
           );
-          // Wait a moment for state to propagate
-          await new Promise((r) => setTimeout(r, 2000));
+          
+          let hashToWait: `0x${string}` | undefined = undefined;
+          if (typeof tx === "string") {
+            hashToWait = tx as `0x${string}`;
+          } else if (tx && typeof tx === "object") {
+            const txObj = tx as { transactionHash?: `0x${string}`; hash?: `0x${string}` };
+            hashToWait = txObj.transactionHash || txObj.hash;
+          }
+
+          if (hashToWait && publicClient) {
+             await publicClient.waitForTransactionReceipt({ hash: hashToWait });
+          } else {
+             // Fallback just in case
+             await new Promise((r) => setTimeout(r, 4000));
+          }
           refetchAllowance();
         } catch (e) {
           setStep("error");
@@ -90,14 +101,27 @@ export function usePlaceBet() {
           functionName: "placeBet",
           args: [roundId, betType, pick, BigInt(amount)],
         });
-        await sendTransaction(
+        const tx = await sendTransaction(
           {
             to: GENIE_MARKETS_ADDRESS,
             data: betData,
             chainId: sepolia.id,
           },
-          { uiOptions: { showWalletUIs: true } }
+          { sponsor: true, uiOptions: { showWalletUIs: true } }
         );
+        
+        let hashToWait: `0x${string}` | undefined = undefined;
+        if (typeof tx === "string") {
+          hashToWait = tx as `0x${string}`;
+        } else if (tx && typeof tx === "object") {
+          const txObj = tx as { transactionHash?: `0x${string}`; hash?: `0x${string}` };
+          hashToWait = txObj.transactionHash || txObj.hash;
+        }
+
+        if (hashToWait && publicClient) {
+           await publicClient.waitForTransactionReceipt({ hash: hashToWait });
+        }
+
         setStep("success");
         refetchBalance();
         refetchAllowance();
@@ -106,7 +130,7 @@ export function usePlaceBet() {
         setError(e instanceof Error ? e.message : "Bet placement failed");
       }
     },
-    [allowance, sendTransaction, refetchAllowance, refetchBalance]
+    [allowance, sendTransaction, refetchAllowance, refetchBalance, publicClient]
   );
 
   const reset = () => {
@@ -124,3 +148,4 @@ export function usePlaceBet() {
     refetchBalance,
   };
 }
+

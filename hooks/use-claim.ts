@@ -25,7 +25,7 @@ export function useClaim() {
         });
         await sendTransaction(
           { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { uiOptions: { showWalletUIs: true } }
+          { sponsor: true, uiOptions: { showWalletUIs: true } }
         );
         setStep("success");
       } catch (e) {
@@ -48,7 +48,7 @@ export function useClaim() {
         });
         await sendTransaction(
           { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { uiOptions: { showWalletUIs: true } }
+          { sponsor: true, uiOptions: { showWalletUIs: true } }
         );
         setStep("success");
       } catch (e) {
