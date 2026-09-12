@@ -1,7 +1,7 @@
 "use client";
 
 import { useReadContract, usePublicClient, useAccount } from "wagmi";
-import { useSendTransaction } from "@privy-io/react-auth";
+import { useSmartTransaction } from "@/hooks/use-smart-transaction";
 import { encodeFunctionData } from "viem";
 import {
   genieMarketsAbi,
@@ -17,7 +17,7 @@ type PlaceBetStep = "idle" | "approving" | "betting" | "success" | "error";
 
 export function usePlaceBet(onSuccess?: () => void) {
   const { address: walletAddress } = useAccount();
-  const { sendTransaction } = useSendTransaction();
+  const { sendTransaction, isEmbedded } = useSmartTransaction();
   const publicClient = usePublicClient();
   const [step, setStep] = useState<PlaceBetStep>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -62,25 +62,14 @@ export function usePlaceBet(onSuccess?: () => void) {
             functionName: "approve",
             args: [GENIE_MARKETS_ADDRESS, amount],
           });
-          const tx = await sendTransaction(
-            {
-              to: USDC_ADDRESS,
-              data: approveData,
-              chainId: sepolia.id,
-            },
-            { sponsor: true, uiOptions: { showWalletUIs: true } }
-          );
+          const tx = await sendTransaction({
+            to: USDC_ADDRESS,
+            data: approveData,
+            chainId: sepolia.id,
+          });
           
-          let hashToWait: `0x${string}` | undefined = undefined;
-          if (typeof tx === "string") {
-            hashToWait = tx as `0x${string}`;
-          } else if (tx && typeof tx === "object") {
-            const txObj = tx as { transactionHash?: `0x${string}`; hash?: `0x${string}` };
-            hashToWait = txObj.transactionHash || txObj.hash;
-          }
-
-          if (hashToWait && publicClient) {
-             await publicClient.waitForTransactionReceipt({ hash: hashToWait });
+          if (tx.hash && publicClient) {
+             await publicClient.waitForTransactionReceipt({ hash: tx.hash });
           } else {
              // Fallback just in case
              await new Promise((r) => setTimeout(r, 4000));
@@ -101,25 +90,14 @@ export function usePlaceBet(onSuccess?: () => void) {
           functionName: "placeBet",
           args: [roundId, betType, pick, BigInt(amount)],
         });
-        const tx = await sendTransaction(
-          {
-            to: GENIE_MARKETS_ADDRESS,
-            data: betData,
-            chainId: sepolia.id,
-          },
-          { sponsor: true, uiOptions: { showWalletUIs: true } }
-        );
-        
-        let hashToWait: `0x${string}` | undefined = undefined;
-        if (typeof tx === "string") {
-          hashToWait = tx as `0x${string}`;
-        } else if (tx && typeof tx === "object") {
-          const txObj = tx as { transactionHash?: `0x${string}`; hash?: `0x${string}` };
-          hashToWait = txObj.transactionHash || txObj.hash;
-        }
+        const tx = await sendTransaction({
+          to: GENIE_MARKETS_ADDRESS,
+          data: betData,
+          chainId: sepolia.id,
+        });
 
-        if (hashToWait && publicClient) {
-           await publicClient.waitForTransactionReceipt({ hash: hashToWait });
+        if (tx.hash && publicClient) {
+           await publicClient.waitForTransactionReceipt({ hash: tx.hash });
         }
 
         setStep("success");
@@ -147,6 +125,7 @@ export function usePlaceBet(onSuccess?: () => void) {
     balance: balance as bigint | undefined,
     allowance: allowance as bigint | undefined,
     refetchBalance,
+    isEmbedded,
   };
 }
 

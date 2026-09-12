@@ -1,6 +1,6 @@
 "use client";
 
-import { useSendTransaction } from "@privy-io/react-auth";
+import { useSmartTransaction } from "@/hooks/use-smart-transaction";
 import { encodeFunctionData } from "viem";
 import { genieMarketsAbi, GENIE_MARKETS_ADDRESS } from "@/lib/contracts";
 import { useState, useCallback } from "react";
@@ -9,7 +9,7 @@ import { sepolia } from "viem/chains";
 export type RoundActionStep = "idle" | "submitting" | "success" | "error";
 
 export function useRoundActions(onSuccess?: () => void) {
-  const { sendTransaction } = useSendTransaction();
+  const { sendTransaction } = useSmartTransaction();
   const [step, setStep] = useState<RoundActionStep>("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -23,10 +23,11 @@ export function useRoundActions(onSuccess?: () => void) {
           functionName: "requestOpenDraw",
           args: [roundId],
         });
-        await sendTransaction(
-          { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { sponsor: true, uiOptions: { showWalletUIs: true } }
-        );
+        await sendTransaction({
+          to: GENIE_MARKETS_ADDRESS,
+          data,
+          chainId: sepolia.id,
+        });
         setStep("success");
         onSuccess?.();
       } catch (e) {
@@ -47,10 +48,11 @@ export function useRoundActions(onSuccess?: () => void) {
           functionName: "requestCloseDraw",
           args: [roundId],
         });
-        await sendTransaction(
-          { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { sponsor: true, uiOptions: { showWalletUIs: true } }
-        );
+        await sendTransaction({
+          to: GENIE_MARKETS_ADDRESS,
+          data,
+          chainId: sepolia.id,
+        });
         setStep("success");
         onSuccess?.();
       } catch (e) {
@@ -71,10 +73,11 @@ export function useRoundActions(onSuccess?: () => void) {
           functionName: "cancelStaleRound",
           args: [roundId],
         });
-        await sendTransaction(
-          { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { sponsor: true, uiOptions: { showWalletUIs: true } }
-        );
+        await sendTransaction({
+          to: GENIE_MARKETS_ADDRESS,
+          data,
+          chainId: sepolia.id,
+        });
         setStep("success");
         onSuccess?.();
       } catch (e) {

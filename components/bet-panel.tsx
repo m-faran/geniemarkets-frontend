@@ -38,7 +38,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
     isOpenBettingActive,
     isCloseBettingActive,
   } = useCurrentRound();
-  const { placeBet, step, error, reset, balance } = usePlaceBet(onBetPlaced);
+  const { placeBet, step, error, reset, balance, isEmbedded } = usePlaceBet(onBetPlaced);
 
   const [marketSide, setMarketSide] = useState<"open" | "close">("open");
   const [selectedBetType, setSelectedBetType] = useState<BetType>(
@@ -351,6 +351,24 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
             <p className="text-lg font-bold text-amber-400">{potentialPayout}</p>
             <p className="text-xs text-zinc-500">{multiplier}x multiplier</p>
           </div>
+        </div>
+      )}
+
+      {/* Gas Status Indicator */}
+      {authenticated && !isEmbedded && (
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+          <AlertCircle className="h-4 w-4 shrink-0 text-amber-400" />
+          <span>External wallet connected: Sepolia ETH required for gas</span>
+        </div>
+      )}
+
+      {authenticated && isEmbedded && (
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-300">
+          <span className="flex items-center gap-1.5 font-medium">
+            <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+            Gasless Betting Active
+          </span>
+          <span className="text-[11px] text-emerald-400/80">Sponsored by Genie</span>
         </div>
       )}
 

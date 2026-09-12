@@ -1,6 +1,6 @@
 "use client";
 
-import { useSendTransaction } from "@privy-io/react-auth";
+import { useSmartTransaction } from "@/hooks/use-smart-transaction";
 import { encodeFunctionData } from "viem";
 import { genieMarketsAbi, GENIE_MARKETS_ADDRESS } from "@/lib/contracts";
 import { useState, useCallback } from "react";
@@ -9,7 +9,7 @@ import { sepolia } from "viem/chains";
 type ClaimStep = "idle" | "claiming" | "success" | "error";
 
 export function useClaim() {
-  const { sendTransaction } = useSendTransaction();
+  const { sendTransaction } = useSmartTransaction();
   const [step, setStep] = useState<ClaimStep>("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -23,10 +23,11 @@ export function useClaim() {
           functionName: "claimWinnings",
           args: [roundId, betIndex],
         });
-        await sendTransaction(
-          { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { sponsor: true, uiOptions: { showWalletUIs: true } }
-        );
+        await sendTransaction({
+          to: GENIE_MARKETS_ADDRESS,
+          data,
+          chainId: sepolia.id,
+        });
         setStep("success");
       } catch (e) {
         setStep("error");
@@ -46,10 +47,11 @@ export function useClaim() {
           functionName: "claimRefund",
           args: [roundId, betIndex],
         });
-        await sendTransaction(
-          { to: GENIE_MARKETS_ADDRESS, data, chainId: sepolia.id },
-          { sponsor: true, uiOptions: { showWalletUIs: true } }
-        );
+        await sendTransaction({
+          to: GENIE_MARKETS_ADDRESS,
+          data,
+          chainId: sepolia.id,
+        });
         setStep("success");
       } catch (e) {
         setStep("error");

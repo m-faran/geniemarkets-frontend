@@ -1,6 +1,7 @@
 "use client";
 
-import { usePrivy, useFundWallet, useSendTransaction } from "@privy-io/react-auth";
+import { usePrivy, useFundWallet } from "@privy-io/react-auth";
+import { useSmartTransaction } from "@/hooks/use-smart-transaction";
 import { useReadContract, useAccount } from "wagmi";
 import { erc20Abi, USDC_ADDRESS } from "@/lib/contracts";
 import { formatUsdc, formatUsdcDollar, truncateAddress } from "@/lib/utils";
@@ -13,6 +14,8 @@ import {
   Copy,
   CheckCircle2,
   Loader2,
+  AlertCircle,
+  Zap,
 } from "lucide-react";
 import { useState, useCallback } from "react";
 
@@ -20,7 +23,7 @@ export function WalletPanel() {
   const { authenticated } = usePrivy();
   const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
-  const { sendTransaction } = useSendTransaction();
+  const { sendTransaction, isEmbedded, walletClientType } = useSmartTransaction();
 
   const { data: balance } = useReadContract({
     address: USDC_ADDRESS,
@@ -81,14 +84,11 @@ export function WalletPanel() {
         args: [transferTo as `0x${string}`, amount],
       });
 
-      await sendTransaction(
-        {
-          to: USDC_ADDRESS,
-          data: transferData,
-          chainId: sepolia.id,
-        },
-        { sponsor: true, uiOptions: { showWalletUIs: true } }
-      );
+      await sendTransaction({
+        to: USDC_ADDRESS,
+        data: transferData,
+        chainId: sepolia.id,
+      });
       setTransferSuccess(true);
       setTransferTo("");
       setTransferAmount("");
@@ -107,10 +107,32 @@ export function WalletPanel() {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6">
-      <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-white">
-        <Wallet className="h-5 w-5 text-violet-400" />
-        Your Wallet
-      </h3>
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="flex items-center gap-2 text-lg font-semibold text-white">
+          <Wallet className="h-5 w-5 text-violet-400" />
+          Your Wallet
+        </h3>
+        {isEmbedded ? (
+          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+            <Zap className="h-3 w-3" />
+            Gasless
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-400">
+            {walletClientType === "privy" ? "Wallet" : walletClientType}
+          </span>
+        )}
+      </div>
+
+      {/* External Wallet Gas Warning */}
+      {!isEmbedded && (
+        <div className="mb-4 flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-amber-300">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+          <p>
+            External wallet connected. You will need Sepolia ETH for transaction gas. Embedded wallets (Email/Google) receive 100% gas sponsorship.
+          </p>
+        </div>
+      )}
 
       {/* Address */}
       <div className="mb-4 flex items-center gap-2 rounded-xl bg-white/5 px-4 py-3">

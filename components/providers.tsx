@@ -18,6 +18,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           theme: "dark",
           accentColor: "#8B5CF6",
           logo: "/logo.png",
+          loginMessage: "Email/Google logins get gasless betting. External wallets require Sepolia ETH for gas.",
         },
         loginMethods: ["email", "google", "wallet"],
         embeddedWallets: {
