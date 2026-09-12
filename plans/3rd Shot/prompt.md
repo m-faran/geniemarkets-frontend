@@ -1,0 +1,1 @@
+I want you to create a plan to add a new page How It Works currently there are two pages Play and History, Play provides the interface for playing the game and History provides the history of the game. How It Works page should provide playing tutorial about the types of games and the returns.

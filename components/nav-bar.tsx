@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { usePrivy, useFundWallet } from "@privy-io/react-auth";
 import { useReadContract, useAccount } from "wagmi";
 import { erc20Abi, USDC_ADDRESS } from "@/lib/contracts";
@@ -12,9 +13,11 @@ import {
   PlusCircle,
   Dice5,
   History,
+  HelpCircle,
 } from "lucide-react";
 
 export function NavBar() {
+  const pathname = usePathname();
   const { login, logout, authenticated, ready } = usePrivy();
   const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
@@ -41,6 +44,12 @@ export function NavBar() {
     }
   };
 
+  const navLinks = [
+    { href: "/how-it-works", label: "How It Works", icon: HelpCircle },
+    { href: "/play", label: "Play", icon: Dice5 },
+    { href: "/history", label: "History", icon: History },
+  ];
+
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
@@ -52,6 +61,8 @@ export function NavBar() {
               alt="Genie Markets"
               width={36}
               height={36}
+              priority
+              style={{ width: "auto", height: "auto" }}
               className="rounded-lg"
             />
             <span className="hidden text-lg font-bold text-white sm:inline">
@@ -60,20 +71,24 @@ export function NavBar() {
           </Link>
 
           <div className="flex items-center gap-1">
-            <Link
-              href="/play"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
-            >
-              <Dice5 className="h-4 w-4" />
-              Play
-            </Link>
-            <Link
-              href="/history"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
-            >
-              <History className="h-4 w-4" />
-              History
-            </Link>
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-white/10 text-white font-semibold"
+                      : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 

@@ -92,13 +92,19 @@ export default function LandingPage() {
           start playing — no crypto experience required.
         </p>
 
-        <div className="mt-10 flex items-center justify-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/play"
             className="group flex items-center gap-2 rounded-2xl bg-violet-600 px-8 py-4 text-lg font-bold text-white shadow-2xl shadow-violet-600/30 transition-all hover:bg-violet-500 hover:shadow-violet-500/40"
           >
             {authenticated ? "Go to Game" : "Start Playing"}
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+          <Link
+            href="/how-it-works"
+            className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-8 py-4 text-lg font-bold text-zinc-200 transition-all hover:bg-white/10 hover:text-white"
+          >
+            How It Works
           </Link>
         </div>
 
@@ -111,6 +117,8 @@ export default function LandingPage() {
               alt="Genie Markets"
               width={120}
               height={120}
+              priority
+              style={{ width: "auto", height: "auto" }}
               className="relative rounded-3xl shadow-2xl"
             />
           </div>
@@ -164,7 +172,18 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-8 text-center text-sm text-zinc-600">
+      <footer className="border-t border-white/5 py-8 text-center text-sm text-zinc-600 space-y-2">
+        <div className="flex items-center justify-center gap-6 text-zinc-400 text-xs">
+          <Link href="/how-it-works" className="hover:text-white transition-colors">
+            How It Works
+          </Link>
+          <Link href="/play" className="hover:text-white transition-colors">
+            Play Game
+          </Link>
+          <Link href="/history" className="hover:text-white transition-colors">
+            Round History
+          </Link>
+        </div>
         <p>Genie Markets · ETHGlobal Online 2026 · Powered by Privy & Chainlink VRF</p>
       </footer>
     </div>
