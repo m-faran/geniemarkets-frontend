@@ -55,7 +55,10 @@ export function RefundCard() {
   };
 
   return (
-    <Card className="rounded-2xl border-cyan-500/25 bg-gradient-to-b from-cyan-500/10 via-zinc-950/70 to-zinc-950 p-7 sm:p-8 shadow-xl shadow-black/20 transition-all">
+    <Card className="rounded-2xl border-cyan-500/25 bg-[#0B0F1A]/85 backdrop-blur-xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden">
+      {/* Top highlight gradient */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
+
       {/* Collapsible Header */}
       <button
         type="button"
@@ -63,24 +66,24 @@ export function RefundCard() {
         className="flex w-full items-center justify-between gap-5 text-left cursor-pointer"
       >
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 shadow-xl shadow-cyan-500/20">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 shadow-xl shadow-cyan-500/15">
             <RotateCcw className="h-7 w-7" />
           </div>
           <div>
             <div className="flex items-center gap-3 flex-wrap">
-              <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight">
-                Claim Refunds
+              <h3 className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight">
+                Escrow Refund Console
               </h3>
-              <Badge variant="outline" className="border-cyan-500/30 bg-cyan-500/15 text-cyan-300 font-mono text-xs font-bold px-3 py-1 rounded-xl">
-                claimRefund
+              <Badge variant="cyber" className="text-[11px] font-hud uppercase">
+                claimRefund()
               </Badge>
               {refundableBets.length > 0 && (
-                <Badge className="bg-cyan-500 text-black font-mono font-extrabold text-xs animate-pulse px-3 py-1 rounded-xl">
-                  {refundableBets.length} Ready
+                <Badge className="bg-cyan-500 text-black font-hud font-black text-xs animate-pulse px-3 py-1 rounded-xl uppercase">
+                  {refundableBets.length} Actionable
                 </Badge>
               )}
             </div>
-            <p className="text-sm text-zinc-400 mt-1.5 leading-relaxed">
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
               Pull-based wager refunds for Cancelled or Partially Settled rounds.
             </p>
           </div>
@@ -88,51 +91,52 @@ export function RefundCard() {
 
         <div className="flex items-center gap-3.5">
           {totalRefundable > 0n && (
-            <span className="font-mono text-sm font-extrabold text-cyan-300 hidden sm:inline tabular-nums px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+            <span className="font-hud text-xs font-bold text-cyan-300 hidden sm:inline tabular-nums px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 uppercase tracking-wider">
               {formatUsdcDollar(totalRefundable)} Available
             </span>
           )}
-          <div className="h-11 w-11 rounded-xl bg-zinc-900/80 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
-            {isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+          <div className="h-10 w-10 rounded-xl bg-[#07090E] border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+            {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </div>
         </div>
       </button>
 
       {/* Collapsible Body */}
       {isOpen && (
-        <div className="mt-5 pt-5 border-t border-cyan-500/15 space-y-5">
+        <div className="mt-6 pt-6 border-t border-white/5 space-y-5">
           {/* Explanatory Banner */}
-          <div className="rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-4 text-xs text-zinc-400 space-y-1.5">
-            <div className="flex items-center gap-1.5 font-semibold text-cyan-300">
+          <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-4 text-xs text-slate-400 space-y-2">
+            <div className="flex items-center gap-2 font-hud font-bold text-cyan-300 uppercase tracking-wider">
               <ShieldCheck className="h-4 w-4" />
-              How Contract Refunds Work (claimRefund)
+              Onchain Settlement Failsafe Protocol
             </div>
-            <ul className="list-disc list-inside space-y-1 text-zinc-400 text-[11px] leading-relaxed">
+            <ul className="list-disc list-inside space-y-1 text-slate-400 text-xs leading-relaxed">
               <li>
-                <strong className="text-zinc-200">Cancelled Round:</strong> If Open VRF fails or stalls past the 24h emergency timeout, all bets are 100% refundable.
+                <strong className="text-slate-200">Cancelled Round:</strong> If Open VRF fails or stalls past the 24h emergency timeout, all bets are 100% refundable.
               </li>
               <li>
-                <strong className="text-zinc-200">Partially Settled Round:</strong> If Close VRF stalls, Open-side bets win normally, while Close-side and Pair bets can claim 100% refunds.
+                <strong className="text-slate-200">Partially Settled Round:</strong> If Close VRF stalls, Open-side bets win normally, while Close-side and Pair bets can claim 100% refunds.
               </li>
               <li>
-                Refunds are held pull-based in the contract and must be claimed within <strong className="text-zinc-200">30 days</strong> of round settlement.
+                Refunds are held pull-based in the contract and must be claimed within <strong className="text-slate-200">30 days</strong> of round settlement.
               </li>
             </ul>
           </div>
 
-          {/* Success Notification (Zero Emoji) */}
+          {/* Success Notification */}
           {step === "success" && (
             <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-center space-y-2">
               <CheckCircle2 className="mx-auto h-7 w-7 text-emerald-400" />
-              <p className="text-sm font-semibold text-white">Refund Claimed Successfully</p>
-              <p className="text-xs text-zinc-400">Your original wager has been refunded directly to your wallet in USDC.</p>
+              <p className="text-sm font-bold text-white font-heading">Refund Executed Successfully</p>
+              <p className="text-xs text-slate-400">Original wager has been refunded directly to your wallet in USDC.</p>
               <Button
                 size="sm"
+                variant="cyber"
                 onClick={() => {
                   reset();
                   refetch();
                 }}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white text-xs"
+                className="text-xs font-hud font-bold uppercase tracking-wider"
               >
                 Dismiss
               </Button>
@@ -142,40 +146,41 @@ export function RefundCard() {
           {/* Detected Refundable Bets */}
           {refundableBets.length > 0 ? (
             <div className="space-y-3">
-              <p className="text-xs font-semibold text-cyan-300 uppercase tracking-wider font-mono">
+              <p className="text-xs font-black text-cyan-300 uppercase tracking-widest font-hud">
                 Refundable Bets Ready to Claim ({refundableBets.length})
               </p>
               {refundableBets.map((bet) => (
                 <div
                   key={`refund-${bet.roundId.toString()}-${bet.betIndex.toString()}`}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-4 py-3"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-cyan-500/20 bg-[#07090E]/90 px-5 py-4"
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <Badge variant="secondary" className="font-mono text-[10px] tabular-nums">
+                      <Badge variant="outline" className="font-mono text-xs tabular-nums border-white/10 bg-[#05070B] text-slate-300">
                         Round #{bet.roundId.toString()}
                       </Badge>
-                      <p className="text-sm font-semibold text-white">
-                        {BET_TYPE_LABELS[bet.betType]} · Pick {bet.pick}
+                      <p className="text-sm font-bold text-white font-heading">
+                        {BET_TYPE_LABELS[bet.betType]} · <span className="text-cyan-400 font-hud">Pick {bet.pick}</span>
                       </p>
-                      <span className="text-[11px] text-zinc-400 font-mono tabular-nums">
+                      <span className="text-xs text-slate-500 font-mono tabular-nums">
                         (Bet #{bet.betIndex.toString()})
                       </span>
                     </div>
-                    <p className="mt-0.5 text-xs text-zinc-400 font-mono tabular-nums">
+                    <p className="mt-1 text-xs text-slate-400 font-mono tabular-nums">
                       Wagered {formatUsdcDollar(bet.amount)} · Eligible for 100% Refund
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between sm:justify-end gap-3">
-                    <span className="font-mono text-base font-bold text-cyan-300 tabular-nums">
+                  <div className="flex items-center justify-between sm:justify-end gap-4">
+                    <span className="font-hud text-lg font-black text-cyan-300 tabular-nums">
                       {formatUsdcDollar(bet.amount)}
                     </span>
                     <Button
                       size="sm"
+                      variant="cyber"
                       onClick={() => handleClaimRefund(bet.roundId, bet.betIndex)}
                       disabled={step === "claiming" || !authenticated}
-                      className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold gap-1.5 shadow-md shadow-cyan-600/20"
+                      className="text-xs font-hud uppercase tracking-wider gap-1.5"
                     >
                       {step === "claiming" ? (
                         <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -190,30 +195,30 @@ export function RefundCard() {
             </div>
           ) : (
             /* Empty State */
-            <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center space-y-1">
-              <CheckCircle2 className="mx-auto h-6 w-6 text-zinc-500" />
-              <p className="text-xs font-semibold text-zinc-300">No Pending Refunds</p>
-              <p className="text-[11px] text-zinc-500 max-w-sm mx-auto">
+            <div className="rounded-xl border border-white/5 bg-[#07090E]/80 p-6 text-center space-y-1">
+              <CheckCircle2 className="mx-auto h-6 w-6 text-slate-500" />
+              <p className="text-xs font-bold font-hud uppercase tracking-wider text-slate-300">No Pending Refunds</p>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
                 No bets in cancelled or partially settled rounds were detected in recent history.
               </p>
             </div>
           )}
 
           {/* Manual Refund Form */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-300">
+          <div className="rounded-xl border border-white/10 bg-[#07090E] p-5 space-y-3">
+            <div className="flex items-center gap-2 text-xs font-hud font-bold uppercase tracking-wider text-slate-300">
               <Search className="h-3.5 w-3.5 text-cyan-400" />
               Manual Refund Claim
             </div>
-            <p className="text-[11px] text-zinc-400">
-              If you have a bet in an older cancelled round, enter the Round ID and Bet Index to call <code className="font-mono text-cyan-300">claimRefund(roundId, betIndex)</code> directly.
+            <p className="text-xs text-slate-400">
+              If you hold an unsettled position in an older round, enter Round ID and Bet Index to call <code className="font-mono text-cyan-300 bg-[#05070B] px-1.5 py-0.5 rounded border border-cyan-500/20">claimRefund(roundId, betIndex)</code> directly.
             </p>
 
-            <form onSubmit={handleManualRefund} className="space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <form onSubmit={handleManualRefund} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-[11px] font-medium text-zinc-400 mb-1">
-                    Round ID
+                  <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                    Round ID (uint256)
                   </label>
                   <Input
                     type="number"
@@ -223,12 +228,12 @@ export function RefundCard() {
                     placeholder="e.g. 1"
                     value={manualRoundId}
                     onChange={(e) => setManualRoundId(e.target.value)}
-                    className="font-mono text-xs tabular-nums bg-zinc-950 border-zinc-800"
+                    className="font-mono text-xs tabular-nums bg-[#05070B] border-white/10 h-10"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-medium text-zinc-400 mb-1">
-                    Bet Index
+                  <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                    Bet Index (uint256)
                   </label>
                   <Input
                     type="number"
@@ -238,7 +243,7 @@ export function RefundCard() {
                     placeholder="e.g. 0"
                     value={manualBetIndex}
                     onChange={(e) => setManualBetIndex(e.target.value)}
-                    className="font-mono text-xs tabular-nums bg-zinc-950 border-zinc-800"
+                    className="font-mono text-xs tabular-nums bg-[#05070B] border-white/10 h-10"
                   />
                 </div>
               </div>
@@ -246,8 +251,9 @@ export function RefundCard() {
               <Button
                 type="submit"
                 size="sm"
+                variant="cyber"
                 disabled={step === "claiming" || !manualRoundId || !manualBetIndex || !authenticated}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold gap-1.5"
+                className="text-xs font-hud uppercase tracking-wider gap-1.5 h-10 px-5"
               >
                 {step === "claiming" ? (
                   <>
@@ -257,7 +263,7 @@ export function RefundCard() {
                 ) : (
                   <>
                     <ArrowDownCircle className="h-3.5 w-3.5" />
-                    {authenticated ? `Claim Refund for Bet #${manualBetIndex || "—"}` : "Sign In to Claim Refund"}
+                    {authenticated ? `Claim Refund for Bet #${manualBetIndex || "—"}` : "Authenticate to Claim Refund"}
                   </>
                 )}
               </Button>
@@ -275,7 +281,7 @@ export function RefundCard() {
                 variant="ghost"
                 size="xs"
                 onClick={reset}
-                className="text-zinc-400 hover:text-white"
+                className="text-slate-400 hover:text-white"
               >
                 Dismiss
               </Button>

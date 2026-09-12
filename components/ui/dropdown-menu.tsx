@@ -41,7 +41,7 @@ function DropdownMenuContent({
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
           className={cn(
-            "z-50 min-w-44 origin-(--transform-origin) overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/95 p-1.5 text-zinc-200 shadow-xl backdrop-blur-md outline-none duration-100 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+            "z-50 min-w-48 origin-(--transform-origin) overflow-hidden rounded-2xl border border-white/10 bg-[#0B0F1A]/95 p-1.5 text-slate-200 shadow-2xl shadow-black/80 backdrop-blur-2xl outline-none duration-150 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
             className
           )}
           {...props}
@@ -65,7 +65,7 @@ function DropdownMenuItem({
     <MenuPrimitive.Item
       data-slot="dropdown-menu-item"
       className={cn(
-        "relative flex cursor-pointer select-none items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-300 outline-none transition-colors hover:bg-zinc-800/80 hover:text-white focus:bg-zinc-800/80 focus:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+        "relative flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-300 outline-none transition-all hover:bg-violet-500/15 hover:text-white focus:bg-violet-500/15 focus:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -81,7 +81,7 @@ function DropdownMenuLabel({
     <div
       data-slot="dropdown-menu-label"
       className={cn(
-        "px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-zinc-500 select-none",
+        "px-3 py-2 text-[10px] font-hud font-bold uppercase tracking-wider text-slate-500 select-none",
         className
       )}
       {...props}
@@ -96,7 +96,7 @@ function DropdownMenuSeparator({
   return (
     <MenuPrimitive.Separator
       data-slot="dropdown-menu-separator"
-      className={cn("-mx-1 my-1 h-px bg-zinc-800", className)}
+      className={cn("-mx-1 my-1 h-px bg-white/10", className)}
       {...props}
     />
   )

@@ -54,55 +54,63 @@ export function ClaimCard() {
 
   if (!authenticated) {
     return (
-      <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-8 text-center space-y-4 shadow-xl shadow-black/20">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 mx-auto shadow-md shadow-amber-500/10">
-          <Trophy className="h-6 w-6" />
+      <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-amber-500/25 p-8 text-center space-y-4 shadow-2xl relative overflow-hidden">
+        <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-32 bg-amber-500/10 blur-3xl pointer-events-none" />
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 mx-auto shadow-lg shadow-amber-500/20">
+          <Trophy className="h-7 w-7 text-amber-400" />
         </div>
-        <CardTitle className="text-lg font-extrabold text-white font-heading flex items-center justify-center gap-2.5 tracking-tight">
-          Winning Claims Portal
-          <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-300 font-mono text-[10px] px-2.5 py-0.5 rounded-lg">
+        <CardTitle className="text-xl font-extrabold text-white font-heading flex items-center justify-center gap-2.5 tracking-tight">
+          Winning Claims Terminal
+          <Badge variant="gold" className="text-[10px] uppercase font-hud">
             claimWinnings
           </Badge>
         </CardTitle>
-        <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
-          Winnings are pull-based and held in the contract. Connect your wallet to check and claim any pending rewards.
+        <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+          Winnings are held in the onchain escrow vault. Connect your Web3 or embedded wallet to audit and claim your settlements.
         </p>
         <Button
           onClick={login}
-          className="h-10 px-5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-heading font-bold text-xs shadow-lg shadow-violet-600/25"
+          variant="gold"
+          className="h-11 px-6 font-hud tracking-wider uppercase text-xs"
         >
-          Sign In to Check Claims
+          Authenticate to Audit Claims
         </Button>
       </Card>
     );
   }
 
   return (
-    <Card className="rounded-2xl border-amber-500/30 bg-gradient-to-b from-amber-500/10 via-zinc-950/70 to-zinc-950 p-7 sm:p-8 shadow-xl shadow-black/20 space-y-7">
+    <Card className="rounded-2xl border-amber-500/30 bg-[#0B0F1A]/90 backdrop-blur-xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+      <div className="absolute -top-24 -right-24 w-80 h-80 bg-amber-500/10 blur-3xl pointer-events-none" />
+      {/* Top highlight gradient */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
+
       {/* Header */}
-      <CardHeader className="p-0 flex flex-wrap items-center justify-between gap-5 border-b border-amber-500/20 pb-6">
+      <CardHeader className="p-0 flex flex-wrap items-center justify-between gap-5 border-b border-white/5 pb-6">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-xl shadow-amber-500/20">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 shadow-xl shadow-amber-500/15">
             <Trophy className="h-7 w-7" />
           </div>
           <div>
-            <CardTitle className="text-2xl sm:text-3xl font-extrabold text-white font-heading flex items-center gap-3 tracking-tight">
-              Winning Claims Portal
-              <Badge variant="outline" className="border-amber-500/30 bg-amber-500/15 font-mono text-xs font-bold text-amber-300 px-3 py-1 rounded-xl">
-                claimWinnings
+            <div className="flex items-center gap-3 flex-wrap">
+              <CardTitle className="text-xl sm:text-2xl font-black text-white font-heading tracking-tight">
+                Winning Claims Portal
+              </CardTitle>
+              <Badge variant="gold" className="text-[11px] font-hud uppercase">
+                claimWinnings()
               </Badge>
-            </CardTitle>
-            <p className="text-sm text-zinc-400 mt-1.5 leading-relaxed">
-              Claim winnings directly to your wallet within 30 days of round settlement.
+            </div>
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              Pull-based USDC payouts held in trustless smart contract escrow. Claim within 30 days of round finalization.
             </p>
           </div>
         </div>
 
         {totalWinnings > 0n && (
-          <div className="flex items-center gap-3 rounded-xl bg-amber-500/15 border border-amber-500/30 px-5 py-2.5 shadow-sm">
+          <div className="flex items-center gap-3 rounded-xl bg-amber-500/15 border border-amber-500/30 px-5 py-2.5 shadow-lg shadow-amber-500/10">
             <Coins className="h-5 w-5 text-amber-400" />
-            <span className="text-xs font-heading font-medium text-zinc-300">Total Winnings:</span>
-            <span className="font-mono text-lg font-black text-amber-300 tabular-nums">
+            <span className="text-xs font-hud uppercase tracking-wider text-amber-300">Total Unclaimed:</span>
+            <span className="font-hud text-xl font-black text-amber-300 tabular-nums">
               {formatUsdcDollar(totalWinnings)}
             </span>
           </div>
@@ -110,19 +118,20 @@ export function ClaimCard() {
       </CardHeader>
 
       <CardContent className="p-0 space-y-5">
-        {/* Success Notification (Zero Emojis) */}
+        {/* Success Notification */}
         {step === "success" && (
           <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-center space-y-2.5">
             <CheckCircle2 className="mx-auto h-8 w-8 text-emerald-400" />
-            <p className="text-base font-bold text-white font-heading">Winnings Claimed Successfully</p>
-            <p className="text-sm text-zinc-400 leading-relaxed">USDC payout has been transferred directly to your wallet balance.</p>
+            <p className="text-base font-bold text-white font-heading">Settlement Claim Executed</p>
+            <p className="text-xs text-slate-400 leading-relaxed">USDC payout successfully transferred to your wallet balance.</p>
             <Button
               size="sm"
+              variant="cyber"
               onClick={() => {
                 reset();
                 refetch();
               }}
-              className="bg-violet-600 hover:bg-violet-500 text-white text-xs font-heading font-bold rounded-xl"
+              className="text-xs font-hud font-bold rounded-xl uppercase tracking-wider"
             >
               Dismiss
             </Button>
@@ -132,39 +141,40 @@ export function ClaimCard() {
         {/* Detected Winning Bets */}
         {winningBets.length > 0 ? (
           <div className="space-y-3">
-            <p className="text-xs font-extrabold text-amber-300/90 uppercase tracking-wider font-mono">
-              Unclaimed Winning Bets ({winningBets.length})
+            <p className="text-xs font-black text-amber-400 uppercase tracking-widest font-hud">
+              Unclaimed Position Settlements ({winningBets.length})
             </p>
             {winningBets.map((bet) => (
               <div
                 key={`win-${bet.roundId.toString()}-${bet.betIndex.toString()}`}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-amber-500/30 bg-amber-500/[0.07] p-5 sm:p-6 hover:border-amber-500/50 transition-all shadow-sm"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-amber-500/30 bg-[#07090E]/90 p-5 sm:p-6 hover:border-amber-500/50 transition-all shadow-md group"
               >
                 <div>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <Badge variant="secondary" className="font-mono text-xs tabular-nums rounded-lg px-2.5 py-1">
+                    <Badge variant="outline" className="font-mono text-xs tabular-nums rounded-lg px-2.5 py-1 border-white/10 bg-[#05070B] text-slate-300">
                       Round #{bet.roundId.toString()}
                     </Badge>
                     <p className="text-base font-bold text-white font-heading">
-                      {BET_TYPE_LABELS[bet.betType]} · Pick {bet.pick}
+                      {BET_TYPE_LABELS[bet.betType]} · <span className="text-amber-400 font-hud">Pick {bet.pick}</span>
                     </p>
-                    <span className="text-xs text-zinc-400 font-mono tabular-nums">
+                    <span className="text-xs text-slate-500 font-mono tabular-nums">
                       (Bet #{bet.betIndex.toString()})
                     </span>
                   </div>
-                  <p className="mt-1.5 text-xs text-zinc-400 font-mono tabular-nums">
+                  <p className="mt-1.5 text-xs text-slate-400 font-mono tabular-nums">
                     Wagered {formatUsdcDollar(bet.amount)}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between sm:justify-end gap-5">
-                  <span className="font-mono text-2xl font-black text-amber-400 tabular-nums">
+                  <span className="font-hud text-2xl sm:text-3xl font-black text-amber-400 tabular-nums">
                     {formatUsdcDollar(bet.payout)}
                   </span>
                   <Button
                     onClick={() => handleClaimWin(bet.roundId, bet.betIndex)}
                     disabled={step === "claiming"}
-                    className="h-11 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-heading font-bold text-xs gap-2 shadow-lg shadow-amber-500/20"
+                    variant="gold"
+                    className="h-11 px-5 font-hud uppercase tracking-wider text-xs gap-2"
                   >
                     {step === "claiming" ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -179,50 +189,50 @@ export function ClaimCard() {
           </div>
         ) : (
           /* Empty State */
-          <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-8 sm:p-12 text-center space-y-4">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-xl shadow-amber-500/15">
-              <CheckCircle2 className="h-8 w-8" />
+          <div className="rounded-2xl border border-white/5 bg-[#07090E]/80 p-8 sm:p-10 text-center space-y-3">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/10">
+              <CheckCircle2 className="h-7 w-7" />
             </div>
-            <div className="space-y-1.5">
-              <p className="text-lg sm:text-xl font-extrabold text-white font-heading tracking-tight">
-                No Unclaimed Winnings
+            <div className="space-y-1">
+              <p className="text-base sm:text-lg font-bold text-white font-heading tracking-tight">
+                No Unclaimed Payouts Found
               </p>
-              <p className="text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed">
-                You currently have no pending winnings in recent rounds. Place bets in the active round, and winners can claim their USDC rewards right here upon settlement.
+              <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                All winning positions are up to date. Place predictions in active rounds to earn up to 600x payouts verified onchain.
               </p>
             </div>
           </div>
         )}
 
         {/* Manual Claim Accordion */}
-        <div className="border-t border-amber-500/20 pt-5">
+        <div className="border-t border-white/5 pt-5">
           <button
             type="button"
             onClick={() => setShowManual(!showManual)}
-            className="group flex items-center justify-between w-full rounded-2xl bg-zinc-950/60 hover:bg-zinc-900/80 border border-zinc-800/90 px-5 py-4 text-sm font-heading font-bold text-zinc-200 hover:text-white transition-all cursor-pointer shadow-sm"
+            className="group flex items-center justify-between w-full rounded-xl bg-[#07090E]/80 hover:bg-[#07090E] border border-white/5 px-4 py-3.5 text-xs font-hud uppercase tracking-wider text-slate-300 hover:text-white transition-all cursor-pointer"
           >
-            <span className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-400">
-                <Search className="h-4 w-4" />
+            <span className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-400">
+                <Search className="h-3.5 w-3.5" />
               </div>
-              Manual Claim by Round & Bet Index
+              Manual Settlement Claim by Round & Bet Index
             </span>
             {showManual ? (
-              <ChevronUp className="h-5 w-5 text-zinc-400 group-hover:text-white transition-colors" />
+              <ChevronUp className="h-4 w-4 text-slate-400 group-hover:text-white transition-colors" />
             ) : (
-              <ChevronDown className="h-5 w-5 text-zinc-400 group-hover:text-white transition-colors" />
+              <ChevronDown className="h-4 w-4 text-slate-400 group-hover:text-white transition-colors" />
             )}
           </button>
 
           {showManual && (
-            <form onSubmit={handleManualClaim} className="mt-3 space-y-4 rounded-2xl border border-zinc-800/90 bg-zinc-950/80 p-5">
-              <p className="text-xs text-zinc-400">
-                Directly invoke <code className="font-mono text-amber-300 font-bold">claimWinnings(roundId, betIndex)</code> on the contract for any settled round.
+            <form onSubmit={handleManualClaim} className="mt-3 space-y-4 rounded-xl border border-white/10 bg-[#07090E] p-5">
+              <p className="text-xs text-slate-400">
+                Directly execute contract function <code className="font-mono text-amber-400 font-bold bg-[#05070B] px-1.5 py-0.5 rounded border border-amber-500/20">claimWinnings(roundId, betIndex)</code> for any settled round.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-heading font-medium text-zinc-300 mb-1.5">
-                    Round ID
+                  <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                    Round ID (uint256)
                   </label>
                   <Input
                     type="number"
@@ -232,12 +242,12 @@ export function ClaimCard() {
                     placeholder="e.g. 1"
                     value={manualRoundId}
                     onChange={(e) => setManualRoundId(e.target.value)}
-                    className="h-11 rounded-xl font-mono text-xs tabular-nums bg-zinc-950/90 border-zinc-800/90 px-3.5 focus:border-amber-500"
+                    className="h-10 rounded-xl font-mono text-xs tabular-nums bg-[#05070B] border-white/10 px-3.5 focus:border-amber-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-heading font-medium text-zinc-300 mb-1.5">
-                    Bet Index
+                  <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                    Bet Index (uint256)
                   </label>
                   <Input
                     type="number"
@@ -247,7 +257,7 @@ export function ClaimCard() {
                     placeholder="e.g. 0"
                     value={manualBetIndex}
                     onChange={(e) => setManualBetIndex(e.target.value)}
-                    className="h-11 rounded-xl font-mono text-xs tabular-nums bg-zinc-950/90 border-zinc-800/90 px-3.5 focus:border-amber-500"
+                    className="h-10 rounded-xl font-mono text-xs tabular-nums bg-[#05070B] border-white/10 px-3.5 focus:border-amber-500"
                   />
                 </div>
               </div>
@@ -255,17 +265,18 @@ export function ClaimCard() {
               <Button
                 type="submit"
                 disabled={step === "claiming" || !manualRoundId || !manualBetIndex}
-                className="h-11 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-heading font-bold text-xs gap-1.5 shadow-lg shadow-amber-500/20"
+                variant="gold"
+                className="h-10 px-5 font-hud uppercase tracking-wider text-xs gap-1.5"
               >
                 {step === "claiming" ? (
                   <>
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    Claiming…
+                    Executing Claim…
                   </>
                 ) : (
                   <>
                     <Sparkles className="h-3.5 w-3.5" />
-                    Claim Winnings for Bet #{manualBetIndex || "—"}
+                    Execute Claim for Bet #{manualBetIndex || "—"}
                   </>
                 )}
               </Button>
@@ -284,7 +295,7 @@ export function ClaimCard() {
               variant="ghost"
               size="xs"
               onClick={reset}
-              className="text-zinc-400 hover:text-white"
+              className="text-slate-400 hover:text-white"
             >
               Dismiss
             </Button>
@@ -294,3 +305,4 @@ export function ClaimCard() {
     </Card>
   );
 }
+

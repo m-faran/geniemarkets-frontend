@@ -18,11 +18,11 @@ export default function PlayPage() {
   const handleRefresh = () => setRefreshKey((k) => k + 1);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-10">
       {/* Top Section: Interactive Betting Arena & Sticky Wallet HUD */}
-      <div className="grid gap-6 lg:grid-cols-[1fr_380px] items-start">
+      <div className="grid gap-8 lg:grid-cols-[1fr_390px] items-start">
         {/* Main Betting Column */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           <RoundDisplay />
           <BetPanel onBetPlaced={handleRefresh} />
         </div>
@@ -32,49 +32,49 @@ export default function PlayPage() {
           <WalletPanel />
 
           {/* Quick Rules & Multiplier Reference Widget */}
-          <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-6 space-y-4 shadow-xl shadow-black/20">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400">
-                  <Dice5 className="h-4 w-4" />
+          <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 space-y-5 shadow-2xl shadow-black/80">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400">
+                  <Dice5 className="h-5 w-5" />
                 </div>
-                <span className="font-heading text-base font-bold text-white tracking-tight">
-                  Game Multipliers
-                </span>
+                <div>
+                  <span className="font-hud text-base font-bold text-white tracking-wide uppercase">
+                    Protocol Odds
+                  </span>
+                  <p className="font-mono text-[10px] text-slate-400">Fixed Math Multipliers</p>
+                </div>
               </div>
-              <Badge
-                variant="outline"
-                className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-[10px]"
-              >
-                VRF Verified
+              <Badge variant="cyber">
+                VRF v2.5
               </Badge>
             </div>
 
             {/* Compact Multiplier Quick Reference */}
-            <div className="space-y-2 rounded-xl bg-zinc-950/70 border border-zinc-800/80 p-3 text-xs font-mono">
-              <div className="flex items-center justify-between py-1 border-b border-zinc-800/60">
-                <span className="font-sans text-zinc-300">Single (0–9)</span>
-                <span className="font-bold text-violet-300 tabular-nums">9x return</span>
+            <div className="space-y-2 rounded-xl bg-[#07090E] border border-white/10 p-3.5 text-xs font-mono shadow-inner">
+              <div className="flex items-center justify-between py-1.5 border-b border-white/5">
+                <span className="text-slate-300 font-sans">Single (0–9)</span>
+                <span className="font-bold text-violet-300 tabular-nums">9x Payout</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-zinc-800/60">
-                <span className="font-sans text-zinc-300">Pair (00–99)</span>
-                <span className="font-bold text-blue-300 tabular-nums">90x return</span>
+              <div className="flex items-center justify-between py-1.5 border-b border-white/5">
+                <span className="text-slate-300 font-sans">Pair (00–99)</span>
+                <span className="font-bold text-cyan-300 tabular-nums">90x Payout</span>
               </div>
-              <div className="flex items-center justify-between py-1">
-                <span className="font-sans text-zinc-300">Trio (Sorted)</span>
-                <span className="font-bold text-amber-300 tabular-nums">140x – 600x</span>
+              <div className="flex items-center justify-between py-1.5">
+                <span className="text-slate-300 font-sans">Trio (Sorted)</span>
+                <span className="font-bold text-amber-300 tabular-nums text-glow-gold">140x – 600x</span>
               </div>
             </div>
 
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Predictions run on predictable daily cycles with Chainlink VRF random draws.
+            <p className="text-xs text-slate-400 leading-relaxed font-sans">
+              Non-custodial number prediction markets powered by Chainlink VRF v2.5 tamper-proof randomness on Ethereum Sepolia.
             </p>
 
             <Link
               href="/how-it-works"
-              className="group flex items-center justify-between rounded-xl bg-zinc-950/50 border border-zinc-800/80 px-3.5 py-2.5 text-xs font-semibold text-violet-300 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/10 transition-all"
+              className="group flex items-center justify-between rounded-xl bg-[#07090E] border border-white/10 px-4 py-3 text-xs font-hud font-bold uppercase tracking-wider text-violet-300 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/15 transition-all shadow-sm"
             >
-              <span>Read Official Guide & Rules</span>
+              <span>View Technical Whitepaper</span>
               <ArrowRight className="h-3.5 w-3.5 text-violet-400 transition-transform group-hover:translate-x-1" />
             </Link>
           </Card>
@@ -82,19 +82,25 @@ export default function PlayPage() {
       </div>
 
       {/* Activity Section: Your Placed Bets & Claims Portal */}
-      <div className="space-y-6">
+      <div className="space-y-6 pt-4">
         <PlacedBets key={refreshKey} onRefetchNeeded={handleRefresh} />
         <ClaimCard />
       </div>
 
       {/* Bottom Section: Safeguards & Recovery */}
-      <div className="space-y-6 pt-10 border-t border-zinc-800/80">
+      <div className="space-y-6 pt-10 border-t border-white/10">
         <div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight">
-            Contract Safeguards & Recovery
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-cyan-400" />
+            <span className="font-hud text-xs font-bold uppercase tracking-wider text-cyan-400">
+              Decentralized Recovery Escrow
+            </span>
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mt-1">
+            Contract Safeguards & Stale VRF Exit
           </h3>
-          <p className="text-sm sm:text-base text-zinc-400 mt-1.5 leading-relaxed">
-            Decentralized onchain tools to claim wager refunds from cancelled rounds and recover rounds with stalled Chainlink VRF.
+          <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-3xl leading-relaxed">
+            Autonomous onchain recovery mechanisms allowing any participant to claim refunds from cancelled rounds or force resolution on stalled oracles.
           </p>
         </div>
 

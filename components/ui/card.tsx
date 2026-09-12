@@ -11,7 +11,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground shadow-xs ring-1 ring-foreground/10 [--card-spacing:--spacing(6)] has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(4)] *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        "group/card relative flex flex-col gap-(--card-spacing) overflow-hidden rounded-2xl border border-white/10 bg-[#0B0F1A]/85 py-(--card-spacing) text-sm text-slate-100 shadow-2xl shadow-black/60 backdrop-blur-xl transition-all duration-200 [--card-spacing:--spacing(6)] data-[size=sm]:[--card-spacing:--spacing(4)] before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-violet-500/35 before:to-transparent",
         className
       )}
       {...props}

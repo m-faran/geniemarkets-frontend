@@ -328,7 +328,7 @@ export function HowItWorksContent() {
 
             return (
               <div key={s.step} className={`${gridColClass} flex`}>
-                <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+                <Card className="group relative w-full bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <Badge
@@ -392,7 +392,7 @@ export function HowItWorksContent() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Card 1: Single (spans cols 1-2) */}
           <div className="md:col-span-2 flex">
-            <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+            <Card className="group relative w-full bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-sm shadow-violet-500/10 transition-transform duration-300 group-hover:scale-105">
@@ -437,7 +437,7 @@ export function HowItWorksContent() {
 
           {/* Card 2: Pair (spans cols 3-4) */}
           <div className="md:col-span-2 flex">
-            <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-blue-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+            <Card className="group relative w-full bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 hover:border-blue-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600/15 border border-blue-500/30 text-blue-400 shadow-sm shadow-blue-500/10 transition-transform duration-300 group-hover:scale-105">
@@ -482,7 +482,7 @@ export function HowItWorksContent() {
 
           {/* Card 3: Trio (Centered in row 2: md:col-start-2 md:col-span-2) */}
           <div className="md:col-start-2 md:col-span-2 flex">
-            <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-amber-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+            <Card className="group relative w-full bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 hover:border-amber-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-600/15 border border-amber-500/30 text-amber-400 shadow-sm shadow-amber-500/10 transition-transform duration-300 group-hover:scale-105">
@@ -670,7 +670,7 @@ export function HowItWorksContent() {
         </Card>
 
         {/* Interactive Genie-Sort Simulator Widget */}
-        <Card className="bg-zinc-900/60 border-zinc-800/90 p-7 sm:p-9 space-y-7 rounded-2xl shadow-xl shadow-black/30">
+        <Card className="bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 p-7 sm:p-9 space-y-7 rounded-2xl shadow-xl shadow-black/30">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-start sm:items-center gap-3.5">
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shrink-0 shadow-sm">
@@ -790,7 +790,7 @@ export function HowItWorksContent() {
           </div>
         </div>
 
-        <Card className="bg-zinc-900/60 border-zinc-800/90 p-7 sm:p-9 space-y-8 rounded-2xl shadow-xl shadow-black/30">
+        <Card className="bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 p-7 sm:p-9 space-y-8 rounded-2xl shadow-xl shadow-black/30">
           {/* Bet Type Picker */}
           <div>
             <label className="mb-3 block text-xs font-bold uppercase tracking-wider text-zinc-300">
@@ -839,7 +839,7 @@ export function HowItWorksContent() {
                   value={calcWager}
                   onChange={(e) => setCalcWager(e.target.value)}
                   placeholder="10"
-                  className="font-mono text-lg font-bold tabular-nums bg-zinc-950/90 border-zinc-800 rounded-xl pl-9 pr-4 py-3 h-13 text-white focus:border-violet-500 shadow-inner"
+                  className="font-mono text-lg font-bold tabular-nums bg-[#07090E] border-white/10 rounded-xl pl-9 pr-4 py-3 h-13 text-white focus:border-violet-500 shadow-inner"
                 />
                 <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-base font-bold text-zinc-500">
                   $
@@ -981,7 +981,7 @@ export function HowItWorksContent() {
             return (
               <Card
                 key={idx}
-                className={`group relative bg-zinc-900/60 border-zinc-800/90 ${item.hoverBorder} hover:bg-zinc-900/85 transition-all duration-300 p-6 sm:p-7 rounded-2xl shadow-xl shadow-black/30`}
+                className={`group relative bg-[#0B0F1A]/85 backdrop-blur-xl border-white/10 ${item.hoverBorder} hover:bg-zinc-900/85 transition-all duration-300 p-6 sm:p-7 rounded-2xl shadow-xl shadow-black/30`}
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
                   {/* Left Icon (With Mobile Top Bar) */}

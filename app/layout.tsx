@@ -34,10 +34,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased dark`}>
-      <body className="min-h-full flex flex-col bg-zinc-950 font-sans text-white">
+      <body className="min-h-full flex flex-col bg-[#05070B] font-sans text-slate-100 selection:bg-violet-600/30 selection:text-violet-200 relative">
+        {/* Global Web3 Ambient Grid & Glow Layer */}
+        <div className="fixed inset-0 pointer-events-none cyber-matrix-grid -z-10" />
+        <div className="fixed -top-48 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-violet-600/10 blur-[130px] rounded-full pointer-events-none -z-10" />
+        <div className="fixed -bottom-48 right-10 w-[500px] h-[300px] bg-cyan-600/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+        
         <Providers>
           <NavBar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 relative z-0">{children}</main>
           <Footer />
         </Providers>
       </body>

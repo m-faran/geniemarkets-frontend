@@ -87,27 +87,27 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
   }, [currentRoundId]);
 
   return (
-    <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-7 sm:p-8 space-y-7 shadow-xl shadow-black/20">
+    <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 sm:p-8 space-y-6 shadow-2xl shadow-black/80">
       {/* Header */}
-      <CardHeader className="p-0 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-zinc-800/80 pb-6">
+      <CardHeader className="p-0 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-white/10 pb-6">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-xl shadow-violet-600/20">
-            <Ticket className="h-7 w-7" />
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-xl shadow-violet-600/20">
+            <Ticket className="h-6 w-6" />
           </div>
           <div>
-            <CardTitle className="text-2xl sm:text-3xl font-extrabold text-white font-heading flex items-center gap-3 tracking-tight">
-              Your Placed Bets
+            <CardTitle className="text-xl sm:text-2xl font-hud font-bold text-white uppercase flex items-center gap-3 tracking-wide">
+              Position Ledger
               {userBets.length > 0 && (
                 <Badge
-                  variant="outline"
-                  className="font-mono text-xs font-bold border-violet-500/30 bg-violet-500/15 text-violet-300 tabular-nums px-3 py-1 rounded-xl"
+                  variant="default"
+                  className="font-mono text-xs font-bold tabular-nums px-3 py-0.5 rounded-lg"
                 >
-                  {userBets.length} {userBets.length === 1 ? "bet" : "bets"}
+                  {userBets.length} {userBets.length === 1 ? "position" : "positions"}
                 </Badge>
               )}
             </CardTitle>
-            <p className="text-sm text-zinc-400 mt-1.5 leading-relaxed">
-              Track your predictions, potential payouts, and round outcomes.
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed font-sans">
+              Onchain prediction orders, potential payouts, and smart settlement claims.
             </p>
           </div>
         </div>
@@ -117,7 +117,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
           {roundPhase !== undefined && (
             <Badge
               variant="outline"
-              className={`font-mono text-xs font-bold border-zinc-800 bg-zinc-950/90 px-3 py-1.5 rounded-xl ${PHASE_COLORS[roundPhase]}`}
+              className={`font-mono text-xs font-bold border-white/10 bg-[#07090E] px-3 py-1.5 rounded-xl ${PHASE_COLORS[roundPhase]}`}
             >
               {PHASE_LABELS[roundPhase]}
             </Badge>
@@ -127,23 +127,23 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
             <select
               value={activeRoundId ? Number(activeRoundId) : ""}
               onChange={(e) => setSelectedRoundId(BigInt(e.target.value))}
-              className="h-10 rounded-xl border border-zinc-800/90 bg-zinc-950/90 px-3.5 font-mono text-xs font-semibold text-zinc-200 focus:border-violet-500 focus:outline-none shadow-sm cursor-pointer"
+              className="h-10 rounded-xl border border-white/10 bg-[#07090E] px-3.5 font-mono text-xs font-semibold text-slate-200 focus:border-violet-500 focus:outline-none shadow-sm cursor-pointer"
             >
               {roundOptions.map((r) => (
-                <option key={r} value={r}>
+                <option key={r} value={r} className="bg-[#07090E] text-slate-200">
                   Round #{r} {currentRoundId && BigInt(r) === currentRoundId ? "(Current)" : ""}
                 </option>
               ))}
             </select>
           ) : (
-            <Badge variant="outline" className="h-10 px-3.5 rounded-xl font-mono text-xs font-semibold border-zinc-800 bg-zinc-950/80 text-zinc-300 tabular-nums flex items-center">
+            <Badge variant="outline" className="h-10 px-3.5 rounded-xl font-mono text-xs font-semibold border-white/10 bg-[#07090E] text-slate-300 tabular-nums flex items-center">
               Round #{activeRoundId ? activeRoundId.toString() : "—"}
             </Badge>
           )}
 
           {totalRoundBets > 0 && (
-            <span className="hidden sm:inline text-xs text-zinc-400 font-mono tabular-nums px-1">
-              ({totalRoundBets} pool {totalRoundBets === 1 ? "bet" : "bets"})
+            <span className="hidden sm:inline text-xs text-slate-500 font-mono tabular-nums px-1">
+              ({totalRoundBets} pool {totalRoundBets === 1 ? "ticket" : "tickets"})
             </span>
           )}
 
@@ -151,8 +151,8 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
             variant="outline"
             size="icon"
             onClick={() => refetch()}
-            className="h-10 w-10 rounded-xl border-zinc-800 bg-zinc-950/80 text-zinc-400 hover:text-white hover:bg-zinc-800 hover:border-zinc-700 transition-colors"
-            title="Refresh your bets"
+            className="h-10 w-10 rounded-xl border-white/10 bg-[#07090E] text-slate-400 hover:text-white hover:border-violet-500/50"
+            title="Refresh positions"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin text-violet-400" : ""}`} />
           </Button>
@@ -162,55 +162,58 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
       <CardContent className="p-0 space-y-4">
         {/* Unauthenticated State */}
         {!authenticated ? (
-          <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/60 p-8 text-center space-y-3">
-            <Ticket className="mx-auto h-8 w-8 text-zinc-600" />
-            <p className="text-base font-bold text-white font-heading">Sign In to View Your Bets</p>
-            <p className="text-xs text-zinc-400 max-w-sm mx-auto leading-relaxed">
-              Connect your wallet to see all active predictions and track your potential winnings for this round.
+          <div className="rounded-2xl border border-white/10 bg-[#07090E] p-8 text-center space-y-3">
+            <Ticket className="mx-auto h-8 w-8 text-slate-600" />
+            <p className="text-base font-hud font-bold text-white uppercase tracking-wide">
+              Wallet Required for Position Ledger
+            </p>
+            <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed font-sans">
+              Connect your Web3 wallet to inspect your active predictions and settle realized winnings.
             </p>
             <Button
               onClick={login}
-              className="mt-2 h-10 px-5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-heading font-bold text-xs shadow-lg shadow-violet-600/25"
+              variant="default"
+              className="mt-2 h-10 px-6 font-hud font-bold text-xs uppercase tracking-wider"
             >
-              Sign In with Wallet
+              Connect Wallet
             </Button>
           </div>
         ) : isLoading && userBets.length === 0 ? (
-          /* Content-Shaped Loading Skeleton */
+          /* Loading Skeleton */
           <div className="space-y-3">
-            <Skeleton className="h-12 w-full bg-zinc-800/50 rounded-xl" />
-            <Skeleton className="h-20 w-full bg-zinc-800/50 rounded-xl" />
-            <Skeleton className="h-20 w-full bg-zinc-800/50 rounded-xl" />
+            <Skeleton className="h-12 w-full bg-white/5 rounded-xl" />
+            <Skeleton className="h-20 w-full bg-white/5 rounded-xl" />
+            <Skeleton className="h-20 w-full bg-white/5 rounded-xl" />
           </div>
         ) : userBets.length === 0 ? (
           /* Empty State */
-          <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/60 p-8 text-center space-y-2.5">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-900 text-zinc-400 border border-zinc-800 shadow-inner">
+          <div className="rounded-2xl border border-white/10 bg-[#07090E] p-8 text-center space-y-2.5 shadow-inner">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-slate-400 border border-white/10">
               <Dice5 className="h-6 w-6" />
             </div>
-            <p className="text-sm font-bold text-white font-heading">
-              No Bets in Round #{activeRoundId ? activeRoundId.toString() : "—"}
+            <p className="text-sm font-hud font-bold text-white uppercase tracking-wide">
+              No Positions in Round #{activeRoundId ? activeRoundId.toString() : "—"}
             </p>
-            <p className="text-xs text-zinc-400 max-w-sm mx-auto leading-relaxed">
-              You haven&apos;t placed any predictions for this round yet. Use the Bet Panel above to submit your picks.
+            <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed font-sans">
+              No active predictions committed for this round cycle. Submit your numbers in the terminal above.
             </p>
           </div>
         ) : (
           /* User Bets List */
           <div className="space-y-4">
             {/* Summary Row */}
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-zinc-950/80 border border-zinc-800/90 px-5 py-3 text-xs shadow-sm">
-              <div className="flex items-center gap-2.5 text-zinc-400">
-                <span className="font-heading font-medium text-zinc-300">Total Staked in Round:</span>
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-[#07090E] border border-white/10 px-5 py-3.5 text-xs shadow-inner">
+              <div className="flex items-center gap-2.5 text-slate-400 font-mono">
+                <span className="font-hud uppercase tracking-wider text-slate-300">Total Staked:</span>
                 <span className="font-mono font-extrabold text-white text-sm tabular-nums">
                   {formatUsdcDollar(totalUserStaked)}
                 </span>
               </div>
 
               {totalUserWinnings > 0n && (
-                <div className="flex items-center gap-1.5 text-emerald-400 font-bold font-mono text-sm tabular-nums">
+                <div className="flex items-center gap-2 text-emerald-400 font-hud font-bold text-sm tabular-nums">
                   <Trophy className="h-4 w-4" />
-                  <span>Total Winnings: {formatUsdcDollar(totalUserWinnings)}</span>
+                  <span>Realized Winnings: {formatUsdcDollar(totalUserWinnings)}</span>
                 </div>
               )}
             </div>
@@ -228,13 +231,13 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                   bet.betType === BetType.OpenTrio || bet.betType === BetType.CloseTrio;
                 const isPair = bet.betType === BetType.Pair;
 
-                const badgeColor = isTrio
-                  ? "border-amber-500/30 bg-amber-500/10 text-amber-300"
+                const badgeVariant: "gold" | "cyber" | "default" = isTrio
+                  ? "gold"
                   : isPair
-                    ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
+                    ? "cyber"
                     : isCloseMarket
-                      ? "border-blue-500/30 bg-blue-500/10 text-blue-300"
-                      : "border-violet-500/30 bg-violet-500/10 text-violet-300";
+                      ? "cyber"
+                      : "default";
 
                 // Trio sub-badge
                 let trioSubLabel = "";
@@ -268,13 +271,13 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                 return (
                   <div
                     key={`${bet.roundId.toString()}-${bet.betIndex.toString()}`}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-4 sm:p-5 hover:border-violet-500/30 hover:bg-zinc-950/90 transition-all shadow-sm"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-white/10 bg-[#07090E] p-4 sm:p-5 hover:border-violet-500/30 transition-all shadow-inner"
                   >
                     {/* Left: Bet Info & Pick */}
                     <div className="flex items-center gap-4">
-                      <div className="flex h-13 w-13 sm:h-14 sm:w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-zinc-900/90 border border-zinc-700/60 text-center font-mono shadow-inner">
-                        <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider">Pick</span>
-                        <span className="text-lg sm:text-xl font-black text-white tabular-nums tracking-tight">
+                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-[#0B0F1A] border border-white/10 text-center font-hud shadow-inner">
+                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pick</span>
+                        <span className="text-xl sm:text-2xl font-extrabold text-white tabular-nums tracking-tight">
                           {formatPick(bet.betType, bet.pick)}
                         </span>
                       </div>
@@ -282,77 +285,77 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2 flex-wrap">
                           <Badge
-                            variant="outline"
-                            className={`font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-lg ${badgeColor}`}
+                            variant={badgeVariant}
+                            className="font-hud uppercase tracking-wider text-[11px] px-2.5 py-0.5"
                           >
                             {BET_TYPE_LABELS[bet.betType]}
                           </Badge>
                           {trioSubLabel && (
-                            <Badge variant="outline" className="border-zinc-800 bg-zinc-900/60 font-mono text-[10px] text-zinc-300 px-2 py-0.5 rounded-lg">
+                            <Badge variant="outline" className="font-mono text-[10px] text-amber-300 border-amber-500/30 bg-amber-500/10 px-2 py-0.5 rounded-lg">
                               {trioSubLabel} ({multiplier}x)
                             </Badge>
                           )}
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-zinc-400">
+                        <div className="flex items-center gap-3 text-xs text-slate-400 font-mono">
                           <span>
-                            Wager:{" "}
-                            <strong className="text-zinc-100 font-mono font-bold tabular-nums">
+                            Stake:{" "}
+                            <strong className="text-white font-mono font-bold tabular-nums">
                               {formatUsdcDollar(bet.amount)}
                             </strong>
                           </span>
-                          <span className="text-zinc-600">•</span>
-                          <span className="font-mono text-zinc-400 tabular-nums">
-                            Bet #{bet.betIndex.toString()}
+                          <span className="text-slate-600">•</span>
+                          <span className="text-slate-500 tabular-nums">
+                            Index #{bet.betIndex.toString()}
                           </span>
                         </div>
                       </div>
                     </div>
 
                     {/* Right: Potential Return / Result & Action */}
-                    <div className="flex items-center justify-between sm:justify-end gap-5 border-t sm:border-t-0 border-zinc-800/80 pt-3 sm:pt-0">
-                      <div className="text-left sm:text-right">
+                    <div className="flex items-center justify-between sm:justify-end gap-5 border-t sm:border-t-0 border-white/10 pt-3 sm:pt-0">
+                      <div className="text-left sm:text-right font-mono">
                         {isSettled ? (
                           isWon ? (
                             <div>
-                              <span className="text-xs text-emerald-400 font-bold flex items-center sm:justify-end gap-1">
+                              <span className="text-xs text-emerald-400 font-hud font-bold uppercase flex items-center sm:justify-end gap-1">
                                 <Trophy className="h-3.5 w-3.5" />
                                 Won Payout
                               </span>
-                              <p className="font-mono text-lg font-black text-emerald-400 tabular-nums">
+                              <p className="font-hud text-lg sm:text-xl font-extrabold text-emerald-400 tabular-nums text-glow-cyan">
                                 {formatUsdcDollar(bet.payout)}
                               </p>
                             </div>
                           ) : isRefundable ? (
                             <div>
-                              <span className="text-xs text-cyan-400 font-bold">Refund Due</span>
-                              <p className="font-mono text-base font-extrabold text-cyan-300 tabular-nums">
+                              <span className="text-xs text-cyan-400 font-hud font-bold uppercase">Refund Due</span>
+                              <p className="font-hud text-base font-extrabold text-cyan-300 tabular-nums">
                                 {formatUsdcDollar(bet.amount)}
                               </p>
                             </div>
                           ) : (
                             <div>
-                              <span className="text-xs text-zinc-500 font-medium">Result</span>
-                              <p className="font-mono text-xs text-zinc-400 mt-0.5">
-                                Did not match
+                              <span className="text-xs text-slate-500 font-hud uppercase">Result</span>
+                              <p className="text-xs text-slate-400 mt-0.5">
+                                Did not hit
                               </p>
                             </div>
                           )
                         ) : isCancelled ? (
                           <div>
-                            <span className="text-xs text-cyan-400 font-bold">Round Cancelled</span>
-                            <p className="font-mono text-base font-extrabold text-cyan-300 tabular-nums">
+                            <span className="text-xs text-cyan-400 font-hud font-bold uppercase">Cancelled</span>
+                            <p className="font-hud text-base font-extrabold text-cyan-300 tabular-nums">
                               {formatUsdcDollar(bet.amount)} Refund
                             </p>
                           </div>
                         ) : (
                           <div>
-                            <div className="flex items-center sm:justify-end gap-1.5 text-xs text-zinc-400">
+                            <div className="flex items-center sm:justify-end gap-1.5 text-xs text-slate-400">
                               <TrendingUp className="h-3.5 w-3.5 text-violet-400" />
-                              <span className="font-medium">Potential Win</span>
+                              <span className="font-hud uppercase text-[10px] font-bold text-slate-400">Projected Return</span>
                             </div>
-                            <p className="font-mono text-base sm:text-lg font-black text-amber-300 tabular-nums">
+                            <p className="font-hud text-base sm:text-lg font-extrabold text-amber-300 tabular-nums text-glow-gold">
                               {formatUsdcDollar(potentialPayout)}
-                              <span className="ml-1.5 text-xs font-semibold text-zinc-500 tabular-nums">
+                              <span className="ml-1.5 text-xs font-semibold text-slate-500 font-mono">
                                 ({multiplier}x)
                               </span>
                             </p>
@@ -364,37 +367,38 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                       <div>
                         {!isSettled && !isCancelled ? (
                           <div
-                            className={`flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold ${
+                            className={`flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-hud font-bold uppercase tracking-wider ${
                               isDrawing
-                                ? "bg-yellow-500/15 text-yellow-300 border border-yellow-500/30"
+                                ? "bg-amber-500/15 text-amber-300 border border-amber-500/30"
                                 : "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
                             }`}
                           >
                             <span className="relative flex h-2 w-2">
                               <span
                                 className={`absolute inline-flex h-full w-full animate-ping rounded-full ${
-                                  isDrawing ? "bg-yellow-400" : "bg-emerald-400"
+                                  isDrawing ? "bg-amber-400" : "bg-emerald-400"
                                 } opacity-75`}
                               />
                               <span
                                 className={`relative inline-flex h-2 w-2 rounded-full ${
-                                  isDrawing ? "bg-yellow-500" : "bg-emerald-500"
+                                  isDrawing ? "bg-amber-500" : "bg-emerald-500"
                                 }`}
                               />
                             </span>
-                            {isDrawing ? "Drawing…" : "In Play"}
+                            {isDrawing ? "Drawing…" : "In Escrow"}
                           </div>
                         ) : isWon ? (
                           bet.claimed ? (
-                            <Badge variant="outline" className="border-zinc-800 bg-zinc-900 text-zinc-400 gap-1.5 text-xs py-1.5 px-3 rounded-xl">
+                            <Badge variant="outline" className="border-white/10 bg-white/5 text-slate-400 gap-1.5 text-xs py-1.5 px-3 rounded-xl font-hud uppercase">
                               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                               Claimed
                             </Badge>
                           ) : (
                             <Button
+                              variant="gold"
                               onClick={() => handleClaim(bet)}
                               disabled={isClaimingThis}
-                              className="h-10 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold text-xs gap-1.5 shadow-lg shadow-emerald-600/25"
+                              className="h-10 px-4 rounded-xl font-hud font-bold text-xs uppercase tracking-wider gap-1.5 shadow-xl"
                             >
                               {isClaimingThis ? (
                                 <>
@@ -411,20 +415,21 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                           )
                         ) : isRefundable ? (
                           bet.claimed ? (
-                            <Badge variant="outline" className="border-zinc-800 bg-zinc-900 text-zinc-400 gap-1.5 text-xs py-1.5 px-3 rounded-xl">
+                            <Badge variant="outline" className="border-white/10 bg-white/5 text-slate-400 gap-1.5 text-xs py-1.5 px-3 rounded-xl font-hud uppercase">
                               <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400" />
                               Refund Claimed
                             </Badge>
                           ) : (
                             <Button
+                              variant="cyber"
                               onClick={() => handleClaim(bet)}
                               disabled={isClaimingThis}
-                              className="h-10 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-heading font-bold text-xs gap-1.5 shadow-lg shadow-cyan-600/25"
+                              className="h-10 px-4 rounded-xl font-hud font-bold text-xs uppercase tracking-wider gap-1.5 shadow-xl"
                             >
                               {isClaimingThis ? (
                                 <>
                                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                                  Claiming…
+                                  Refunding…
                                 </>
                               ) : (
                                 <>
@@ -435,8 +440,8 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                             </Button>
                           )
                         ) : (
-                          <Badge variant="outline" className="border-zinc-800 bg-zinc-900/60 text-zinc-500 text-xs py-1.5 px-3 rounded-xl">
-                            Closed
+                          <Badge variant="outline" className="border-white/10 bg-[#07090E] text-slate-500 text-xs py-1.5 px-3 rounded-xl font-hud uppercase">
+                            Settled
                           </Badge>
                         )}
                       </div>

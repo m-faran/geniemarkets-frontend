@@ -19,16 +19,47 @@ import {
   Flame,
 } from "lucide-react";
 
-function DigitOrb({ digit, revealed }: { digit: number; revealed: boolean }) {
+function DigitOrb({
+  digit,
+  revealed,
+  theme = "violet",
+}: {
+  digit: number;
+  revealed: boolean;
+  theme?: "violet" | "cyan" | "gold";
+}) {
+  const glowStyles = {
+    violet:
+      "border-violet-500/50 bg-gradient-to-b from-violet-600/30 to-[#0B0F1A] text-white shadow-lg shadow-violet-600/30 ring-1 ring-violet-400/40 text-glow-violet",
+    cyan:
+      "border-cyan-500/50 bg-gradient-to-b from-cyan-600/30 to-[#0B0F1A] text-white shadow-lg shadow-cyan-600/30 ring-1 ring-cyan-400/40 text-glow-cyan",
+    gold:
+      "border-amber-500/50 bg-gradient-to-b from-amber-600/30 to-[#0B0F1A] text-amber-300 shadow-lg shadow-amber-600/30 ring-1 ring-amber-400/40 text-glow-gold",
+  };
+
   return (
     <div
-      className={`flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl font-mono text-2xl sm:text-3xl font-extrabold tabular-nums transition-all duration-700 ${
+      className={`relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl font-mono text-3xl sm:text-4xl font-extrabold tabular-nums transition-all duration-700 overflow-hidden border ${
         revealed
-          ? "scale-100 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 text-white shadow-xl shadow-violet-600/40 ring-2 ring-violet-400/50"
-          : "scale-95 bg-zinc-900/90 text-zinc-400 border border-zinc-700/60 shadow-inner"
+          ? `${glowStyles[theme]} scale-100`
+          : "border-white/10 bg-[#07090E] text-slate-500 shadow-inner"
       }`}
     >
-      {revealed ? digit : "?"}
+      {/* Background scanline & LED filament effect */}
+      <div className="absolute inset-0 pointer-events-none scanlines opacity-30" />
+      
+      {!revealed && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="h-8 w-8 rounded-full bg-cyan-500/10 animate-ping" />
+        </div>
+      )}
+
+      <span className="relative z-10 font-hud">
+        {revealed ? digit : "?"}
+      </span>
+
+      {/* Top bevel highlight */}
+      <div className="absolute inset-x-2 top-0 h-px bg-white/20" />
     </div>
   );
 }
@@ -44,7 +75,7 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
   ];
 
   return (
-    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+    <div className="flex items-center gap-2 sm:gap-3 flex-wrap bg-[#07090E]/80 p-2 rounded-xl border border-white/10 shadow-inner">
       {steps.map((s, i) => {
         const isActive = s.phases.includes(phase);
         const isPast =
@@ -53,17 +84,17 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
           phase !== RoundPhase.PartiallySettled;
 
         return (
-          <div key={s.label} className="flex items-center gap-1.5 sm:gap-2">
+          <div key={s.label} className="flex items-center gap-2 sm:gap-3">
             <div
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 font-hud text-xs font-bold uppercase tracking-wider transition-all ${
                 isActive
-                  ? "bg-violet-600/20 text-violet-300 ring-1 ring-violet-500/40 shadow-sm shadow-violet-500/10"
+                  ? "bg-violet-600/25 text-violet-300 border border-violet-500/50 shadow-md shadow-violet-500/20"
                   : isPast
-                    ? "bg-emerald-600/15 text-emerald-400 border border-emerald-500/20"
-                    : "bg-zinc-900/90 border border-zinc-800 text-zinc-500"
+                    ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                    : "bg-white/5 border border-white/5 text-slate-500"
               }`}
             >
-              {isPast && <CheckCircle2 className="h-3 w-3" />}
+              {isPast && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />}
               {isActive && (
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
@@ -74,7 +105,7 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
             </div>
             {i < steps.length - 1 && (
               <div
-                className={`h-px w-4 sm:w-6 ${isPast ? "bg-emerald-500/40" : "bg-zinc-800"}`}
+                className={`h-0.5 w-4 sm:w-6 rounded-full ${isPast ? "bg-emerald-500/50" : "bg-white/10"}`}
               />
             )}
           </div>
@@ -113,10 +144,10 @@ export function RoundDisplay() {
 
   if (!roundId || !round) {
     return (
-      <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-7 space-y-6 shadow-xl">
-        <Skeleton className="h-7 w-48 bg-zinc-800/50" />
-        <Skeleton className="h-14 w-full bg-zinc-800/50" />
-        <Skeleton className="h-28 w-full bg-zinc-800/50" />
+      <Card className="rounded-2xl border-white/10 bg-[#0B0F1A]/85 p-7 space-y-6 shadow-2xl">
+        <Skeleton className="h-7 w-48 bg-white/5 rounded-xl" />
+        <Skeleton className="h-14 w-full bg-white/5 rounded-xl" />
+        <Skeleton className="h-28 w-full bg-white/5 rounded-xl" />
       </Card>
     );
   }
@@ -133,27 +164,31 @@ export function RoundDisplay() {
 
   return (
     <div className="space-y-4">
-      <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-6 sm:p-7 space-y-6 shadow-xl shadow-black/30">
+      <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 sm:p-7 space-y-6 shadow-2xl shadow-black/80">
         {/* Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Current Round</span>
+              <span className="font-hud text-xs font-bold uppercase tracking-wider text-slate-400">
+                Active Protocol Cycle
+              </span>
               {isCloseCutoffPassed && round.phase === RoundPhase.OpenBetting && (
-                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-[10px] text-amber-300 font-semibold">
+                <Badge variant="gold">
                   Draw Overdue
                 </Badge>
               )}
             </div>
-            <p className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight tabular-nums">
+            <p className="font-hud font-extrabold text-3xl sm:text-5xl text-white tracking-tight tabular-nums mt-0.5 text-glow-violet">
               #{roundId.toString()}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Lifecycle Status</p>
+            <p className="font-hud text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              Contract Phase
+            </p>
             <Badge
               variant="outline"
-              className={`mt-1 font-mono text-xs font-semibold px-3 py-1 rounded-full border shadow-sm flex items-center gap-1.5 ${PHASE_COLORS[round.phase]}`}
+              className={`mt-1 font-mono text-xs font-semibold px-3 py-1 rounded-lg border shadow-sm flex items-center gap-1.5 ${PHASE_COLORS[round.phase]}`}
             >
               <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
               {PHASE_LABELS[round.phase]}
@@ -168,76 +203,76 @@ export function RoundDisplay() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {/* Open Market Timer Card */}
           <div
-            className={`rounded-2xl border p-5 transition-all shadow-inner ${
+            className={`rounded-2xl border p-5 transition-all shadow-inner relative overflow-hidden ${
               isOpenBettingActive
-                ? "border-violet-500/30 bg-violet-500/5 hover:border-violet-500/40"
+                ? "border-violet-500/40 bg-gradient-to-b from-violet-600/10 to-[#07090E]"
                 : isOpenDrawReady
-                  ? "border-amber-500/30 bg-amber-500/5 hover:border-amber-500/40"
-                  : "border-zinc-800/90 bg-zinc-950/70"
+                  ? "border-amber-500/40 bg-gradient-to-b from-amber-600/10 to-[#07090E]"
+                  : "border-white/10 bg-[#07090E]"
             }`}
           >
             <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="flex items-center gap-1.5 text-zinc-300">
+              <span className="flex items-center gap-1.5 font-hud uppercase tracking-wider text-slate-300">
                 <Clock className="h-4 w-4 text-violet-400" />
-                Open Market Cutoff
+                Open Market Lock
               </span>
               <span
-                className={`font-semibold flex items-center gap-1.5 ${
+                className={`font-mono font-semibold flex items-center gap-1.5 text-xs ${
                   isOpenBettingActive
                     ? "text-emerald-400"
                     : isOpenDrawReady
                       ? "text-amber-400"
-                      : "text-zinc-500"
+                      : "text-slate-500"
                 }`}
               >
                 {isOpenBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />}
                 {isOpenBettingActive ? "Betting Open" : isOpenDrawReady ? "Draw Due" : "Cutoff Passed"}
               </span>
             </div>
-            <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
+            <div className="mt-3 flex items-baseline gap-2">
+              <span className="font-hud text-3xl sm:text-4xl font-extrabold text-white tabular-nums tracking-tight">
                 {isOpenBettingActive ? formatCountdown(openTimeRemaining) : "00:00"}
               </span>
-              <span className="text-xs text-zinc-400">
-                {isOpenBettingActive ? "remaining to bet" : "cutoff elapsed"}
+              <span className="font-mono text-xs text-slate-400">
+                {isOpenBettingActive ? "remaining" : "cutoff elapsed"}
               </span>
             </div>
           </div>
 
           {/* Close Market Timer Card */}
           <div
-            className={`rounded-2xl border p-5 transition-all shadow-inner ${
+            className={`rounded-2xl border p-5 transition-all shadow-inner relative overflow-hidden ${
               isCloseBettingActive
-                ? "border-blue-500/30 bg-blue-500/5 hover:border-blue-500/40"
+                ? "border-cyan-500/40 bg-gradient-to-b from-cyan-600/10 to-[#07090E]"
                 : isCloseDrawReady
-                  ? "border-amber-500/30 bg-amber-500/5 hover:border-amber-500/40"
-                  : "border-zinc-800/90 bg-zinc-950/70"
+                  ? "border-amber-500/40 bg-gradient-to-b from-amber-600/10 to-[#07090E]"
+                  : "border-white/10 bg-[#07090E]"
             }`}
           >
             <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="flex items-center gap-1.5 text-zinc-300">
-                <Clock className="h-4 w-4 text-blue-400" />
-                Close Market Cutoff
+              <span className="flex items-center gap-1.5 font-hud uppercase tracking-wider text-slate-300">
+                <Clock className="h-4 w-4 text-cyan-400" />
+                Close Market Lock
               </span>
               <span
-                className={`font-semibold flex items-center gap-1.5 ${
+                className={`font-mono font-semibold flex items-center gap-1.5 text-xs ${
                   isCloseBettingActive
-                    ? "text-blue-400"
+                    ? "text-cyan-400"
                     : isCloseDrawReady
                       ? "text-amber-400"
-                      : "text-zinc-500"
+                      : "text-slate-500"
                 }`}
               >
-                {isCloseBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />}
+                {isCloseBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />}
                 {isCloseBettingActive ? "Betting Open" : isCloseDrawReady ? "Settlement Due" : "Cutoff Passed"}
               </span>
             </div>
-            <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
+            <div className="mt-3 flex items-baseline gap-2">
+              <span className="font-hud text-3xl sm:text-4xl font-extrabold text-white tabular-nums tracking-tight">
                 {isCloseBettingActive ? formatCountdown(closeTimeRemaining) : "00:00"}
               </span>
-              <span className="text-xs text-zinc-400">
-                {isCloseBettingActive ? "remaining to bet" : "cutoff elapsed"}
+              <span className="font-mono text-xs text-slate-400">
+                {isCloseBettingActive ? "remaining" : "cutoff elapsed"}
               </span>
             </div>
           </div>
@@ -245,43 +280,44 @@ export function RoundDisplay() {
 
         {/* Draw / Settlement Action Trigger Bar */}
         {(isOpenDrawReady || isCloseDrawReady || isEmergencyStale) && (
-          <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 space-y-3">
+          <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 space-y-3 shadow-lg shadow-amber-500/10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-amber-300">
+                <div className="flex items-center gap-2 font-hud text-sm font-bold text-amber-300 uppercase tracking-wider">
                   <Flame className="h-4 w-4 text-amber-400" />
                   {isOpenDrawReady
-                    ? "Open Draw Ready to Trigger"
+                    ? "Open Draw Ready on Chainlink VRF"
                     : isCloseDrawReady
                       ? "Close Draw & Settlement Ready"
                       : "Emergency VRF Recovery Available"}
                 </div>
-                <p className="mt-0.5 text-xs text-zinc-300">
+                <p className="mt-1 text-xs text-slate-300 max-w-xl">
                   {isOpenDrawReady
-                    ? "The betting cutoff has passed. Anyone can trigger Chainlink VRF to reveal Open digits."
+                    ? "Betting lock elapsed. Anyone can permissionlessly trigger Chainlink VRF v2.5 to request verifiable random digits onchain."
                     : isCloseDrawReady
-                      ? "Close cutoff elapsed. Trigger the final VRF draw to settle bets and advance to the next round."
-                      : "VRF request exceeded 24h timeout. Trigger emergency cancel/settlement."}
+                      ? "Close lock elapsed. Trigger the final VRF draw to settle winning bets and roll forward to next round."
+                      : "VRF request timed out (>24h). Trigger emergency cancellation to enable full refund claims."}
                 </p>
               </div>
 
-              <div>
+              <div className="shrink-0">
                 {isOpenDrawReady && (
                   <Button
                     onClick={() => requestOpenDraw(roundId)}
                     disabled={actionStep === "submitting" || !authenticated}
-                    size="sm"
-                    className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black font-bold"
+                    size="default"
+                    variant="gold"
+                    className="w-full sm:w-auto font-hud font-bold tracking-wider uppercase shadow-xl"
                   >
                     {actionStep === "submitting" ? (
                       <>
-                        <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Requesting VRF…
                       </>
                     ) : (
                       <>
-                        <Sparkles className="mr-1.5 h-3.5 w-3.5" />
-                        {authenticated ? "Trigger Open Draw" : "Sign In to Trigger"}
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {authenticated ? "Trigger Open Draw" : "Connect to Trigger"}
                       </>
                     )}
                   </Button>
@@ -291,18 +327,19 @@ export function RoundDisplay() {
                   <Button
                     onClick={() => requestCloseDraw(roundId)}
                     disabled={actionStep === "submitting" || !authenticated}
-                    size="sm"
-                    className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black font-bold"
+                    size="default"
+                    variant="gold"
+                    className="w-full sm:w-auto font-hud font-bold tracking-wider uppercase shadow-xl"
                   >
                     {actionStep === "submitting" ? (
                       <>
-                        <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Settling Round…
                       </>
                     ) : (
                       <>
-                        <Sparkles className="mr-1.5 h-3.5 w-3.5" />
-                        {authenticated ? "Settle Round" : "Sign In to Settle"}
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {authenticated ? "Execute Settlement" : "Connect to Settle"}
                       </>
                     )}
                   </Button>
@@ -312,18 +349,18 @@ export function RoundDisplay() {
                   <Button
                     onClick={() => cancelStaleRound(roundId)}
                     disabled={actionStep === "submitting" || !authenticated}
-                    size="sm"
+                    size="default"
                     variant="destructive"
-                    className="w-full sm:w-auto font-bold"
+                    className="w-full sm:w-auto font-hud font-bold tracking-wider uppercase"
                   >
                     {actionStep === "submitting" ? (
                       <>
-                        <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Cancelling…
                       </>
                     ) : (
                       <>
-                        <AlertTriangle className="mr-1.5 h-3.5 w-3.5" />
+                        <AlertTriangle className="mr-2 h-4 w-4" />
                         Recover Stale Round
                       </>
                     )}
@@ -333,13 +370,13 @@ export function RoundDisplay() {
             </div>
 
             {actionError && (
-              <div className="flex items-center justify-between text-xs text-red-400 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20">
+              <div className="flex items-center justify-between text-xs text-rose-400 bg-rose-500/10 p-3 rounded-xl border border-rose-500/30 font-mono">
                 <span>{actionError}</span>
                 <Button
                   variant="ghost"
                   size="xs"
                   onClick={resetAction}
-                  className="text-red-300 hover:text-white"
+                  className="text-rose-300 hover:text-white"
                 >
                   Dismiss
                 </Button>
@@ -350,31 +387,31 @@ export function RoundDisplay() {
 
         {/* VRF Pending Notice */}
         {(round.phase === RoundPhase.OpenPending || round.phase === RoundPhase.ClosePending) && (
-          <div className="flex items-center justify-center gap-3 rounded-xl bg-yellow-400/10 border border-yellow-400/20 py-4">
-            <Loader2 className="h-5 w-5 animate-spin text-yellow-400" />
-            <span className="text-sm font-semibold text-yellow-300">
+          <div className="flex items-center justify-center gap-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 py-4 px-4 text-center">
+            <Loader2 className="h-5 w-5 animate-spin text-cyan-400" />
+            <span className="font-hud text-sm font-bold text-cyan-300 uppercase tracking-wide">
               {round.phase === RoundPhase.OpenPending
-                ? "Chainlink VRF is drawing Open digits…"
-                : "Chainlink VRF is drawing Close digits and settling round…"}
+                ? "Chainlink VRF v2.5 is generating Open digits onchain…"
+                : "Chainlink VRF v2.5 is generating Close digits & settling pool…"}
             </span>
           </div>
         )}
 
         {/* Cancelled Notice */}
         {isCancelled && (
-          <div className="flex items-center justify-center gap-3 rounded-xl bg-red-400/10 border border-red-400/20 py-4">
-            <XCircle className="h-5 w-5 text-red-400" />
-            <span className="text-sm font-semibold text-red-300">
-              Round cancelled due to stale VRF — claim full refunds below.
+          <div className="flex items-center justify-center gap-3 rounded-2xl bg-rose-500/10 border border-rose-500/30 py-4 px-4 text-center">
+            <XCircle className="h-5 w-5 text-rose-400" />
+            <span className="font-hud text-sm font-bold text-rose-300 uppercase tracking-wide">
+              Round cancelled due to stale VRF — 100% full refunds claimable below.
             </span>
           </div>
         )}
 
         {/* Partially Settled Notice */}
         {isPartiallySettled && (
-          <div className="flex items-center justify-center gap-3 rounded-xl bg-orange-400/10 border border-orange-400/20 py-4">
-            <AlertTriangle className="h-5 w-5 text-orange-400" />
-            <span className="text-sm font-semibold text-orange-300">
+          <div className="flex items-center justify-center gap-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 py-4 px-4 text-center">
+            <AlertTriangle className="h-5 w-5 text-amber-400" />
+            <span className="font-hud text-sm font-bold text-amber-300 uppercase tracking-wide">
               Partially settled — Open winners can claim; Close & Pair wagers refunded.
             </span>
           </div>
@@ -383,83 +420,93 @@ export function RoundDisplay() {
         {/* Digit Displays */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Open Draw */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4">
-            <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-zinc-300">
-              <Zap className="h-3.5 w-3.5 text-violet-400" />
-              Open Draw Digits
+          <div className="rounded-2xl border border-white/10 bg-[#07090E]/90 p-5 shadow-inner">
+            <p className="mb-4 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
+              <Zap className="h-4 w-4 text-violet-400" />
+              Open Draw Cryptographic Digits
             </p>
-            <div className="flex gap-2">
-              <DigitOrb digit={round.openD1} revealed={showOpenDigits} />
-              <DigitOrb digit={round.openD2} revealed={showOpenDigits} />
-              <DigitOrb digit={round.openD3} revealed={showOpenDigits} />
+            <div className="flex gap-3">
+              <DigitOrb digit={round.openD1} revealed={showOpenDigits} theme="violet" />
+              <DigitOrb digit={round.openD2} revealed={showOpenDigits} theme="violet" />
+              <DigitOrb digit={round.openD3} revealed={showOpenDigits} theme="violet" />
             </div>
             {showOpenDigits ? (
-              <p className="mt-3 text-xs text-zinc-400">
-                Derived Open Single:{" "}
-                <span className="font-mono text-sm font-bold text-violet-400 tabular-nums">
-                  {round.openSingle}
+              <p className="mt-4 font-mono text-xs text-slate-400 flex items-center gap-2">
+                <span>Derived Single (Last Digit):</span>
+                <span className="font-hud text-base font-extrabold text-violet-400 tabular-nums text-glow-violet">
+                  [{round.openSingle}]
                 </span>
               </p>
             ) : (
-              <p className="mt-3 text-xs text-zinc-500 font-mono">Awaiting Open VRF fulfillment</p>
+              <p className="mt-4 text-xs text-slate-500 font-mono">
+                Awaiting VRF verification
+              </p>
             )}
           </div>
 
           {/* Close Draw */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4">
-            <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-zinc-300">
-              <Zap className="h-3.5 w-3.5 text-blue-400" />
-              Close Draw Digits
+          <div className="rounded-2xl border border-white/10 bg-[#07090E]/90 p-5 shadow-inner">
+            <p className="mb-4 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
+              <Zap className="h-4 w-4 text-cyan-400" />
+              Close Draw Cryptographic Digits
             </p>
-            <div className="flex gap-2">
-              <DigitOrb digit={round.closeD1} revealed={showCloseDigits} />
-              <DigitOrb digit={round.closeD2} revealed={showCloseDigits} />
-              <DigitOrb digit={round.closeD3} revealed={showCloseDigits} />
+            <div className="flex gap-3">
+              <DigitOrb digit={round.closeD1} revealed={showCloseDigits} theme="cyan" />
+              <DigitOrb digit={round.closeD2} revealed={showCloseDigits} theme="cyan" />
+              <DigitOrb digit={round.closeD3} revealed={showCloseDigits} theme="cyan" />
             </div>
             {showCloseDigits ? (
-              <p className="mt-3 text-xs text-zinc-400">
-                Derived Close Single:{" "}
-                <span className="font-mono text-sm font-bold text-blue-400 tabular-nums">
-                  {round.closeSingle}
+              <p className="mt-4 font-mono text-xs text-slate-400 flex items-center gap-2">
+                <span>Derived Single (Last Digit):</span>
+                <span className="font-hud text-base font-extrabold text-cyan-400 tabular-nums text-glow-cyan">
+                  [{round.closeSingle}]
                 </span>
               </p>
             ) : (
-              <p className="mt-3 text-xs text-zinc-500 font-mono">Awaiting Close VRF fulfillment</p>
+              <p className="mt-4 text-xs text-slate-500 font-mono">
+                Awaiting VRF verification
+              </p>
             )}
           </div>
         </div>
 
         {/* Pair Result (only when settled) */}
         {round.phase === RoundPhase.Settled && (
-          <div className="flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-blue-500/10 border border-violet-500/20 py-4">
-            <span className="text-sm font-medium text-zinc-300">Winning Pair Result:</span>
-            <span className="font-mono text-3xl font-extrabold text-amber-400 tracking-wider tabular-nums">
+          <div className="flex items-center justify-center gap-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-yellow-500/10 to-amber-500/15 border border-amber-500/30 py-4 px-6 shadow-xl">
+            <span className="font-hud text-sm font-bold text-amber-300 uppercase tracking-wider">
+              Winning 90x Pair Outcome:
+            </span>
+            <span className="font-hud text-4xl font-extrabold text-amber-300 tracking-wider tabular-nums text-glow-gold">
               {round.pairResult.toString().padStart(2, "0")}
             </span>
           </div>
         )}
       </Card>
 
-      {/* Previous Round Summary Card */}
+      {/* Previous Round Summary Strip */}
       {prevRoundId && previousRound && previousRound.phase === RoundPhase.Settled && (
-        <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 px-5 py-3.5 text-xs shadow-md shadow-black/20">
+        <div className="rounded-2xl border border-white/10 bg-[#07090E]/90 px-5 py-3.5 text-xs shadow-xl">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <span className="text-zinc-400 font-heading font-medium">Last Settled:</span>
-              <span className="font-mono font-bold text-white tabular-nums">Round #{prevRoundId.toString()}</span>
-              <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-lg">
+              <span className="text-slate-400 font-hud text-xs font-bold uppercase tracking-wide">
+                Previous Settlement:
+              </span>
+              <span className="font-hud font-bold text-white tabular-nums">
+                Round #{prevRoundId.toString()}
+              </span>
+              <Badge variant="emerald">
                 Settled
               </Badge>
             </div>
-            <div className="flex items-center gap-4 text-zinc-300 font-mono tabular-nums flex-wrap">
+            <div className="flex items-center gap-4 text-slate-300 font-mono tabular-nums flex-wrap">
               <span>
-                Open: <span className="font-bold text-violet-400">{previousRound.openD1}-{previousRound.openD2}-{previousRound.openD3}</span> <span className="text-zinc-500">(Single: {previousRound.openSingle})</span>
+                Open: <span className="font-bold text-violet-400">{previousRound.openD1}-{previousRound.openD2}-{previousRound.openD3}</span> <span className="text-slate-500">(Single: {previousRound.openSingle})</span>
               </span>
               <span>
-                Close: <span className="font-bold text-blue-400">{previousRound.closeD1}-{previousRound.closeD2}-{previousRound.closeD3}</span> <span className="text-zinc-500">(Single: {previousRound.closeSingle})</span>
+                Close: <span className="font-bold text-cyan-400">{previousRound.closeD1}-{previousRound.closeD2}-{previousRound.closeD3}</span> <span className="text-slate-500">(Single: {previousRound.closeSingle})</span>
               </span>
               <span>
-                Pair: <span className="font-black text-amber-400">{previousRound.pairResult.toString().padStart(2, "0")}</span>
+                Pair: <span className="font-black text-amber-400 text-glow-gold">{previousRound.pairResult.toString().padStart(2, "0")}</span>
               </span>
             </div>
           </div>
