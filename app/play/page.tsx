@@ -6,6 +6,8 @@ import { BetPanel } from "@/components/bet-panel";
 import { PlacedBets } from "@/components/placed-bets";
 import { WalletPanel } from "@/components/wallet-panel";
 import { ClaimCard } from "@/components/claim-card";
+import { RefundCard } from "@/components/refund-card";
+import { EmergencyRecovery } from "@/components/emergency-recovery";
 
 import Link from "next/link";
 import { HelpCircle } from "lucide-react";
@@ -15,7 +17,7 @@ export default function PlayPage() {
   const handleRefresh = () => setRefreshKey((k) => k + 1);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
       <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
         {/* Main Column */}
         <div className="space-y-6">
@@ -46,6 +48,22 @@ export default function PlayPage() {
           </div>
         </div>
       </div>
+
+      {/* Bottom Section: Collapsible Operational & Emergency Recovery Cards */}
+      <div className="space-y-4 pt-6 border-t border-white/5">
+        <div>
+          <h4 className="text-sm font-semibold text-zinc-300">Contract Safeguards & Recovery</h4>
+          <p className="text-xs text-zinc-500 mt-0.5">
+            Decentralized tools to claim wager refunds from cancelled rounds and recover rounds with stalled Chainlink VRF.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <RefundCard />
+          <EmergencyRecovery />
+        </div>
+      </div>
     </div>
   );
 }
+

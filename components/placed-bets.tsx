@@ -238,10 +238,17 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                 currentPhase === RoundPhase.Settled ||
                 currentPhase === RoundPhase.PartiallySettled;
               const isCancelled = currentPhase === RoundPhase.Cancelled;
+              const isPartiallySettled = currentPhase === RoundPhase.PartiallySettled;
               const isDrawing =
                 currentPhase === RoundPhase.OpenPending ||
                 currentPhase === RoundPhase.ClosePending;
               const isWon = bet.payout > 0n;
+              const isRefundable =
+                isCancelled ||
+                (isPartiallySettled &&
+                  (bet.betType === BetType.CloseSingle ||
+                    bet.betType === BetType.CloseTrio ||
+                    bet.betType === BetType.Pair));
               const isClaimingThis =
                 claimingBetIndex === bet.betIndex && claimStep === "claiming";
 
@@ -301,6 +308,13 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                               {formatUsdcDollar(bet.payout)}
                             </p>
                           </div>
+                        ) : isRefundable ? (
+                          <div>
+                            <span className="text-xs text-cyan-400 font-semibold">Refund Due</span>
+                            <p className="font-mono text-sm font-bold text-cyan-300">
+                              {formatUsdcDollar(bet.amount)}
+                            </p>
+                          </div>
                         ) : (
                           <div>
                             <span className="text-xs text-zinc-500">Result</span>
@@ -309,6 +323,13 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                             </p>
                           </div>
                         )
+                      ) : isCancelled ? (
+                        <div>
+                          <span className="text-xs text-cyan-400 font-semibold">Round Cancelled</span>
+                          <p className="font-mono text-sm font-bold text-cyan-300">
+                            {formatUsdcDollar(bet.amount)} Refund
+                          </p>
+                        </div>
                       ) : (
                         <div>
                           <div className="flex items-center sm:justify-end gap-1.5 text-xs text-zinc-400">
@@ -370,6 +391,31 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                               <>
                                 <Coins className="h-3.5 w-3.5" />
                                 Claim Winnings
+                              </>
+                            )}
+                          </button>
+                        )
+                      ) : isRefundable ? (
+                        bet.claimed ? (
+                          <span className="inline-flex items-center gap-1 rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-xs font-semibold text-zinc-400">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400" />
+                            Refund Claimed
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handleClaim(bet)}
+                            disabled={isClaimingThis}
+                            className="inline-flex items-center gap-1.5 rounded-xl bg-cyan-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-cyan-600/25 hover:bg-cyan-500 disabled:opacity-50 transition-all"
+                          >
+                            {isClaimingThis ? (
+                              <>
+                                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                Claiming…
+                              </>
+                            ) : (
+                              <>
+                                <Coins className="h-3.5 w-3.5" />
+                                Claim Refund
                               </>
                             )}
                           </button>
