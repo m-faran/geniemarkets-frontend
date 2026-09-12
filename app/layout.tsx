@@ -10,13 +10,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "https://geniemarkets.xyz"
+  ),
   title: "Genie Markets — Onchain Number Prediction",
   description:
     "Predict numbers, win up to 600x. Powered by Chainlink VRF randomness and Privy embedded wallets. No seed phrases, no gas fees.",
   openGraph: {
-    title: "Genie Markets",
-    description: "Predict numbers, win up to 600x. Onchain prediction markets.",
-    images: ["/logo.png"],
+    title: "Genie Markets — Onchain Prediction Protocol",
+    description: "Predict numbers, win up to 600x. Onchain prediction markets powered by Chainlink VRF.",
+    images: ["/genie-lamp-artwork-LOGO.png"],
+  },
+  icons: {
+    icon: "/genie-lamp-artwork-LOGO.png",
   },
 };
 

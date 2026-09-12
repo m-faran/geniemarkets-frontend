@@ -90,6 +90,15 @@ input[type="number"] {
   border-radius: 1rem;
 }
 
+/* Tactile micro-interactions */
+button:active:not(:disabled),
+[data-slot="button"]:active:not(:disabled),
+.cursor-pointer:active {
+  transform: scale(0.98);
+  transition: transform 100ms ease;
+}
+
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);

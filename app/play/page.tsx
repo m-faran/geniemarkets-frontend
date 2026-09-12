@@ -8,9 +8,9 @@ import { WalletPanel } from "@/components/wallet-panel";
 import { ClaimCard } from "@/components/claim-card";
 import { RefundCard } from "@/components/refund-card";
 import { EmergencyRecovery } from "@/components/emergency-recovery";
-
+import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, ArrowRight } from "lucide-react";
 
 export default function PlayPage() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -31,7 +31,7 @@ export default function PlayPage() {
         <div className="space-y-6">
           <WalletPanel />
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 space-y-3">
+          <Card className="bg-zinc-900/60 border-zinc-800 p-5 space-y-3">
             <div className="flex items-center gap-2 text-sm font-semibold text-white">
               <HelpCircle className="h-4 w-4 text-violet-400" />
               New to Genie Markets?
@@ -43,14 +43,15 @@ export default function PlayPage() {
               href="/how-it-works"
               className="inline-flex items-center gap-1 text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors"
             >
-              Read the Game Tutorial &rarr;
+              Read the Game Tutorial
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-          </div>
+          </Card>
         </div>
       </div>
 
       {/* Bottom Section: Collapsible Operational & Emergency Recovery Cards */}
-      <div className="space-y-4 pt-6 border-t border-white/5">
+      <div className="space-y-4 pt-6 border-t border-zinc-800/80">
         <div>
           <h4 className="text-sm font-semibold text-zinc-300">Contract Safeguards & Recovery</h4>
           <p className="text-xs text-zinc-500 mt-0.5">
@@ -66,4 +67,3 @@ export default function PlayPage() {
     </div>
   );
 }
-

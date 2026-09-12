@@ -8,12 +8,16 @@ import {
   PHASE_COLORS,
 } from "@/lib/utils";
 import { useState, useMemo } from "react";
-import { History, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { History, ChevronLeft, ChevronRight } from "lucide-react";
 import { ClaimCard } from "@/components/claim-card";
 
 const ROUNDS_PER_PAGE = 10;
 
-export default function HistoryPage() {
+export function HistoryPageContent() {
   const [page, setPage] = useState(0);
 
   // Get current round ID
@@ -56,51 +60,43 @@ export default function HistoryPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 space-y-6">
       <div>
-        <h1 className="flex items-center gap-3 text-3xl font-bold text-white">
+        <h1 className="flex items-center gap-3 text-3xl font-extrabold tracking-tight text-white">
           <History className="h-8 w-8 text-violet-400" />
           Round History
         </h1>
-        <p className="mt-2 text-zinc-400">
-          Browse past rounds and their results.
+        <p className="mt-1.5 text-sm text-zinc-400">
+          Browse historical protocol rounds, Chainlink VRF outcomes, and winning numbers.
         </p>
       </div>
 
       <ClaimCard />
 
-
-      {isLoading || totalRounds === 0 ? (
-        <div className="flex items-center justify-center py-20">
-          {isLoading ? (
-            <Loader2 className="h-8 w-8 animate-spin text-violet-400" />
-          ) : (
-            <p className="text-zinc-500">No rounds yet.</p>
-          )}
-        </div>
+      {isLoading ? (
+        <Card className="bg-zinc-900/60 border-zinc-800 p-6 space-y-3">
+          <Skeleton className="h-8 w-full bg-zinc-800/50" />
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-12 w-full bg-zinc-800/40" />
+          ))}
+        </Card>
+      ) : totalRounds === 0 ? (
+        <Card className="bg-zinc-900/60 border-zinc-800 p-12 text-center text-zinc-500">
+          No rounds recorded yet.
+        </Card>
       ) : (
-        <>
+        <Card className="bg-zinc-900/60 border-zinc-800 overflow-hidden">
           {/* Table */}
-          <div className="overflow-hidden rounded-2xl border border-white/10">
-            <table className="w-full">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.03]">
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                    Round
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                    Status
-                  </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                    Open Draw
-                  </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                    Close Draw
-                  </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                    Pair
-                  </th>
+                <tr className="border-b border-zinc-800 bg-zinc-900/80 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                  <th className="px-4 py-3.5">Round</th>
+                  <th className="px-4 py-3.5">Status</th>
+                  <th className="px-4 py-3.5 text-center">Open Draw</th>
+                  <th className="px-4 py-3.5 text-center">Close Draw</th>
+                  <th className="px-4 py-3.5 text-center">Winning Pair</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-zinc-800/60">
                 {roundIds.map((id, i) => {
                   const result = roundsData?.[i];
                   if (result?.status !== "success" || !result.result)
@@ -126,53 +122,54 @@ export default function HistoryPage() {
                   return (
                     <tr
                       key={id.toString()}
-                      className="border-b border-white/5 transition-colors hover:bg-white/[0.02]"
+                      className="hover:bg-zinc-800/30 transition-colors"
                     >
-                      <td className="px-4 py-3 font-mono text-sm font-semibold text-white">
+                      <td className="px-4 py-3.5 font-mono text-sm font-semibold text-white tabular-nums">
                         #{id.toString()}
                       </td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`text-xs font-semibold ${PHASE_COLORS[phase]}`}
+                      <td className="px-4 py-3.5">
+                        <Badge
+                          variant="outline"
+                          className={`font-mono text-[10px] font-semibold border-zinc-800 ${PHASE_COLORS[phase]}`}
                         >
                           {PHASE_LABELS[phase]}
-                        </span>
+                        </Badge>
                       </td>
-                      <td className="px-4 py-3 text-center">
+                      <td className="px-4 py-3.5 text-center">
                         {showOpen ? (
-                          <div>
-                            <span className="font-mono text-sm text-white">
+                          <div className="font-mono tabular-nums">
+                            <span className="text-sm font-medium text-white">
                               {openD1}-{openD2}-{openD3}
                             </span>
-                            <span className="ml-2 text-xs text-violet-400">
+                            <span className="ml-2 text-xs font-bold text-violet-400">
                               ({openSingle})
                             </span>
                           </div>
                         ) : (
-                          <span className="text-xs text-zinc-600">—</span>
+                          <span className="text-xs text-zinc-600 font-mono">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-center">
+                      <td className="px-4 py-3.5 text-center">
                         {showClose ? (
-                          <div>
-                            <span className="font-mono text-sm text-white">
+                          <div className="font-mono tabular-nums">
+                            <span className="text-sm font-medium text-white">
                               {closeD1}-{closeD2}-{closeD3}
                             </span>
-                            <span className="ml-2 text-xs text-blue-400">
+                            <span className="ml-2 text-xs font-bold text-blue-400">
                               ({closeSingle})
                             </span>
                           </div>
                         ) : (
-                          <span className="text-xs text-zinc-600">—</span>
+                          <span className="text-xs text-zinc-600 font-mono">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-center">
+                      <td className="px-4 py-3.5 text-center">
                         {showClose ? (
-                          <span className="font-mono text-sm font-bold text-amber-400">
+                          <span className="font-mono text-base font-extrabold text-amber-400 tabular-nums">
                             {pairResult.toString().padStart(2, "0")}
                           </span>
                         ) : (
-                          <span className="text-xs text-zinc-600">—</span>
+                          <span className="text-xs text-zinc-600 font-mono">—</span>
                         )}
                       </td>
                     </tr>
@@ -184,30 +181,38 @@ export default function HistoryPage() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="mt-6 flex items-center justify-center gap-4">
-              <button
+            <div className="border-t border-zinc-800 p-4 flex items-center justify-between">
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-400 transition-all hover:bg-white/10 disabled:opacity-30"
+                className="gap-1 border-zinc-800 text-xs font-medium"
               >
                 <ChevronLeft className="h-4 w-4" />
                 Newer
-              </button>
-              <span className="text-sm text-zinc-500">
+              </Button>
+              <span className="text-xs font-mono text-zinc-400 tabular-nums">
                 Page {page + 1} of {totalPages}
               </span>
-              <button
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-400 transition-all hover:bg-white/10 disabled:opacity-30"
+                className="gap-1 border-zinc-800 text-xs font-medium"
               >
                 Older
                 <ChevronRight className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
           )}
-        </>
+        </Card>
       )}
     </div>
   );
+}
+
+export default function HistoryPage() {
+  return <HistoryPageContent />;
 }

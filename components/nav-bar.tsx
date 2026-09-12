@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,6 +8,16 @@ import { usePrivy, useFundWallet } from "@privy-io/react-auth";
 import { useReadContract, useAccount } from "wagmi";
 import { erc20Abi, USDC_ADDRESS } from "@/lib/contracts";
 import { formatUsdcDollar, truncateAddress } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import {
   Wallet,
   LogOut,
@@ -14,6 +25,10 @@ import {
   Dice5,
   History,
   HelpCircle,
+  Copy,
+  Check,
+  ExternalLink,
+  ChevronDown,
 } from "lucide-react";
 
 export function NavBar() {
@@ -21,6 +36,7 @@ export function NavBar() {
   const { login, logout, authenticated, ready } = usePrivy();
   const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
+  const [copied, setCopied] = useState(false);
 
   const { data: balance } = useReadContract({
     address: USDC_ADDRESS,
@@ -44,6 +60,13 @@ export function NavBar() {
     }
   };
 
+  const handleCopy = () => {
+    if (!walletAddress) return;
+    navigator.clipboard.writeText(walletAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const navLinks = [
     { href: "/how-it-works", label: "How It Works", icon: HelpCircle },
     { href: "/play", label: "Play", icon: Dice5 },
@@ -51,26 +74,28 @@ export function NavBar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        {/* Left: Logo + Nav */}
+        {/* Left: Brand Logo + Nav */}
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="Genie Markets"
-              width={36}
-              height={36}
-              priority
-              style={{ width: "auto", height: "auto" }}
-              className="rounded-lg"
-            />
-            <span className="hidden text-lg font-bold text-white sm:inline">
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="relative flex items-center justify-center">
+              <Image
+                src="/genie-lamp-artwork-LOGO.png"
+                alt="Genie Markets"
+                width={36}
+                height={30}
+                priority
+                className="object-contain transition-transform group-hover:scale-105"
+              />
+            </div>
+            <span className="text-base font-bold tracking-tight text-zinc-100 group-hover:text-white transition-colors">
               Genie Markets
             </span>
           </Link>
 
-          <div className="flex items-center gap-1">
+          {/* Navigation Pill Bar */}
+          <div className="hidden sm:flex items-center gap-1 rounded-lg bg-zinc-900/60 p-1 border border-zinc-800/80">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = pathname === link.href;
@@ -78,13 +103,13 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
                     isActive
-                      ? "bg-white/10 text-white font-semibold"
-                      : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                      ? "bg-violet-600 text-white font-semibold shadow-xs"
+                      : "text-zinc-400 hover:bg-zinc-800/60 hover:text-zinc-100"
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3.5 w-3.5" />
                   {link.label}
                 </Link>
               );
@@ -92,59 +117,115 @@ export function NavBar() {
           </div>
         </div>
 
-        {/* Right: Wallet */}
-        <div className="flex items-center gap-3">
+        {/* Right: Web3 HUD Financial Bar */}
+        <div className="flex items-center gap-2.5">
           {ready && !authenticated && (
-            <button
+            <Button
               onClick={login}
-              className="flex items-center gap-2 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 transition-all hover:bg-violet-500 hover:shadow-violet-500/30"
+              size="sm"
+              className="gap-2 bg-violet-600 font-semibold text-white shadow-lg shadow-violet-600/25 hover:bg-violet-500"
             >
-              <Wallet className="h-4 w-4" />
+              <Wallet className="h-3.5 w-3.5" />
               Sign In
-            </button>
+            </Button>
           )}
 
           {authenticated && walletAddress && (
             <>
-              {/* Balance Chip */}
-              <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                <span className="text-sm font-medium text-zinc-400">
-                  {usdcBalance !== undefined
-                    ? formatUsdcDollar(usdcBalance)
-                    : "…"}
-                </span>
-                <span className="text-xs text-zinc-500">USDC</span>
-              </div>
+              {/* Balance Badge */}
+              <Badge
+                variant="secondary"
+                className="font-mono tabular-nums px-3 py-1 bg-zinc-900 border-zinc-800 text-zinc-100 text-xs hidden xs:inline-flex"
+              >
+                {usdcBalance !== undefined
+                  ? formatUsdcDollar(usdcBalance)
+                  : "…"} USDC
+              </Badge>
 
-              {/* Add Funds */}
-              <button
+              {/* Action Button: Add Funds */}
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={handleAddFunds}
-                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium transition-all ${
+                className={`gap-1.5 border-zinc-800 text-xs font-medium hover:border-violet-500/50 ${
                   !hasBalance
-                    ? "animate-pulse bg-violet-600 text-white shadow-lg shadow-violet-600/25"
-                    : "border border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10"
+                    ? "animate-pulse bg-violet-600 text-white border-transparent hover:bg-violet-500 shadow-sm shadow-violet-600/25"
+                    : "bg-zinc-900/60 text-zinc-300 hover:text-white hover:bg-zinc-800/80"
                 }`}
               >
-                <PlusCircle className="h-4 w-4" />
-                Add Funds
-              </button>
+                <PlusCircle className="h-3.5 w-3.5" />
+                <span>Add Funds</span>
+              </Button>
 
-              {/* Address + Logout */}
-              <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                <span className="text-sm font-mono text-zinc-400">
-                  {truncateAddress(walletAddress)}
-                </span>
-                <button
-                  onClick={logout}
-                  className="text-zinc-500 transition-colors hover:text-red-400"
-                  title="Sign out"
-                >
-                  <LogOut className="h-4 w-4" />
-                </button>
-              </div>
+              {/* Account Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2.5 py-1.5 text-xs font-mono tabular-nums text-zinc-300 transition-colors hover:border-violet-500/50 hover:bg-zinc-800/80 outline-none cursor-pointer">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <span>{truncateAddress(walletAddress)}</span>
+                  <ChevronDown className="h-3.5 w-3.5 text-zinc-500" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>Connected Account</DropdownMenuLabel>
+                  <div className="px-2.5 py-1 font-mono text-[11px] text-zinc-400 break-all select-all">
+                    {walletAddress}
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleCopy} className="justify-between">
+                    <span>{copied ? "Address Copied!" : "Copy Address"}</span>
+                    {copied ? (
+                      <Check className="h-3.5 w-3.5 text-emerald-400" />
+                    ) : (
+                      <Copy className="h-3.5 w-3.5 text-zinc-400" />
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() =>
+                      window.open(
+                        `https://sepolia.etherscan.io/address/${walletAddress}`,
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                    className="justify-between"
+                  >
+                    <span>View on Etherscan</span>
+                    <ExternalLink className="h-3.5 w-3.5 text-zinc-400" />
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="text-red-400 hover:bg-red-500/10 hover:text-red-300 focus:bg-red-500/10 focus:text-red-300 justify-between"
+                  >
+                    <span>Disconnect</span>
+                    <LogOut className="h-3.5 w-3.5" />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           )}
         </div>
+      </div>
+
+      {/* Mobile nav bar row */}
+      <div className="sm:hidden flex items-center justify-around border-t border-zinc-900 bg-zinc-950/90 py-2 px-3">
+        {navLinks.map((link) => {
+          const Icon = link.icon;
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
+                isActive
+                  ? "bg-violet-600 text-white font-semibold"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {link.label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
