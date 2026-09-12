@@ -110,7 +110,49 @@ export const genieMarketsAbi = [
     outputs: [{ type: "uint32" }],
     stateMutability: "view",
   },
-  // ── View: state ──
+  // ── View: state & admin ──
+  {
+    type: "function",
+    name: "owner",
+    inputs: [],
+    outputs: [{ type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "s_vrfCoordinator",
+    inputs: [],
+    outputs: [{ type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "i_subscriptionId",
+    inputs: [],
+    outputs: [{ type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "i_keyHash",
+    inputs: [],
+    outputs: [{ type: "bytes32" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "i_callbackGasLimit",
+    inputs: [],
+    outputs: [{ type: "uint32" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "i_usdc",
+    inputs: [],
+    outputs: [{ type: "address" }],
+    stateMutability: "view",
+  },
   {
     type: "function",
     name: "s_currentRoundId",
@@ -246,7 +288,98 @@ export const genieMarketsAbi = [
     outputs: [],
     stateMutability: "nonpayable",
   },
+  // ── Write: admin (onlyOwner) ──
+  {
+    type: "function",
+    name: "depositBankroll",
+    inputs: [{ name: "amount", type: "uint256" }],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "withdrawBankroll",
+    inputs: [{ name: "amount", type: "uint256" }],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "setDurations",
+    inputs: [
+      { name: "_openDuration", type: "uint32" },
+      { name: "_closeDuration", type: "uint32" },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "setCoordinator",
+    inputs: [{ name: "_vrfCoordinator", type: "address" }],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "transferOwnership",
+    inputs: [{ name: "to", type: "address" }],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "acceptOwnership",
+    inputs: [],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
   // ── Events ──
+  {
+    type: "event",
+    name: "BankrollDeposited",
+    inputs: [
+      { name: "depositor", type: "address", indexed: true },
+      { name: "amount", type: "uint256", indexed: false },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "BankrollWithdrawn",
+    inputs: [
+      { name: "owner", type: "address", indexed: true },
+      { name: "amount", type: "uint256", indexed: false },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "DurationsUpdated",
+    inputs: [
+      { name: "openDuration", type: "uint32", indexed: false },
+      { name: "closeDuration", type: "uint32", indexed: false },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "OwnershipTransferRequested",
+    inputs: [
+      { name: "from", type: "address", indexed: true },
+      { name: "to", type: "address", indexed: true },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "OwnershipTransferred",
+    inputs: [
+      { name: "from", type: "address", indexed: true },
+      { name: "to", type: "address", indexed: true },
+    ],
+    anonymous: false,
+  },
   {
     type: "event",
     name: "BetPlaced",
