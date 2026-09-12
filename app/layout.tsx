@@ -20,10 +20,27 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Genie Markets — Onchain Prediction Protocol",
     description: "Predict numbers, win up to 600x. Onchain prediction markets powered by Chainlink VRF.",
-    images: ["/genie-lamp-artwork-LOGO.png"],
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Genie Markets Protocol",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Genie Markets — Onchain Prediction Protocol",
+    description: "Predict numbers, win up to 600x. Onchain prediction markets powered by Chainlink VRF.",
+    images: ["/og-image.png"],
   },
   icons: {
-    icon: "/genie-lamp-artwork-LOGO.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/genie-lamp-artwork-LOGO.png", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 

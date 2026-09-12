@@ -20,6 +20,7 @@ export function Footer() {
                   alt="Genie Markets"
                   width={36}
                   height={32}
+                  style={{ width: "auto" }}
                   className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
                 />
               </div>

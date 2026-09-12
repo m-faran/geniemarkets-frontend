@@ -113,6 +113,7 @@ export function NavBar() {
                 width={40}
                 height={34}
                 priority
+                style={{ width: "auto" }}
                 className="relative h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
               />
             </div>
