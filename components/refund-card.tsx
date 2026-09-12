@@ -55,45 +55,45 @@ export function RefundCard() {
   };
 
   return (
-    <Card className="border-cyan-500/20 bg-gradient-to-b from-cyan-500/5 via-zinc-950/60 to-zinc-950 p-5 shadow-lg transition-all">
+    <Card className="rounded-2xl border-cyan-500/25 bg-gradient-to-b from-cyan-500/10 via-zinc-950/70 to-zinc-950 p-7 sm:p-8 shadow-xl shadow-black/20 transition-all">
       {/* Collapsible Header */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between gap-4 text-left cursor-pointer"
+        className="flex w-full items-center justify-between gap-5 text-left cursor-pointer"
       >
-        <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-cyan-500/15 p-2.5 ring-1 ring-cyan-500/30 text-cyan-400">
-            <RotateCcw className="h-5 w-5" />
+        <div className="flex items-center gap-4">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 shadow-xl shadow-cyan-500/20">
+            <RotateCcw className="h-7 w-7" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-base font-bold text-white tracking-tight">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight">
                 Claim Refunds
               </h3>
-              <Badge variant="outline" className="border-cyan-500/30 bg-cyan-500/10 text-cyan-300 font-mono text-[10px]">
+              <Badge variant="outline" className="border-cyan-500/30 bg-cyan-500/15 text-cyan-300 font-mono text-xs font-bold px-3 py-1 rounded-xl">
                 claimRefund
               </Badge>
               {refundableBets.length > 0 && (
-                <Badge className="bg-cyan-500 text-black font-extrabold text-[10px] animate-pulse">
+                <Badge className="bg-cyan-500 text-black font-mono font-extrabold text-xs animate-pulse px-3 py-1 rounded-xl">
                   {refundableBets.length} Ready
                 </Badge>
               )}
             </div>
-            <p className="text-xs text-zinc-400 mt-0.5">
+            <p className="text-sm text-zinc-400 mt-1.5 leading-relaxed">
               Pull-based wager refunds for Cancelled or Partially Settled rounds.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           {totalRefundable > 0n && (
-            <span className="font-mono text-xs font-bold text-cyan-300 hidden sm:inline tabular-nums">
+            <span className="font-mono text-sm font-extrabold text-cyan-300 hidden sm:inline tabular-nums px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
               {formatUsdcDollar(totalRefundable)} Available
             </span>
           )}
-          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-1.5 text-zinc-400 hover:text-white transition-colors">
-            {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          <div className="h-11 w-11 rounded-xl bg-zinc-900/80 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
+            {isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
           </div>
         </div>
       </button>

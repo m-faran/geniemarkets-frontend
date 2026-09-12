@@ -21,7 +21,7 @@ import {
   AlertCircle,
   Rocket,
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -222,61 +222,67 @@ export function HowItWorksContent() {
           <span className="font-mono font-bold tabular-nums text-violet-300">600x</span>.
         </p>
 
-        {/* Quick Nav Chips (Zero-Emoji Policy) */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-3">
+        {/* Quick Nav Jump Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-6 pb-2 max-w-4xl mx-auto">
           <a href="#quick-start">
-            <Badge
+            <Button
               variant="outline"
-              className="gap-1.5 border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300 hover:border-violet-500/40 hover:text-white transition-colors cursor-pointer"
+              size="sm"
+              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
             >
-              <Rocket className="h-3.5 w-3.5 text-violet-400" />
-              Quick Start
-            </Badge>
+              <Rocket className="h-4 w-4 text-violet-400" />
+              <span>Quick Start</span>
+            </Button>
           </a>
           <a href="#game-types">
-            <Badge
+            <Button
               variant="outline"
-              className="gap-1.5 border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300 hover:border-violet-500/40 hover:text-white transition-colors cursor-pointer"
+              size="sm"
+              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
             >
-              <Dice5 className="h-3.5 w-3.5 text-violet-400" />
-              Game Types & Multipliers
-            </Badge>
+              <Dice5 className="h-4 w-4 text-violet-400" />
+              <span>Game Types & Multipliers</span>
+            </Button>
           </a>
           <a href="#genie-math">
-            <Badge
+            <Button
               variant="outline"
-              className="gap-1.5 border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300 hover:border-violet-500/40 hover:text-white transition-colors cursor-pointer"
+              size="sm"
+              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
             >
-              <Scale className="h-3.5 w-3.5 text-violet-400" />
-              Genie Math & Demo
-            </Badge>
+              <Scale className="h-4 w-4 text-violet-400" />
+              <span>Genie Math & Demo</span>
+            </Button>
           </a>
           <a href="#calculator">
-            <Badge
+            <Button
               variant="outline"
-              className="gap-1.5 border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300 hover:border-violet-500/40 hover:text-white transition-colors cursor-pointer"
+              size="sm"
+              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
             >
-              <Calculator className="h-3.5 w-3.5 text-violet-400" />
-              Payout Calculator
-            </Badge>
+              <Calculator className="h-4 w-4 text-violet-400" />
+              <span>Payout Calculator</span>
+            </Button>
           </a>
           <a href="#timeline">
-            <Badge
+            <Button
               variant="outline"
-              className="gap-1.5 border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300 hover:border-violet-500/40 hover:text-white transition-colors cursor-pointer"
+              size="sm"
+              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
             >
-              <Clock className="h-3.5 w-3.5 text-violet-400" />
-              Round Lifecycle
-            </Badge>
+              <Clock className="h-4 w-4 text-violet-400" />
+              <span>Round Lifecycle</span>
+            </Button>
           </a>
           <a href="#faq">
-            <Badge
+            <Button
               variant="outline"
-              className="gap-1.5 border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs text-zinc-300 hover:border-violet-500/40 hover:text-white transition-colors cursor-pointer"
+              size="sm"
+              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
             >
-              <HelpCircle className="h-3.5 w-3.5 text-violet-400" />
-              FAQ
-            </Badge>
+              <HelpCircle className="h-4 w-4 text-violet-400" />
+              <span>FAQ</span>
+            </Button>
           </a>
         </div>
       </div>
@@ -285,59 +291,80 @@ export function HowItWorksContent() {
           SECTION 1: 5-STEP PLAYING TUTORIAL (Connected Stepper / Timeline)
       ───────────────────────────────────────────────────────────── */}
       <section id="quick-start" className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white">
-              <Sparkles className="h-6 w-6 text-violet-400" />
-              Playing in 5 Easy Steps
-            </h2>
-            <p className="mt-1 text-sm text-zinc-400">
-              No seed phrases, zero crypto jargon, and sponsored gas fees.
-            </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-md shadow-violet-500/10 shrink-0">
+              <Sparkles className="h-6 w-6 sm:h-7 sm:w-7" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-heading">
+                Playing in 5 Easy Steps
+              </h2>
+              <p className="text-sm sm:text-base text-zinc-400">
+                No seed phrases, zero crypto jargon, and sponsored gas fees.
+              </p>
+            </div>
           </div>
           <Badge
             variant="outline"
-            className="w-fit border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs font-semibold"
+            className="w-fit border-emerald-500/40 bg-emerald-500/15 text-emerald-300 text-xs sm:text-sm font-semibold px-3.5 py-1.5 rounded-xl shadow-sm flex items-center gap-2"
           >
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             Zero Gas Fees
           </Badge>
         </div>
 
-        {/* 5-Step Connected Timeline / Stepper */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          {STEPS.map((s) => {
+        {/* 5-Step Connected Timeline / Stepper: 3 in Row 1, 2 Centered in Row 2 */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+          {STEPS.map((s, index) => {
             const Icon = s.icon;
+            // Step 0, 1, 2 (01, 02, 03) -> span 2 columns (fill Row 1)
+            // Step 3 (04) -> starts at col 2 and spans 2 columns (centered in Row 2)
+            // Step 4 (05) -> spans 2 columns (occupies cols 4-5)
+            const gridColClass =
+              index === 3
+                ? "md:col-start-2 md:col-span-2"
+                : "md:col-span-2";
+
             return (
-              <Card
-                key={s.step}
-                className="bg-zinc-900/60 border-zinc-800 hover:border-violet-500/40 transition-all duration-200 flex flex-col justify-between"
-              >
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <Badge variant="secondary" className="font-mono text-xs font-bold text-zinc-300">
-                    {s.step}
-                  </Badge>
-                  <Icon className="h-5 w-5 text-violet-400" />
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <CardTitle className="text-base font-semibold text-zinc-100">
-                    {s.title}
-                  </CardTitle>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                    {s.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
+              <div key={s.step} className={`${gridColClass} flex`}>
+                <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <Badge
+                        variant="secondary"
+                        className="font-mono text-xs font-bold px-3 py-1 bg-zinc-800/90 border border-zinc-700/80 text-zinc-100"
+                      >
+                        Step {s.step}
+                      </Badge>
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-sm shadow-violet-500/10 transition-transform duration-300 group-hover:scale-105">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <CardTitle className="text-xl font-bold text-white tracking-tight">
+                        {s.title}
+                      </CardTitle>
+                      <p className="text-sm text-zinc-400 leading-relaxed">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-zinc-800/80">
                     {s.badges.map((b, idx) => (
                       <Badge
                         key={idx}
                         variant="outline"
-                        className="text-[10px] font-mono border-zinc-800 bg-zinc-950/40 text-zinc-400"
+                        className="text-xs font-mono px-3 py-1 border-zinc-800 bg-zinc-950/60 text-zinc-300 font-medium"
                       >
                         {b}
                       </Badge>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
+                </Card>
+              </div>
             );
           })}
         </div>
@@ -347,208 +374,242 @@ export function HowItWorksContent() {
           SECTION 2: GAME TYPES & RETURNS BREAKDOWN
       ───────────────────────────────────────────────────────────── */}
       <section id="game-types" className="space-y-6">
-        <div>
-          <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white">
-            <Trophy className="h-6 w-6 text-amber-400" />
-            Game Types & Return Multipliers
-          </h2>
-          <p className="mt-1 text-sm text-zinc-400">
-            Genie Markets features 3 distinct game categories offering returns from 9x up to 600x your wager.
-          </p>
+        <div className="flex items-start sm:items-center gap-4">
+          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 shadow-md shadow-amber-500/10 shrink-0">
+            <Trophy className="h-6 w-6 sm:h-7 sm:w-7" />
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-heading">
+              Game Types & Return Multipliers
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400">
+              Genie Markets features 3 distinct game categories offering returns from 9x up to 600x your wager.
+            </p>
+          </div>
         </div>
 
-        {/* Detailed Cards for Game Types */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Card 1: Single */}
-          <Card className="bg-zinc-900/60 border-zinc-800 hover:border-violet-500/40 transition-all space-y-4">
-            <CardHeader className="flex flex-row items-center justify-between pb-0">
-              <div className="rounded-xl bg-violet-600/20 p-2.5 text-violet-400 border border-violet-500/20">
-                <Dice5 className="h-5 w-5" />
-              </div>
-              <Badge variant="outline" className="border-violet-500/30 bg-violet-500/10 font-mono font-bold tabular-nums text-violet-300">
-                9x Return
-              </Badge>
-            </CardHeader>
-
-            <CardContent className="space-y-4">
-              <div>
-                <CardTitle className="text-lg font-bold text-white">Single (Open & Close)</CardTitle>
-                <p className="text-xs text-zinc-400 mt-1">Available in Open Market & Close Market</p>
-              </div>
-
-              <p className="text-sm text-zinc-300">
-                Predict a single digit from <strong className="text-white font-mono">0 to 9</strong>.
-              </p>
-
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-3 space-y-2 text-xs">
-                <div className="flex justify-between text-zinc-400">
-                  <span>Winning Rule:</span>
-                  <span className="font-mono text-zinc-200">(d1 + d2 + d3) mod 10</span>
+        {/* Game Types: 2 in Row 1, 1 Centered in Row 2 */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {/* Card 1: Single (spans cols 1-2) */}
+          <div className="md:col-span-2 flex">
+            <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-sm shadow-violet-500/10 transition-transform duration-300 group-hover:scale-105">
+                    <Dice5 className="h-6 w-6" />
+                  </div>
+                  <Badge variant="outline" className="border-violet-500/40 bg-violet-500/20 text-violet-200 font-mono font-bold tabular-nums text-xs px-3.5 py-1 shadow-xs">
+                    9x Return
+                  </Badge>
                 </div>
-                <div className="flex justify-between text-zinc-400">
-                  <span>Probability:</span>
-                  <span className="font-mono font-semibold text-emerald-400">1 in 10 (10.0%)</span>
+
+                <div>
+                  <CardTitle className="text-xl font-bold text-white tracking-tight">Single (Open & Close)</CardTitle>
+                  <p className="text-xs text-zinc-400 mt-1">Available in Open Market & Close Market</p>
                 </div>
-                <div className="flex justify-between text-zinc-400">
-                  <span>$10 Wager Pays:</span>
-                  <span className="font-mono font-bold text-violet-300">$90.00 USDC</span>
+
+                <p className="text-sm text-zinc-300 leading-relaxed">
+                  Predict a single digit from <strong className="text-white font-mono">0 to 9</strong>.
+                </p>
+
+                <div className="rounded-xl border border-zinc-800/90 bg-zinc-950/70 p-4 space-y-2.5 text-xs sm:text-sm">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Winning Rule:</span>
+                    <span className="font-mono text-zinc-200">(d1 + d2 + d3) mod 10</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Probability:</span>
+                    <span className="font-mono font-semibold text-emerald-400">1 in 10 (10.0%)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>$10 Wager Pays:</span>
+                    <span className="font-mono font-bold text-violet-300">$90.00 USDC</span>
+                  </div>
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-zinc-500 pt-3 border-t border-zinc-800/80">
                 Example: VRF draws 3, 5, 6. The sum is 14. 14 mod 10 is <strong className="text-zinc-200">4</strong>.
                 If your pick was 4, you win 9x.
               </p>
-            </CardContent>
-          </Card>
+            </Card>
+          </div>
 
-          {/* Card 2: Pair */}
-          <Card className="bg-zinc-900/60 border-zinc-800 hover:border-violet-500/40 transition-all space-y-4">
-            <CardHeader className="flex flex-row items-center justify-between pb-0">
-              <div className="rounded-xl bg-blue-600/20 p-2.5 text-blue-400 border border-blue-500/20">
-                <Sparkles className="h-5 w-5" />
-              </div>
-              <Badge variant="outline" className="border-blue-500/30 bg-blue-500/10 font-mono font-bold tabular-nums text-blue-300">
-                90x Return
-              </Badge>
-            </CardHeader>
-
-            <CardContent className="space-y-4">
-              <div>
-                <CardTitle className="text-lg font-bold text-white">Pair</CardTitle>
-                <p className="text-xs text-zinc-400 mt-1">Placed during Open Market timeframe</p>
-              </div>
-
-              <p className="text-sm text-zinc-300">
-                Predict a two-digit number from <strong className="text-white font-mono">00 to 99</strong>.
-              </p>
-
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-3 space-y-2 text-xs">
-                <div className="flex justify-between text-zinc-400">
-                  <span>Winning Rule:</span>
-                  <span className="font-mono text-zinc-200">Open Single + Close Single</span>
+          {/* Card 2: Pair (spans cols 3-4) */}
+          <div className="md:col-span-2 flex">
+            <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-blue-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600/15 border border-blue-500/30 text-blue-400 shadow-sm shadow-blue-500/10 transition-transform duration-300 group-hover:scale-105">
+                    <Sparkles className="h-6 w-6" />
+                  </div>
+                  <Badge variant="outline" className="border-blue-500/40 bg-blue-500/20 text-blue-200 font-mono font-bold tabular-nums text-xs px-3.5 py-1 shadow-xs">
+                    90x Return
+                  </Badge>
                 </div>
-                <div className="flex justify-between text-zinc-400">
-                  <span>Probability:</span>
-                  <span className="font-mono font-semibold text-blue-400">1 in 100 (1.0%)</span>
+
+                <div>
+                  <CardTitle className="text-xl font-bold text-white tracking-tight">Pair</CardTitle>
+                  <p className="text-xs text-zinc-400 mt-1">Placed during Open Market timeframe</p>
                 </div>
-                <div className="flex justify-between text-zinc-400">
-                  <span>$10 Wager Pays:</span>
-                  <span className="font-mono font-bold text-blue-300">$900.00 USDC</span>
+
+                <p className="text-sm text-zinc-300 leading-relaxed">
+                  Predict a two-digit number from <strong className="text-white font-mono">00 to 99</strong>.
+                </p>
+
+                <div className="rounded-xl border border-zinc-800/90 bg-zinc-950/70 p-4 space-y-2.5 text-xs sm:text-sm">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Winning Rule:</span>
+                    <span className="font-mono text-zinc-200">Open Single + Close Single</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Probability:</span>
+                    <span className="font-mono font-semibold text-blue-400">1 in 100 (1.0%)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>$10 Wager Pays:</span>
+                    <span className="font-mono font-bold text-blue-300">$900.00 USDC</span>
+                  </div>
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-zinc-500 pt-3 border-t border-zinc-800/80">
                 Example: Open Single derives to <strong className="text-zinc-200">4</strong> and Close Single derives to <strong className="text-zinc-200">7</strong>.
                 The winning Pair is <strong className="text-zinc-200">47</strong>.
               </p>
-            </CardContent>
-          </Card>
+            </Card>
+          </div>
 
-          {/* Card 3: Trio */}
-          <Card className="bg-zinc-900/60 border-zinc-800 hover:border-violet-500/40 transition-all space-y-4">
-            <CardHeader className="flex flex-row items-center justify-between pb-0">
-              <div className="rounded-xl bg-amber-600/20 p-2.5 text-amber-400 border border-amber-500/20">
-                <Trophy className="h-5 w-5" />
-              </div>
-              <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 font-mono font-bold tabular-nums text-amber-300">
-                140x – 600x Return
-              </Badge>
-            </CardHeader>
-
-            <CardContent className="space-y-4">
-              <div>
-                <CardTitle className="text-lg font-bold text-white">Trio (Open & Close)</CardTitle>
-                <p className="text-xs text-zinc-400 mt-1">Predict all 3 Genie-sorted digits</p>
-              </div>
-
-              <p className="text-sm text-zinc-300">
-                Predict the 3 drawn digits sorted in Genie order. Returns depend on digit uniqueness:
-              </p>
-
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-3 space-y-2 text-xs">
-                <div className="flex justify-between text-zinc-400">
-                  <span>Unique Trio (3 distinct):</span>
-                  <span className="font-mono font-bold text-amber-300 tabular-nums">140x ($1,400 on $10)</span>
+          {/* Card 3: Trio (Centered in row 2: md:col-start-2 md:col-span-2) */}
+          <div className="md:col-start-2 md:col-span-2 flex">
+            <Card className="group relative w-full bg-zinc-900/60 border-zinc-800/90 hover:border-amber-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-600/15 border border-amber-500/30 text-amber-400 shadow-sm shadow-amber-500/10 transition-transform duration-300 group-hover:scale-105">
+                    <Trophy className="h-6 w-6" />
+                  </div>
+                  <Badge variant="outline" className="border-amber-500/40 bg-amber-500/20 text-amber-200 font-mono font-bold tabular-nums text-xs px-3.5 py-1 shadow-xs">
+                    140x – 600x Return
+                  </Badge>
                 </div>
-                <div className="flex justify-between text-zinc-400">
-                  <span>Twin Trio (2 identical):</span>
-                  <span className="font-mono font-bold text-amber-300 tabular-nums">280x ($2,800 on $10)</span>
+
+                <div>
+                  <CardTitle className="text-xl font-bold text-white tracking-tight">Trio (Open & Close)</CardTitle>
+                  <p className="text-xs text-zinc-400 mt-1">Predict all 3 Genie-sorted digits</p>
                 </div>
-                <div className="flex justify-between text-zinc-400">
-                  <span>Jackpot Trio (3 identical):</span>
-                  <span className="font-mono font-bold text-amber-300 tabular-nums">600x ($6,000 on $10)</span>
+
+                <p className="text-sm text-zinc-300 leading-relaxed">
+                  Predict the 3 drawn digits sorted in Genie order. Returns depend on digit uniqueness:
+                </p>
+
+                <div className="rounded-xl border border-zinc-800/90 bg-zinc-950/70 p-4 space-y-2.5 text-xs sm:text-sm">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Unique Trio (3 distinct):</span>
+                    <span className="font-mono font-bold text-amber-300 tabular-nums">140x ($1,400 on $10)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Twin Trio (2 identical):</span>
+                    <span className="font-mono font-bold text-amber-300 tabular-nums">280x ($2,800 on $10)</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Jackpot Trio (3 identical):</span>
+                    <span className="font-mono font-bold text-amber-300 tabular-nums">600x ($6,000 on $10)</span>
+                  </div>
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-zinc-500 pt-3 border-t border-zinc-800/80">
                 Digits must be entered in valid Genie order: 1 &lt; 2 &lt; ... &lt; 9 &lt; 0.
               </p>
-            </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
 
         {/* Master Comparison Table */}
-        <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/40">
+        <div className="overflow-x-auto rounded-2xl border border-zinc-800/90 bg-zinc-900/40 shadow-xl shadow-black/30">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-zinc-800 bg-zinc-900/80 text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                <th className="px-4 py-3.5">Game Type</th>
-                <th className="px-4 py-3.5">Market</th>
-                <th className="px-4 py-3.5">Pick Range</th>
-                <th className="px-4 py-3.5">Win Condition</th>
-                <th className="px-4 py-3.5">Multiplier</th>
-                <th className="px-4 py-3.5 text-right">$10 Wager Return</th>
+              <tr className="border-b border-zinc-800/90 bg-zinc-900/90 text-xs font-bold uppercase tracking-wider text-zinc-400">
+                <th className="px-6 py-4">Game Type</th>
+                <th className="px-6 py-4">Market</th>
+                <th className="px-6 py-4">Pick Range</th>
+                <th className="px-6 py-4">Win Condition</th>
+                <th className="px-6 py-4">Multiplier</th>
+                <th className="px-6 py-4 text-right">$10 Wager Return</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/60 font-mono text-xs sm:text-sm">
-              <tr className="hover:bg-zinc-800/30">
-                <td className="px-4 py-3 font-sans font-semibold text-white">Open Single</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Open Window</td>
-                <td className="px-4 py-3 text-zinc-300 tabular-nums">0 – 9</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">(d1+d2+d3)%10 matches Open</td>
-                <td className="px-4 py-3 font-bold text-violet-400 tabular-nums">9x</td>
-                <td className="px-4 py-3 text-right font-bold text-white tabular-nums">$90.00</td>
+              <tr className="hover:bg-zinc-800/40 transition-colors">
+                <td className="px-6 py-4.5 font-sans font-bold text-white text-base">Open Single</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-300">Open Window</td>
+                <td className="px-6 py-4.5 text-zinc-300 tabular-nums font-semibold">0 – 9</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-400 font-mono text-xs">(d1+d2+d3)%10 matches Open</td>
+                <td className="px-6 py-4.5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold text-violet-300 bg-violet-500/15 border border-violet-500/30 tabular-nums">
+                    9x
+                  </span>
+                </td>
+                <td className="px-6 py-4.5 text-right font-bold text-white tabular-nums text-base">$90.00</td>
               </tr>
-              <tr className="hover:bg-zinc-800/30">
-                <td className="px-4 py-3 font-sans font-semibold text-white">Close Single</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Open & Close Window</td>
-                <td className="px-4 py-3 text-zinc-300 tabular-nums">0 – 9</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">(d1+d2+d3)%10 matches Close</td>
-                <td className="px-4 py-3 font-bold text-violet-400 tabular-nums">9x</td>
-                <td className="px-4 py-3 text-right font-bold text-white tabular-nums">$90.00</td>
+              <tr className="hover:bg-zinc-800/40 transition-colors">
+                <td className="px-6 py-4.5 font-sans font-bold text-white text-base">Close Single</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-300">Open & Close Window</td>
+                <td className="px-6 py-4.5 text-zinc-300 tabular-nums font-semibold">0 – 9</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-400 font-mono text-xs">(d1+d2+d3)%10 matches Close</td>
+                <td className="px-6 py-4.5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold text-violet-300 bg-violet-500/15 border border-violet-500/30 tabular-nums">
+                    9x
+                  </span>
+                </td>
+                <td className="px-6 py-4.5 text-right font-bold text-white tabular-nums text-base">$90.00</td>
               </tr>
-              <tr className="hover:bg-zinc-800/30">
-                <td className="px-4 py-3 font-sans font-semibold text-white">Pair</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Open Window</td>
-                <td className="px-4 py-3 text-zinc-300 tabular-nums">00 – 99</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">OpenSingle × 10 + CloseSingle</td>
-                <td className="px-4 py-3 font-bold text-blue-400 tabular-nums">90x</td>
-                <td className="px-4 py-3 text-right font-bold text-white tabular-nums">$900.00</td>
+              <tr className="hover:bg-zinc-800/40 transition-colors">
+                <td className="px-6 py-4.5 font-sans font-bold text-white text-base">Pair</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-300">Open Window</td>
+                <td className="px-6 py-4.5 text-zinc-300 tabular-nums font-semibold">00 – 99</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-400 font-mono text-xs">OpenSingle × 10 + CloseSingle</td>
+                <td className="px-6 py-4.5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold text-blue-300 bg-blue-500/15 border border-blue-500/30 tabular-nums">
+                    90x
+                  </span>
+                </td>
+                <td className="px-6 py-4.5 text-right font-bold text-white tabular-nums text-base">$900.00</td>
               </tr>
-              <tr className="hover:bg-zinc-800/30">
-                <td className="px-4 py-3 font-sans font-semibold text-white">Unique Trio</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Open or Close</td>
-                <td className="px-4 py-3 text-zinc-300 tabular-nums">Genie-sorted (3 distinct)</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Exact match to 3 sorted digits</td>
-                <td className="px-4 py-3 font-bold text-amber-400 tabular-nums">140x</td>
-                <td className="px-4 py-3 text-right font-bold text-white tabular-nums">$1,400.00</td>
+              <tr className="hover:bg-zinc-800/40 transition-colors">
+                <td className="px-6 py-4.5 font-sans font-bold text-white text-base">Unique Trio</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-300">Open or Close</td>
+                <td className="px-6 py-4.5 text-zinc-300 tabular-nums font-semibold">Genie-sorted (3 distinct)</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-400 font-mono text-xs">Exact match to 3 sorted digits</td>
+                <td className="px-6 py-4.5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 tabular-nums">
+                    140x
+                  </span>
+                </td>
+                <td className="px-6 py-4.5 text-right font-bold text-white tabular-nums text-base">$1,400.00</td>
               </tr>
-              <tr className="hover:bg-zinc-800/30">
-                <td className="px-4 py-3 font-sans font-semibold text-white">Twin Trio</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Open or Close</td>
-                <td className="px-4 py-3 text-zinc-300 tabular-nums">Genie-sorted (2 identical)</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Exact match to 3 sorted digits</td>
-                <td className="px-4 py-3 font-bold text-purple-400 tabular-nums">280x</td>
-                <td className="px-4 py-3 text-right font-bold text-white tabular-nums">$2,800.00</td>
+              <tr className="hover:bg-zinc-800/40 transition-colors">
+                <td className="px-6 py-4.5 font-sans font-bold text-white text-base">Twin Trio</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-300">Open or Close</td>
+                <td className="px-6 py-4.5 text-zinc-300 tabular-nums font-semibold">Genie-sorted (2 identical)</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-400 font-mono text-xs">Exact match to 3 sorted digits</td>
+                <td className="px-6 py-4.5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold text-purple-300 bg-purple-500/15 border border-purple-500/30 tabular-nums">
+                    280x
+                  </span>
+                </td>
+                <td className="px-6 py-4.5 text-right font-bold text-white tabular-nums text-base">$2,800.00</td>
               </tr>
-              <tr className="hover:bg-zinc-800/30">
-                <td className="px-4 py-3 font-sans font-semibold text-white">Jackpot Trio</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Open or Close</td>
-                <td className="px-4 py-3 text-zinc-300 tabular-nums">Genie-sorted (3 identical)</td>
-                <td className="px-4 py-3 font-sans text-zinc-400">Exact match to 3 sorted digits</td>
-                <td className="px-4 py-3 font-bold text-amber-300 tabular-nums">600x</td>
-                <td className="px-4 py-3 text-right font-bold text-emerald-400 tabular-nums">$6,000.00</td>
+              <tr className="hover:bg-zinc-800/40 transition-colors">
+                <td className="px-6 py-4.5 font-sans font-bold text-white text-base">Jackpot Trio</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-300">Open or Close</td>
+                <td className="px-6 py-4.5 text-zinc-300 tabular-nums font-semibold">Genie-sorted (3 identical)</td>
+                <td className="px-6 py-4.5 font-sans text-zinc-400 font-mono text-xs">Exact match to 3 sorted digits</td>
+                <td className="px-6 py-4.5">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-mono font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 shadow-sm shadow-emerald-500/20 tabular-nums">
+                    600x
+                  </span>
+                </td>
+                <td className="px-6 py-4.5 text-right font-extrabold text-emerald-400 tabular-nums text-base shadow-sm">$6,000.00</td>
               </tr>
             </tbody>
           </table>
@@ -559,90 +620,93 @@ export function HowItWorksContent() {
           SECTION 3: THE GENIE-SORT MATH & INTERACTIVE DEMO
       ───────────────────────────────────────────────────────────── */}
       <section id="genie-math" className="space-y-6">
-        <div>
-          <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white">
-            <Scale className="h-6 w-6 text-purple-400" />
-            Genie-Sort Math & Ordering Rule
-          </h2>
-          <p className="mt-1 text-sm text-zinc-400">
-            How digits are canonically ordered onchain and how the derived single digit is calculated.
-          </p>
+        <div className="flex items-start sm:items-center gap-4">
+          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-purple-500/15 border border-purple-500/30 text-purple-400 shadow-md shadow-purple-500/10 shrink-0">
+            <Scale className="h-6 w-6 sm:h-7 sm:w-7" />
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-heading">
+              Genie-Sort Math & Ordering Rule
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400">
+              How digits are canonically ordered onchain and how the derived single digit is calculated.
+            </p>
+          </div>
         </div>
 
         {/* Rule explanation alert card */}
-        <Card className="border-purple-500/30 bg-purple-500/10 p-6 space-y-3">
-          <div className="flex items-center gap-2 text-purple-300 font-semibold text-base">
-            <AlertCircle className="h-5 w-5" />
-            The Golden Rule: 0 is the Highest Digit
+        <Card className="border-purple-500/30 bg-purple-950/20 p-6 sm:p-8 space-y-5 rounded-2xl shadow-xl shadow-purple-950/20">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-300 shrink-0">
+              <AlertCircle className="h-5 w-5" />
+            </div>
+            <h3 className="text-lg sm:text-xl font-bold font-heading text-purple-200">
+              The Golden Rule: 0 is the Highest Digit
+            </h3>
           </div>
-          <p className="text-sm text-zinc-300 leading-relaxed">
-            In Genie Markets smart contracts (<code className="font-mono text-purple-300">GenieMath.sol</code>),
-            digits are ranked as:
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+            In Genie Markets smart contracts (<code className="font-mono text-purple-300 font-semibold bg-purple-950/60 px-2 py-0.5 rounded border border-purple-500/30">GenieMath.sol</code>),
+            digits are ranked strictly in Genie order:
           </p>
-          <div className="flex flex-wrap items-center gap-2 py-2 font-mono text-sm sm:text-base tabular-nums">
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">1</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">2</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">3</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">4</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">5</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">6</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">7</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">8</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-zinc-950/60 px-3 py-1.5 text-zinc-300 border border-zinc-800">9</span>
-            <span className="text-zinc-500">&lt;</span>
-            <span className="rounded-lg bg-purple-600/30 px-3 py-1.5 font-bold text-purple-200 border border-purple-500/40">
-              0 (Rank 10)
-            </span>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 py-3 font-mono text-base sm:text-lg tabular-nums">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+              <div key={num} className="flex items-center gap-2 sm:gap-2.5">
+                <span className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-zinc-950/80 border border-zinc-800 text-zinc-100 font-mono text-base sm:text-lg font-bold shadow-inner">
+                  {num}
+                </span>
+                <span className="text-zinc-600 font-mono text-sm font-bold">&lt;</span>
+              </div>
+            ))}
+            <div className="flex items-center">
+              <span className="flex h-11 sm:h-12 px-4 items-center justify-center rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 font-mono text-base sm:text-lg font-extrabold shadow-md shadow-purple-600/20">
+                0 <span className="text-xs text-purple-300/80 ml-2 font-semibold tracking-wide">(Rank 10)</span>
+              </span>
+            </div>
           </div>
-          <p className="text-xs text-zinc-400">
-            Because 0 is highest, any pick with 0 must have 0 at the end (e.g. <strong className="text-zinc-200">1-5-0</strong> or <strong className="text-zinc-200">3-9-0</strong>).
-            A pick like <em>0-1-5</em> is invalid and must be submitted as <strong>1-5-0</strong>.
+          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-purple-500/20 pt-4">
+            Because 0 has the highest rank (10), any pick containing 0 must place 0 at the end (e.g. <strong className="text-white font-mono">1-5-0</strong> or <strong className="text-white font-mono">3-9-0</strong>).
+            A combination like <em className="text-zinc-400 font-mono">0-1-5</em> is invalid and must be submitted as <strong className="text-purple-300 font-mono">1-5-0</strong>.
           </p>
         </Card>
 
         {/* Interactive Genie-Sort Simulator Widget */}
-        <Card className="bg-zinc-900/60 border-zinc-800 p-6 sm:p-8 space-y-6">
+        <Card className="bg-zinc-900/60 border-zinc-800/90 p-7 sm:p-9 space-y-7 rounded-2xl shadow-xl shadow-black/30">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
-                <Shuffle className="h-5 w-5 text-violet-400" />
-                Interactive Genie-Sort & Derivation Tester
-              </CardTitle>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-                Choose or roll 3 random digits to see live Genie-sorting, trio categorization, and single digit derivation.
-              </p>
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shrink-0 shadow-sm">
+                <Shuffle className="h-5 w-5" />
+              </div>
+              <div>
+                <CardTitle className="text-lg sm:text-xl font-bold text-white font-heading">
+                  Interactive Genie-Sort & Derivation Tester
+                </CardTitle>
+                <p className="text-xs sm:text-sm text-zinc-400 mt-0.5">
+                  Choose or roll 3 random digits to see live Genie-sorting, trio categorization, and single digit derivation.
+                </p>
+              </div>
             </div>
             <Button
               onClick={rollRandom}
-              size="sm"
-              className="gap-2 bg-violet-600 hover:bg-violet-500 text-white shadow-md shadow-violet-600/20"
+              className="h-11 px-5 rounded-xl gap-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold shadow-md shadow-violet-600/20 cursor-pointer transition-all shrink-0"
             >
-              <RefreshCw className="h-3.5 w-3.5" />
+              <RefreshCw className="h-4 w-4" />
               Roll Random Draw
             </Button>
           </div>
 
           {/* 3 Input Selectors */}
-          <div className="grid grid-cols-3 gap-3 max-w-md mx-auto">
+          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
             {[
               { val: digit1, setter: setDigit1, label: "Digit 1" },
               { val: digit2, setter: setDigit2, label: "Digit 2" },
               { val: digit3, setter: setDigit3, label: "Digit 3" },
             ].map((d, i) => (
-              <div key={i} className="text-center space-y-1.5">
-                <label className="text-xs font-medium text-zinc-500">{d.label}</label>
+              <div key={i} className="text-center space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-zinc-400">{d.label}</label>
                 <select
                   value={d.val}
                   onChange={(e) => d.setter(parseInt(e.target.value))}
-                  className="w-full rounded-xl border border-zinc-800 bg-zinc-950 py-3 text-center font-mono text-xl font-bold text-white focus:border-violet-500 focus:outline-none"
+                  className="w-full h-14 rounded-2xl border border-zinc-800/90 bg-zinc-950/90 py-3 text-center font-mono text-2xl font-extrabold text-white focus:border-violet-500 focus:outline-none shadow-inner cursor-pointer"
                 >
                   {Array.from({ length: 10 }, (_, n) => (
                     <option key={n} value={n}>
@@ -655,53 +719,53 @@ export function HowItWorksContent() {
           </div>
 
           {/* Results Display */}
-          <div className="grid gap-4 sm:grid-cols-3 pt-2">
+          <div className="grid gap-4 sm:grid-cols-3 pt-3 border-t border-zinc-800/80">
             {/* Box 1: Raw vs Sorted */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4 space-y-2 text-center">
-              <span className="text-xs font-medium text-zinc-400">Genie-Sorted Trio</span>
-              <div className="flex items-center justify-center gap-2 font-mono text-2xl font-extrabold text-white tabular-nums">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-500/20 text-violet-300 border border-violet-500/30">
+            <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 space-y-3 text-center shadow-inner flex flex-col justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Genie-Sorted Trio</span>
+              <div className="flex items-center justify-center gap-2.5 font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums py-1">
+                <span className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl bg-violet-500/20 text-violet-200 border border-violet-500/35 shadow-md shadow-violet-500/10">
                   {sortedD1}
                 </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                <span className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl bg-violet-500/20 text-violet-200 border border-violet-500/35 shadow-md shadow-violet-500/10">
                   {sortedD2}
                 </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-500/20 text-violet-300 border border-violet-500/30">
+                <span className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl bg-violet-500/20 text-violet-200 border border-violet-500/35 shadow-md shadow-violet-500/10">
                   {sortedD3}
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-500">
-                Canonical Pick: <strong className="text-zinc-200 font-mono tabular-nums">{sortedD1}{sortedD2}{sortedD3}</strong>{" "}
-                <span className={isRawSorted ? "text-emerald-400 font-medium" : "text-amber-400 font-medium"}>
+              <p className="text-xs text-zinc-400">
+                Canonical: <strong className="text-white font-mono font-bold tabular-nums">{sortedD1}{sortedD2}{sortedD3}</strong>{" "}
+                <span className={isRawSorted ? "text-emerald-400 font-semibold" : "text-amber-400 font-semibold"}>
                   ({isRawSorted ? "Already Genie-sorted" : "Reordered into Genie rank"})
                 </span>
               </p>
             </div>
 
             {/* Box 2: Trio Classification */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4 space-y-2 text-center">
-              <span className="text-xs font-medium text-zinc-400">Trio Category & Payout</span>
-              <div className="pt-1">
+            <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 space-y-3 text-center shadow-inner flex flex-col justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Trio Category & Payout</span>
+              <div className="py-2">
                 <Badge
                   variant="outline"
-                  className={`font-mono font-bold tabular-nums ${trioInfo.badgeClass}`}
+                  className={`font-mono font-bold text-sm px-3.5 py-1.5 rounded-xl tabular-nums ${trioInfo.badgeClass}`}
                 >
                   {trioInfo.type} Trio ({trioInfo.payout}x)
                 </Badge>
               </div>
-              <p className="text-[11px] text-zinc-400">{trioInfo.desc}</p>
+              <p className="text-xs text-zinc-300/90">{trioInfo.desc}</p>
             </div>
 
             {/* Box 3: Derived Single */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4 space-y-2 text-center">
-              <span className="text-xs font-medium text-zinc-400">Derived Single Digit</span>
-              <div className="flex items-center justify-center font-mono text-2xl font-extrabold text-violet-400 tabular-nums">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 border border-zinc-800">
+            <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 space-y-3 text-center shadow-inner flex flex-col justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Derived Single Digit</span>
+              <div className="flex items-center justify-center font-mono text-2xl sm:text-3xl font-extrabold text-violet-400 tabular-nums py-1">
+                <span className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 text-violet-300 shadow-inner">
                   {derivedSingle}
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-500 font-mono tabular-nums">
-                ({sortedD1} + {sortedD2} + {sortedD3}) % 10 = {derivedSingle}
+              <p className="text-xs text-zinc-400 font-mono tabular-nums">
+                ({sortedD1} + {sortedD2} + {sortedD3}) % 10 = <span className="font-bold text-violet-300">{derivedSingle}</span>
               </p>
             </div>
           </div>
@@ -712,23 +776,27 @@ export function HowItWorksContent() {
           SECTION 4: INTERACTIVE PAYOUT & PROFIT CALCULATOR
       ───────────────────────────────────────────────────────────── */}
       <section id="calculator" className="space-y-6">
-        <div>
-          <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white">
-            <Calculator className="h-6 w-6 text-emerald-400" />
-            Payout & Return Calculator
-          </h2>
-          <p className="mt-1 text-sm text-zinc-400">
-            Calculate your potential winnings and net return for any bet type and wager amount.
-          </p>
+        <div className="flex items-start sm:items-center gap-4">
+          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shadow-md shadow-emerald-500/10 shrink-0">
+            <Calculator className="h-6 w-6 sm:h-7 sm:w-7" />
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-heading">
+              Payout & Return Calculator
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400">
+              Calculate your potential winnings and net return for any bet type and wager amount.
+            </p>
+          </div>
         </div>
 
-        <Card className="bg-zinc-900/60 border-zinc-800 p-6 sm:p-8 space-y-6">
+        <Card className="bg-zinc-900/60 border-zinc-800/90 p-7 sm:p-9 space-y-8 rounded-2xl shadow-xl shadow-black/30">
           {/* Bet Type Picker */}
           <div>
-            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            <label className="mb-3 block text-xs font-bold uppercase tracking-wider text-zinc-300">
               Select Bet Type
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               {[
                 { id: "Single" as const, label: "Single", sub: "9x" },
                 { id: "Pair" as const, label: "Pair", sub: "90x" },
@@ -740,14 +808,18 @@ export function HowItWorksContent() {
                   key={item.id}
                   variant={calcBetType === item.id ? "default" : "outline"}
                   onClick={() => setCalcBetType(item.id)}
-                  className={`h-auto flex-col py-3 px-2 ${
+                  className={`h-auto flex-col py-4 px-3 rounded-xl transition-all duration-300 cursor-pointer ${
                     calcBetType === item.id
-                      ? "bg-violet-600 text-white shadow-md shadow-violet-600/25 border-violet-500"
-                      : "border-zinc-800 bg-zinc-950/40 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-600/30 border-violet-500 scale-[1.02]"
+                      : "border-zinc-800/90 bg-zinc-950/60 text-zinc-300 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/50"
                   }`}
                 >
-                  <span className="text-xs sm:text-sm font-bold">{item.label}</span>
-                  <span className="text-xs font-mono tabular-nums opacity-80 mt-0.5">{item.sub}</span>
+                  <span className="text-sm font-bold font-heading">{item.label}</span>
+                  <span className={`text-xs font-mono font-bold tabular-nums mt-1 px-2.5 py-0.5 rounded-md ${
+                    calcBetType === item.id ? "bg-white/20 text-white" : "bg-zinc-800/90 text-zinc-300"
+                  }`}>
+                    {item.sub}
+                  </span>
                 </Button>
               ))}
             </div>
@@ -755,7 +827,7 @@ export function HowItWorksContent() {
 
           {/* Wager Input & Quick Chips */}
           <div>
-            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            <label className="mb-3 block text-xs font-bold uppercase tracking-wider text-zinc-300">
               Wager Amount (USDC)
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -767,9 +839,9 @@ export function HowItWorksContent() {
                   value={calcWager}
                   onChange={(e) => setCalcWager(e.target.value)}
                   placeholder="10"
-                  className="font-mono text-base tabular-nums bg-zinc-950 border-zinc-800 pl-8 pr-4 py-2.5 h-11"
+                  className="font-mono text-lg font-bold tabular-nums bg-zinc-950/90 border-zinc-800 rounded-xl pl-9 pr-4 py-3 h-13 text-white focus:border-violet-500 shadow-inner"
                 />
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-sm text-zinc-500">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-base font-bold text-zinc-500">
                   $
                 </span>
               </div>
@@ -781,10 +853,10 @@ export function HowItWorksContent() {
                     variant="outline"
                     size="sm"
                     onClick={() => setCalcWager(amt)}
-                    className={`flex-1 font-mono text-xs tabular-nums h-11 border-zinc-800 ${
+                    className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-13 px-3.5 rounded-xl border-zinc-800/90 cursor-pointer transition-all ${
                       calcWager === amt
-                        ? "bg-violet-600/20 text-violet-300 border-violet-500/40"
-                        : "bg-zinc-950/40 text-zinc-400 hover:bg-zinc-800/60 hover:text-white"
+                        ? "bg-violet-600/25 text-violet-200 border-violet-500/60 shadow-md shadow-violet-500/10"
+                        : "bg-zinc-950/60 text-zinc-400 hover:bg-zinc-800/60 hover:text-white hover:border-zinc-700"
                     }`}
                   >
                     ${amt}
@@ -795,30 +867,36 @@ export function HowItWorksContent() {
           </div>
 
           {/* Payout Summary Cards */}
-          <div className="grid gap-4 sm:grid-cols-3 pt-2">
-            <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4">
-              <p className="text-xs text-zinc-500">Payout Multiplier</p>
-              <p className="mt-1 font-mono text-2xl font-extrabold text-violet-400 tabular-nums">
+          <div className="grid gap-4 sm:grid-cols-3 pt-3 border-t border-zinc-800/80">
+            <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-6 space-y-2 shadow-inner">
+              <p className="text-xs font-bold uppercase tracking-wider text-zinc-400">Payout Multiplier</p>
+              <p className="mt-1 font-mono text-3xl sm:text-4xl font-extrabold text-violet-400 tabular-nums">
                 {calcMultiplier}x
               </p>
-              <p className="text-[11px] text-zinc-500 mt-1">Contract multiplier</p>
+              <p className="text-xs text-zinc-500 mt-1">Contract multiplier</p>
             </div>
 
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-              <p className="text-xs text-zinc-400">Total Projected Payout</p>
-              <p className="mt-1 font-mono text-2xl font-extrabold text-emerald-400 tabular-nums">
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6 space-y-2 shadow-inner">
+              <p className="text-xs font-bold uppercase tracking-wider text-emerald-400">Total Projected Payout</p>
+              <p className="mt-1 font-mono text-3xl sm:text-4xl font-extrabold text-emerald-400 tabular-nums">
                 ${grossPayout.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
-              <p className="text-[11px] text-emerald-500/80 mt-1 font-mono">USDC directly credited</p>
+              <p className="text-xs text-emerald-400/80 mt-1 font-mono">USDC directly credited</p>
             </div>
 
-            <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
-              <p className="text-xs text-zinc-400">Net Profit</p>
-              <p className="mt-1 font-mono text-2xl font-extrabold text-amber-400 tabular-nums">
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-6 space-y-2 shadow-inner">
+              <p className="text-xs font-bold uppercase tracking-wider text-amber-400">Net Profit</p>
+              <p className="mt-1 font-mono text-3xl sm:text-4xl font-extrabold text-amber-400 tabular-nums">
                 +${netProfit.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
-              <p className="text-[11px] text-amber-500/80 mt-1 font-mono tabular-nums">
-                {wagerNum > 0 ? `+${((netProfit / wagerNum) * 100).toFixed(0)}% ROI` : "—"}
+              <p className="text-xs text-amber-400/80 mt-1 font-mono tabular-nums">
+                {wagerNum > 0 ? (
+                  <span className="font-bold px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 inline-block">
+                    +{((netProfit / wagerNum) * 100).toFixed(0)}% ROI
+                  </span>
+                ) : (
+                  "—"
+                )}
               </p>
             </div>
           </div>
@@ -828,13 +906,15 @@ export function HowItWorksContent() {
       {/* ─────────────────────────────────────────────────────────────
           SECTION 5: ROUND LIFECYCLE & TIMELINE
       ───────────────────────────────────────────────────────────── */}
-      <section id="timeline" className="space-y-6">
-        <div>
-          <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white">
-            <Clock className="h-6 w-6 text-blue-400" />
+      <section id="timeline" className="max-w-4xl mx-auto space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2.5">
+          <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-blue-500/10 border border-blue-500/25 text-blue-400 shadow-lg shadow-blue-500/10">
+            <Clock className="h-6 w-6" />
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
             The 24-Hour Round Lifecycle
           </h2>
-          <p className="mt-1 text-sm text-zinc-400">
+          <p className="text-sm sm:text-base text-zinc-400">
             Each round runs on a predictable dual-window schedule with transparent cutoff checkpoints.
           </p>
         </div>
@@ -846,56 +926,114 @@ export function HowItWorksContent() {
               title: "Open Betting Phase",
               desc: "Betting is open for Open Single, Open Trio, and Pair. You can also place Close Single and Close Trio bets in advance.",
               status: "Active",
-              badgeVariant: "border-green-500/30 bg-green-500/10 text-green-400",
+              icon: Coins,
+              iconColor: "text-emerald-400",
+              iconBoxClass: "bg-emerald-500/15 border-emerald-500/30 shadow-emerald-500/10",
+              hoverBorder: "hover:border-emerald-500/40",
+              badgeVariant: "border-emerald-500/40 bg-emerald-500/15 text-emerald-300",
             },
             {
               time: "21:00 Checkpoint",
               title: "Open Cutoff & VRF Draw",
               desc: "Open betting closes. Anyone can trigger the permissionless Open Draw transaction. Chainlink VRF returns a tamper-proof random number that reveals openD1, openD2, openD3, and derives the Open Single digit.",
               status: "Drawing",
-              badgeVariant: "border-yellow-500/30 bg-yellow-500/10 text-yellow-400",
+              icon: Shuffle,
+              iconColor: "text-amber-400",
+              iconBoxClass: "bg-amber-500/15 border-amber-500/30 shadow-amber-500/10",
+              hoverBorder: "hover:border-amber-500/40",
+              badgeVariant: "border-amber-500/40 bg-amber-500/15 text-amber-300",
             },
             {
               time: "21:00 – 24:00",
               title: "Close Betting Phase",
               desc: "Open digits are now known to everyone! Betting continues for Close Single and Close Trio until the 24-hour mark.",
               status: "Close Bets Open",
-              badgeVariant: "border-blue-500/30 bg-blue-500/10 text-blue-400",
+              icon: Zap,
+              iconColor: "text-blue-400",
+              iconBoxClass: "bg-blue-500/15 border-blue-500/30 shadow-blue-500/10",
+              hoverBorder: "hover:border-blue-500/40",
+              badgeVariant: "border-blue-500/40 bg-blue-500/15 text-blue-300",
             },
             {
               time: "24:00 Checkpoint",
               title: "Close Cutoff & Settle Round",
               desc: "Close betting ends. The Close Draw is triggered via Chainlink VRF, revealing closeD1, closeD2, closeD3, deriving Close Single, and calculating the final 2-digit Pair result (openSingle × 10 + closeSingle).",
               status: "Settling",
-              badgeVariant: "border-purple-500/30 bg-purple-500/10 text-purple-400",
+              icon: RefreshCw,
+              iconColor: "text-purple-400",
+              iconBoxClass: "bg-purple-500/15 border-purple-500/30 shadow-purple-500/10",
+              hoverBorder: "hover:border-purple-500/40",
+              badgeVariant: "border-purple-500/40 bg-purple-500/15 text-purple-300",
             },
             {
               time: "Next 30 Days",
               title: "Settled & Claims Window",
               desc: "The round is Settled! Winners can claim their payouts anytime over the next 30 days directly from the Play page or History page. Meanwhile, the next round immediately initializes.",
               status: "Claims Open",
-              badgeVariant: "border-emerald-500/30 bg-emerald-500/10 text-emerald-400",
+              icon: Trophy,
+              iconColor: "text-amber-300",
+              iconBoxClass: "bg-amber-500/15 border-amber-500/30 shadow-amber-500/10",
+              hoverBorder: "hover:border-amber-500/40",
+              badgeVariant: "border-amber-500/40 bg-amber-500/15 text-amber-300",
             },
-          ].map((item, idx) => (
-            <Card
-              key={idx}
-              className="bg-zinc-900/60 border-zinc-800 p-5 hover:border-zinc-700 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-            >
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2.5">
-                  <span className="font-mono text-xs font-bold text-zinc-400 tabular-nums">{item.time}</span>
-                  <Badge
-                    variant="outline"
-                    className={`font-mono text-[10px] ${item.badgeVariant}`}
-                  >
-                    {item.status}
-                  </Badge>
+          ].map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <Card
+                key={idx}
+                className={`group relative bg-zinc-900/60 border-zinc-800/90 ${item.hoverBorder} hover:bg-zinc-900/85 transition-all duration-300 p-6 sm:p-7 rounded-2xl shadow-xl shadow-black/30`}
+              >
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+                  {/* Left Icon (With Mobile Top Bar) */}
+                  <div className="flex items-center justify-between w-full sm:w-auto">
+                    <div
+                      className={`flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-2xl border ${item.iconBoxClass} shadow-md transition-all duration-300 group-hover:scale-110`}
+                    >
+                      <Icon className={`h-6 w-6 sm:h-7 sm:w-7 ${item.iconColor}`} />
+                    </div>
+
+                    {/* Mobile Badges (Shown only on small screens) */}
+                    <div className="flex sm:hidden items-center gap-2">
+                      <span className="font-mono text-[11px] font-bold text-zinc-200 bg-zinc-800/90 border border-zinc-700/80 px-2 py-0.5 rounded-md tabular-nums">
+                        {item.time}
+                      </span>
+                      <Badge
+                        variant="outline"
+                        className={`font-mono text-[11px] font-semibold px-2 py-0.5 flex items-center gap-1.5 ${item.badgeVariant}`}
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
+                        {item.status}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Center Content: Title and Description */}
+                  <div className="flex-1 min-w-0 space-y-1.5">
+                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight font-heading group-hover:text-zinc-100 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-zinc-300/90 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  {/* Desktop Right Column: Time Pill + Status Badge with Divider */}
+                  <div className="hidden sm:flex flex-col items-end shrink-0 gap-2.5 pl-6 border-l border-zinc-800/90 min-w-[180px]">
+                    <span className="font-mono text-xs font-bold text-zinc-200 bg-zinc-800/95 border border-zinc-700/80 px-3 py-1.5 rounded-lg tabular-nums shadow-inner">
+                      {item.time}
+                    </span>
+                    <Badge
+                      variant="outline"
+                      className={`font-mono text-xs font-semibold px-3 py-1 flex items-center gap-1.5 ${item.badgeVariant}`}
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
+                      {item.status}
+                    </Badge>
+                  </div>
                 </div>
-                <h3 className="text-base font-bold text-white pt-0.5">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">{item.desc}</p>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </section>
 
@@ -903,14 +1041,18 @@ export function HowItWorksContent() {
           SECTION 6: FREQUENTLY ASKED QUESTIONS (FAQ)
       ───────────────────────────────────────────────────────────── */}
       <section id="faq" className="space-y-6">
-        <div>
-          <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-white">
-            <HelpCircle className="h-6 w-6 text-violet-400" />
-            Frequently Asked Questions
-          </h2>
-          <p className="mt-1 text-sm text-zinc-400">
-            Everything you need to know about odds, claims, security, and protocol rules.
-          </p>
+        <div className="flex items-start sm:items-center gap-4">
+          <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-md shadow-violet-500/10 shrink-0">
+            <HelpCircle className="h-6 w-6 sm:h-7 sm:w-7" />
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-heading">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400">
+              Everything you need to know about odds, claims, security, and protocol rules.
+            </p>
+          </div>
         </div>
 
         <div className="space-y-3">

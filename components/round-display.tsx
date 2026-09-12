@@ -24,8 +24,8 @@ function DigitOrb({ digit, revealed }: { digit: number; revealed: boolean }) {
     <div
       className={`flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl font-mono text-2xl sm:text-3xl font-extrabold tabular-nums transition-all duration-700 ${
         revealed
-          ? "scale-100 bg-gradient-to-br from-violet-500 to-purple-700 text-white shadow-lg shadow-violet-500/30 ring-1 ring-violet-400/40"
-          : "scale-90 bg-zinc-900/60 text-zinc-600 border border-zinc-800"
+          ? "scale-100 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 text-white shadow-xl shadow-violet-600/40 ring-2 ring-violet-400/50"
+          : "scale-95 bg-zinc-900/90 text-zinc-400 border border-zinc-700/60 shadow-inner"
       }`}
     >
       {revealed ? digit : "?"}
@@ -55,12 +55,12 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
         return (
           <div key={s.label} className="flex items-center gap-1.5 sm:gap-2">
             <div
-              className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold transition-all ${
                 isActive
-                  ? "bg-violet-600/20 text-violet-400 ring-1 ring-violet-500/30"
+                  ? "bg-violet-600/20 text-violet-300 ring-1 ring-violet-500/40 shadow-sm shadow-violet-500/10"
                   : isPast
-                    ? "bg-emerald-600/10 text-emerald-400"
-                    : "bg-zinc-900 border border-zinc-800 text-zinc-500"
+                    ? "bg-emerald-600/15 text-emerald-400 border border-emerald-500/20"
+                    : "bg-zinc-900/90 border border-zinc-800 text-zinc-500"
               }`}
             >
               {isPast && <CheckCircle2 className="h-3 w-3" />}
@@ -74,7 +74,7 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
             </div>
             {i < steps.length - 1 && (
               <div
-                className={`h-px w-4 sm:w-6 ${isPast ? "bg-emerald-500/30" : "bg-zinc-800"}`}
+                className={`h-px w-4 sm:w-6 ${isPast ? "bg-emerald-500/40" : "bg-zinc-800"}`}
               />
             )}
           </div>
@@ -98,10 +98,8 @@ export function RoundDisplay() {
     isOpenDrawReady,
     isCloseDrawReady,
     isEmergencyStale,
-    refetch,
   } = useCurrentRound();
 
-  const { authenticated } = usePrivy();
   const {
     requestOpenDraw,
     requestCloseDraw,
@@ -109,63 +107,55 @@ export function RoundDisplay() {
     step: actionStep,
     error: actionError,
     reset: resetAction,
-  } = useRoundActions(refetch);
+  } = useRoundActions();
 
-  if (!round || roundId === undefined) {
+  const { authenticated } = usePrivy();
+
+  if (!roundId || !round) {
     return (
-      <Card className="bg-zinc-900/60 border-zinc-800 p-6 space-y-6">
-        <div className="flex justify-between items-center">
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-28 bg-zinc-800/50" />
-            <Skeleton className="h-8 w-24 bg-zinc-800/50" />
-          </div>
-          <Skeleton className="h-6 w-28 rounded-full bg-zinc-800/50" />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Skeleton className="h-24 rounded-xl bg-zinc-800/50" />
-          <Skeleton className="h-24 rounded-xl bg-zinc-800/50" />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Skeleton className="h-28 rounded-xl bg-zinc-800/50" />
-          <Skeleton className="h-28 rounded-xl bg-zinc-800/50" />
-        </div>
+      <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-7 space-y-6 shadow-xl">
+        <Skeleton className="h-7 w-48 bg-zinc-800/50" />
+        <Skeleton className="h-14 w-full bg-zinc-800/50" />
+        <Skeleton className="h-28 w-full bg-zinc-800/50" />
       </Card>
     );
   }
 
-  const showOpenDigits =
-    round.phase >= RoundPhase.CloseBetting &&
-    round.phase !== RoundPhase.Cancelled;
-  const showCloseDigits =
-    round.phase >= RoundPhase.Settled &&
-    round.phase !== RoundPhase.PartiallySettled;
   const isCancelled = round.phase === RoundPhase.Cancelled;
   const isPartiallySettled = round.phase === RoundPhase.PartiallySettled;
+  const showOpenDigits =
+    round.phase !== RoundPhase.OpenBetting &&
+    round.phase !== RoundPhase.OpenPending &&
+    !isCancelled;
+  const showCloseDigits =
+    round.phase === RoundPhase.Settled ||
+    round.phase === RoundPhase.PartiallySettled;
 
   return (
     <div className="space-y-4">
-      <Card className="bg-zinc-900/60 border-zinc-800 p-6 shadow-xl backdrop-blur-sm space-y-6">
+      <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-6 sm:p-7 space-y-6 shadow-xl shadow-black/30">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800/80 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-zinc-400">Current Round</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Current Round</span>
               {isCloseCutoffPassed && round.phase === RoundPhase.OpenBetting && (
-                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-[10px] text-amber-400 font-semibold">
+                <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-[10px] text-amber-300 font-semibold">
                   Draw Overdue
                 </Badge>
               )}
             </div>
-            <p className="font-mono text-3xl font-extrabold text-white tracking-tight tabular-nums">
+            <p className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight tabular-nums">
               #{roundId.toString()}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Lifecycle Status</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Lifecycle Status</p>
             <Badge
               variant="outline"
-              className={`mt-1 font-mono text-xs font-bold border-zinc-800 ${PHASE_COLORS[round.phase]}`}
+              className={`mt-1 font-mono text-xs font-semibold px-3 py-1 rounded-full border shadow-sm flex items-center gap-1.5 ${PHASE_COLORS[round.phase]}`}
             >
+              <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
               {PHASE_LABELS[round.phase]}
             </Badge>
           </div>
@@ -175,39 +165,40 @@ export function RoundDisplay() {
         <PhaseIndicator phase={round.phase} />
 
         {/* Dual Timers Grid */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {/* Open Market Timer Card */}
           <div
-            className={`rounded-xl border p-4 transition-all ${
+            className={`rounded-2xl border p-5 transition-all shadow-inner ${
               isOpenBettingActive
-                ? "border-violet-500/30 bg-violet-500/5"
+                ? "border-violet-500/30 bg-violet-500/5 hover:border-violet-500/40"
                 : isOpenDrawReady
-                  ? "border-amber-500/30 bg-amber-500/5"
-                  : "border-zinc-800 bg-zinc-950/40"
+                  ? "border-amber-500/30 bg-amber-500/5 hover:border-amber-500/40"
+                  : "border-zinc-800/90 bg-zinc-950/70"
             }`}
           >
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="flex items-center gap-1.5 text-zinc-300">
-                <Clock className="h-3.5 w-3.5 text-violet-400" />
+                <Clock className="h-4 w-4 text-violet-400" />
                 Open Market Cutoff
               </span>
               <span
-                className={
+                className={`font-semibold flex items-center gap-1.5 ${
                   isOpenBettingActive
                     ? "text-emerald-400"
                     : isOpenDrawReady
                       ? "text-amber-400"
                       : "text-zinc-500"
-                }
+                }`}
               >
+                {isOpenBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />}
                 {isOpenBettingActive ? "Betting Open" : isOpenDrawReady ? "Draw Due" : "Cutoff Passed"}
               </span>
             </div>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-mono text-2xl font-bold text-white tabular-nums">
+            <div className="mt-2.5 flex items-baseline gap-2">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
                 {isOpenBettingActive ? formatCountdown(openTimeRemaining) : "00:00"}
               </span>
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-zinc-400">
                 {isOpenBettingActive ? "remaining to bet" : "cutoff elapsed"}
               </span>
             </div>
@@ -215,36 +206,37 @@ export function RoundDisplay() {
 
           {/* Close Market Timer Card */}
           <div
-            className={`rounded-xl border p-4 transition-all ${
+            className={`rounded-2xl border p-5 transition-all shadow-inner ${
               isCloseBettingActive
-                ? "border-blue-500/30 bg-blue-500/5"
+                ? "border-blue-500/30 bg-blue-500/5 hover:border-blue-500/40"
                 : isCloseDrawReady
-                  ? "border-amber-500/30 bg-amber-500/5"
-                  : "border-zinc-800 bg-zinc-950/40"
+                  ? "border-amber-500/30 bg-amber-500/5 hover:border-amber-500/40"
+                  : "border-zinc-800/90 bg-zinc-950/70"
             }`}
           >
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="flex items-center gap-1.5 text-zinc-300">
-                <Clock className="h-3.5 w-3.5 text-blue-400" />
+                <Clock className="h-4 w-4 text-blue-400" />
                 Close Market Cutoff
               </span>
               <span
-                className={
+                className={`font-semibold flex items-center gap-1.5 ${
                   isCloseBettingActive
                     ? "text-blue-400"
                     : isCloseDrawReady
                       ? "text-amber-400"
                       : "text-zinc-500"
-                }
+                }`}
               >
+                {isCloseBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />}
                 {isCloseBettingActive ? "Betting Open" : isCloseDrawReady ? "Settlement Due" : "Cutoff Passed"}
               </span>
             </div>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-mono text-2xl font-bold text-white tabular-nums">
+            <div className="mt-2.5 flex items-baseline gap-2">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
                 {isCloseBettingActive ? formatCountdown(closeTimeRemaining) : "00:00"}
               </span>
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-zinc-400">
                 {isCloseBettingActive ? "remaining to bet" : "cutoff elapsed"}
               </span>
             </div>
@@ -450,24 +442,24 @@ export function RoundDisplay() {
 
       {/* Previous Round Summary Card */}
       {prevRoundId && previousRound && previousRound.phase === RoundPhase.Settled && (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 px-5 py-3 text-xs">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="text-zinc-500 font-medium">Last Settled:</span>
+        <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 px-5 py-3.5 text-xs shadow-md shadow-black/20">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="text-zinc-400 font-heading font-medium">Last Settled:</span>
               <span className="font-mono font-bold text-white tabular-nums">Round #{prevRoundId.toString()}</span>
-              <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px]">
+              <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-lg">
                 Settled
               </Badge>
             </div>
-            <div className="flex items-center gap-4 text-zinc-300 font-mono tabular-nums">
+            <div className="flex items-center gap-4 text-zinc-300 font-mono tabular-nums flex-wrap">
               <span>
-                Open: <span className="font-semibold text-violet-400">{previousRound.openD1}-{previousRound.openD2}-{previousRound.openD3}</span> (Single: {previousRound.openSingle})
+                Open: <span className="font-bold text-violet-400">{previousRound.openD1}-{previousRound.openD2}-{previousRound.openD3}</span> <span className="text-zinc-500">(Single: {previousRound.openSingle})</span>
               </span>
               <span>
-                Close: <span className="font-semibold text-blue-400">{previousRound.closeD1}-{previousRound.closeD2}-{previousRound.closeD3}</span> (Single: {previousRound.closeSingle})
+                Close: <span className="font-bold text-blue-400">{previousRound.closeD1}-{previousRound.closeD2}-{previousRound.closeD3}</span> <span className="text-zinc-500">(Single: {previousRound.closeSingle})</span>
               </span>
               <span>
-                Pair: <span className="font-bold text-amber-400">{previousRound.pairResult.toString().padStart(2, "0")}</span>
+                Pair: <span className="font-black text-amber-400">{previousRound.pairResult.toString().padStart(2, "0")}</span>
               </span>
             </div>
           </div>

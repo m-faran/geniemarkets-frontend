@@ -110,19 +110,23 @@ export function WalletPanel() {
   if (!authenticated || !walletAddress) return null;
 
   return (
-    <Card className="bg-zinc-900/60 border-zinc-800 p-6 space-y-5">
-      <CardHeader className="p-0 flex flex-row items-center justify-between">
-        <CardTitle className="flex items-center gap-2 text-lg font-bold text-white tracking-tight">
-          <Wallet className="h-5 w-5 text-violet-400" />
-          Your Wallet
-        </CardTitle>
+    <Card className="rounded-2xl bg-zinc-900/60 border-zinc-800/90 p-6 space-y-5 shadow-xl shadow-black/30">
+      <CardHeader className="p-0 flex flex-row items-center justify-between border-b border-zinc-800/80 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-sm">
+            <Wallet className="h-5 w-5" />
+          </div>
+          <CardTitle className="text-xl font-extrabold text-white font-heading tracking-tight">
+            Your Wallet
+          </CardTitle>
+        </div>
         {isEmbedded ? (
-          <Badge variant="outline" className="border-emerald-500/30 bg-emerald-500/10 text-emerald-400 gap-1 text-xs">
-            <Zap className="h-3 w-3" />
+          <Badge variant="outline" className="border-emerald-500/30 bg-emerald-500/10 text-emerald-300 gap-1.5 text-xs px-3 py-1 font-semibold rounded-full">
+            <Zap className="h-3.5 w-3.5 text-emerald-400" />
             Gasless
           </Badge>
         ) : (
-          <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs">
+          <Badge variant="outline" className="border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs px-3 py-1 font-semibold rounded-full">
             {walletClientType === "privy" ? "Wallet" : walletClientType}
           </Badge>
         )}
@@ -140,55 +144,53 @@ export function WalletPanel() {
         )}
 
         {/* Address */}
-        <div className="flex items-center justify-between rounded-xl bg-zinc-950/80 border border-zinc-800 px-3.5 py-2.5">
-          <span className="font-mono text-xs text-zinc-300 tabular-nums">
+        <div className="flex items-center justify-between rounded-xl bg-zinc-950/90 border border-zinc-800/90 px-4 py-2.5 shadow-inner">
+          <span className="font-mono text-xs text-zinc-200 tabular-nums font-medium">
             {truncateAddress(walletAddress)}
           </span>
           <Button
             variant="ghost"
             size="icon-xs"
             onClick={handleCopy}
-            className="text-zinc-400 hover:text-white"
+            className="text-zinc-400 hover:text-white cursor-pointer"
             title="Copy address"
           >
             {copied ? (
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+              <CheckCircle2 className="h-4 w-4 text-emerald-400" />
             ) : (
-              <Copy className="h-3.5 w-3.5" />
+              <Copy className="h-4 w-4" />
             )}
           </Button>
         </div>
 
         {/* Balance Display */}
-        <div className="rounded-xl bg-zinc-950/80 border border-zinc-800 p-4 text-center">
-          <p className="text-xs text-zinc-400 font-medium">USDC Balance</p>
-          <p className="mt-1 font-mono text-3xl font-extrabold text-white tabular-nums">
+        <div className="rounded-2xl bg-zinc-950/85 border border-zinc-800/90 p-5 text-center shadow-inner space-y-1">
+          <p className="text-xs font-bold uppercase tracking-wider text-zinc-400">USDC Balance</p>
+          <p className="font-heading font-extrabold text-3xl sm:text-4xl text-white tabular-nums tracking-tight">
             {usdcBalance !== undefined
               ? formatUsdcDollar(usdcBalance)
               : "…"}
           </p>
           {usdcBalance !== undefined && (
-            <p className="mt-0.5 font-mono text-xs text-zinc-500 tabular-nums">
+            <p className="font-mono text-xs text-emerald-400/90 font-semibold tabular-nums">
               {formatUsdc(usdcBalance)} USDC
             </p>
           )}
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2">
+        <div className="flex gap-2.5">
           <Button
             onClick={handleAddFunds}
-            size="sm"
-            className="flex-1 gap-1.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold shadow-md shadow-violet-600/25"
+            className="flex-1 h-11 rounded-xl gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold font-heading text-sm shadow-md shadow-violet-600/25 cursor-pointer"
           >
             <PlusCircle className="h-4 w-4" />
             Add Funds
           </Button>
           <Button
             variant="outline"
-            size="sm"
             onClick={() => setShowTransfer(!showTransfer)}
-            className="flex-1 gap-1.5 border-zinc-800 bg-zinc-950/40 text-zinc-300 hover:bg-zinc-800 hover:text-white"
+            className="flex-1 h-11 rounded-xl gap-2 border-zinc-800/90 bg-zinc-950/70 text-zinc-200 hover:bg-zinc-800 hover:text-white font-bold font-heading text-sm cursor-pointer"
           >
             <ArrowUpRight className="h-4 w-4" />
             Transfer Out
