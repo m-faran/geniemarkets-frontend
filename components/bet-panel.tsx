@@ -26,7 +26,7 @@ import {
 
 const QUICK_AMOUNTS = ["1", "5", "10", "25"];
 
-export function BetPanel() {
+export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
   const { login, authenticated, ready } = usePrivy();
   const { address: walletAddress } = useAccount();
   const { fundWallet } = useFundWallet();
@@ -38,7 +38,7 @@ export function BetPanel() {
     isOpenBettingActive,
     isCloseBettingActive,
   } = useCurrentRound();
-  const { placeBet, step, error, reset, balance } = usePlaceBet();
+  const { placeBet, step, error, reset, balance } = usePlaceBet(onBetPlaced);
 
   const [marketSide, setMarketSide] = useState<"open" | "close">("open");
   const [selectedBetType, setSelectedBetType] = useState<BetType>(

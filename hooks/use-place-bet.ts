@@ -15,7 +15,7 @@ import { sepolia } from "viem/chains";
 
 type PlaceBetStep = "idle" | "approving" | "betting" | "success" | "error";
 
-export function usePlaceBet() {
+export function usePlaceBet(onSuccess?: () => void) {
   const { address: walletAddress } = useAccount();
   const { sendTransaction } = useSendTransaction();
   const publicClient = usePublicClient();
@@ -125,12 +125,13 @@ export function usePlaceBet() {
         setStep("success");
         refetchBalance();
         refetchAllowance();
+        onSuccess?.();
       } catch (e) {
         setStep("error");
         setError(e instanceof Error ? e.message : "Bet placement failed");
       }
     },
-    [allowance, sendTransaction, refetchAllowance, refetchBalance, publicClient]
+    [allowance, sendTransaction, refetchAllowance, refetchBalance, publicClient, onSuccess]
   );
 
   const reset = () => {

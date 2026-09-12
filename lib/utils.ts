@@ -92,6 +92,28 @@ export function getTrioPayoutMultiplier(pick: number): number {
   return PAYOUTS.uniqueTrio;
 }
 
+/** Format a pick for display (e.g. Pair '07', Trio '148', Single '3') */
+export function formatPick(betType: BetType, pick: number): string {
+  if (betType === BetType.OpenSingle || betType === BetType.CloseSingle) {
+    return pick.toString();
+  }
+  if (betType === BetType.Pair) {
+    return pick.toString().padStart(2, "0");
+  }
+  return pick.toString().padStart(3, "0");
+}
+
+/** Get potential multiplier for any bet type */
+export function getBetPotentialMultiplier(betType: BetType, pick: number): number {
+  if (betType === BetType.OpenSingle || betType === BetType.CloseSingle) {
+    return PAYOUTS[BetType.OpenSingle];
+  }
+  if (betType === BetType.Pair) {
+    return PAYOUTS[BetType.Pair];
+  }
+  return getTrioPayoutMultiplier(pick);
+}
+
 // ── Genie-sort validation ───────────────────────────────
 
 /** Genie rank: 0 is highest (rank 10), 1-9 map to 1-9 */

@@ -22,8 +22,21 @@ export function useUserBets(roundId: bigint | undefined) {
   const { user } = usePrivy();
   const walletAddress = (wagmiAddress || user?.wallet?.address)?.toLowerCase();
 
+  // Read round state to get phase
+  const { data: roundData, refetch: refetchRound } = useReadContract({
+    address: GENIE_MARKETS_ADDRESS,
+    abi: genieMarketsAbi,
+    functionName: "s_rounds",
+    args: roundId !== undefined ? [roundId] : undefined,
+    query: { enabled: roundId !== undefined, refetchInterval: 10000 },
+  });
+
+  const roundPhase = roundData
+    ? (Number((roundData as readonly unknown[])[0]) as RoundPhase)
+    : undefined;
+
   // Get total bet count for the round
-  const { data: betCount, refetch: refetchCount } = useReadContract({
+  const { data: betCount, isLoading: isCountLoading, refetch: refetchCount } = useReadContract({
     address: GENIE_MARKETS_ADDRESS,
     abi: genieMarketsAbi,
     functionName: "getRoundBetCount",
@@ -57,7 +70,7 @@ export function useUserBets(roundId: bigint | undefined) {
     }));
   }, [roundId, count]);
 
-  const { data: betsData, refetch: refetchBets } = useReadContracts({
+  const { data: betsData, isLoading: isBetsLoading, refetch: refetchBets } = useReadContracts({
     contracts: betCalls,
     query: { enabled: betCalls.length > 0, refetchInterval: 10000 },
   });
@@ -96,15 +109,19 @@ export function useUserBets(roundId: bigint | undefined) {
           amount,
           claimed,
           payout,
+          roundPhase,
         };
       })
       .filter(Boolean) as UserBet[];
-  }, [betsData, payoutsData, walletAddress, roundId]);
+  }, [betsData, payoutsData, walletAddress, roundId, roundPhase]);
 
   return {
     userBets,
     totalBets: count,
+    roundPhase,
+    isLoading: isCountLoading || isBetsLoading,
     refetch: () => {
+      refetchRound();
       refetchCount();
       refetchBets();
       refetchPayouts();
