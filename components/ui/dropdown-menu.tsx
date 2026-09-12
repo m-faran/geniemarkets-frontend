@@ -76,12 +76,12 @@ function DropdownMenuItem({
 function DropdownMenuLabel({
   className,
   ...props
-}: MenuPrimitive.GroupLabel.Props) {
+}: React.ComponentProps<"div">) {
   return (
-    <MenuPrimitive.GroupLabel
+    <div
       data-slot="dropdown-menu-label"
       className={cn(
-        "px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-zinc-500",
+        "px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-zinc-500 select-none",
         className
       )}
       {...props}

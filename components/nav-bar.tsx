@@ -74,28 +74,28 @@ export function NavBar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+    <nav className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-2xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-8">
         {/* Left: Brand Logo + Nav */}
-        <div className="flex items-center gap-6">
-          <Link href="/" className="group flex items-center gap-2.5">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="group flex items-center gap-3">
             <div className="relative flex items-center justify-center">
               <Image
                 src="/genie-lamp-artwork-LOGO.png"
                 alt="Genie Markets"
-                width={36}
-                height={30}
+                width={42}
+                height={36}
                 priority
-                className="object-contain transition-transform group-hover:scale-105"
+                className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
-            <span className="text-base font-bold tracking-tight text-zinc-100 group-hover:text-white transition-colors">
+            <span className="font-heading text-xl font-extrabold tracking-tight text-white group-hover:text-violet-300 transition-colors">
               Genie Markets
             </span>
           </Link>
 
           {/* Navigation Pill Bar */}
-          <div className="hidden sm:flex items-center gap-1 rounded-lg bg-zinc-900/60 p-1 border border-zinc-800/80">
+          <div className="hidden sm:flex items-center gap-1.5 rounded-xl bg-zinc-900/70 p-1.5 border border-zinc-800/90 shadow-inner">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = pathname === link.href;
@@ -103,13 +103,13 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-violet-600 text-white font-semibold shadow-xs"
-                      : "text-zinc-400 hover:bg-zinc-800/60 hover:text-zinc-100"
+                      ? "bg-violet-600 text-white font-semibold shadow-md shadow-violet-600/30 scale-[1.02]"
+                      : "text-zinc-400 hover:bg-zinc-800/70 hover:text-white"
                   }`}
                 >
-                  <Icon className="h-3.5 w-3.5" />
+                  <Icon className="h-4 w-4" />
                   {link.label}
                 </Link>
               );
@@ -118,15 +118,15 @@ export function NavBar() {
         </div>
 
         {/* Right: Web3 HUD Financial Bar */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3 sm:gap-3.5">
           {ready && !authenticated && (
             <Button
               onClick={login}
-              size="sm"
-              className="gap-2 bg-violet-600 font-semibold text-white shadow-lg shadow-violet-600/25 hover:bg-violet-500"
+              size="default"
+              className="h-10 px-5 gap-2 bg-violet-600 font-bold text-white shadow-lg shadow-violet-600/30 hover:bg-violet-500 rounded-xl"
             >
-              <Wallet className="h-3.5 w-3.5" />
-              Sign In
+              <Wallet className="h-4 w-4" />
+              <span>Connect Wallet</span>
             </Button>
           )}
 
@@ -135,47 +135,51 @@ export function NavBar() {
               {/* Balance Badge */}
               <Badge
                 variant="secondary"
-                className="font-mono tabular-nums px-3 py-1 bg-zinc-900 border-zinc-800 text-zinc-100 text-xs hidden xs:inline-flex"
+                className="h-10 font-mono tabular-nums px-3.5 py-2 bg-zinc-900/90 border border-zinc-800/90 text-zinc-100 text-xs sm:text-sm font-semibold shadow-sm hidden xs:inline-flex items-center gap-1.5 rounded-xl"
               >
-                {usdcBalance !== undefined
-                  ? formatUsdcDollar(usdcBalance)
-                  : "…"} USDC
+                <span className="text-emerald-400 font-extrabold">
+                  {usdcBalance !== undefined ? formatUsdcDollar(usdcBalance) : "…"}
+                </span>
+                <span className="text-zinc-500 font-mono text-xs">USDC</span>
               </Badge>
 
               {/* Action Button: Add Funds */}
               <Button
                 variant="outline"
-                size="sm"
+                size="default"
                 onClick={handleAddFunds}
-                className={`gap-1.5 border-zinc-800 text-xs font-medium hover:border-violet-500/50 ${
+                className={`h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border transition-all ${
                   !hasBalance
-                    ? "animate-pulse bg-violet-600 text-white border-transparent hover:bg-violet-500 shadow-sm shadow-violet-600/25"
-                    : "bg-zinc-900/60 text-zinc-300 hover:text-white hover:bg-zinc-800/80"
+                    ? "animate-pulse bg-violet-600 text-white border-transparent hover:bg-violet-500 shadow-md shadow-violet-600/30"
+                    : "border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:text-white hover:border-violet-500/50 hover:bg-zinc-800/90 shadow-sm"
                 }`}
               >
-                <PlusCircle className="h-3.5 w-3.5" />
+                <PlusCircle className="h-4 w-4 text-violet-400" />
                 <span>Add Funds</span>
               </Button>
 
               {/* Account Dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="inline-flex items-center gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2.5 py-1.5 text-xs font-mono tabular-nums text-zinc-300 transition-colors hover:border-violet-500/50 hover:bg-zinc-800/80 outline-none cursor-pointer">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                <DropdownMenuTrigger className="h-10 inline-flex items-center gap-2.5 rounded-xl border border-zinc-800/90 bg-zinc-900/80 px-3.5 py-2 text-xs sm:text-sm font-mono tabular-nums text-zinc-200 font-semibold transition-all hover:border-violet-500/50 hover:bg-zinc-800/90 shadow-sm cursor-pointer outline-none">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
                   <span>{truncateAddress(walletAddress)}</span>
-                  <ChevronDown className="h-3.5 w-3.5 text-zinc-500" />
+                  <ChevronDown className="h-4 w-4 text-zinc-400" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-60 p-1.5">
                   <DropdownMenuLabel>Connected Account</DropdownMenuLabel>
-                  <div className="px-2.5 py-1 font-mono text-[11px] text-zinc-400 break-all select-all">
+                  <div className="px-2.5 py-1.5 font-mono text-xs text-zinc-400 bg-zinc-900/60 rounded-lg mx-1 break-all select-all border border-zinc-800/60">
                     {walletAddress}
                   </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleCopy} className="justify-between">
-                    <span>{copied ? "Address Copied!" : "Copy Address"}</span>
+                  <DropdownMenuSeparator className="my-1.5" />
+                  <DropdownMenuItem onClick={handleCopy} className="justify-between py-2 cursor-pointer">
+                    <span className="font-medium">{copied ? "Address Copied!" : "Copy Address"}</span>
                     {copied ? (
-                      <Check className="h-3.5 w-3.5 text-emerald-400" />
+                      <Check className="h-4 w-4 text-emerald-400" />
                     ) : (
-                      <Copy className="h-3.5 w-3.5 text-zinc-400" />
+                      <Copy className="h-4 w-4 text-zinc-400" />
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -186,18 +190,18 @@ export function NavBar() {
                         "noopener,noreferrer"
                       )
                     }
-                    className="justify-between"
+                    className="justify-between py-2 cursor-pointer"
                   >
-                    <span>View on Etherscan</span>
-                    <ExternalLink className="h-3.5 w-3.5 text-zinc-400" />
+                    <span className="font-medium">View on Etherscan</span>
+                    <ExternalLink className="h-4 w-4 text-zinc-400" />
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
+                  <DropdownMenuSeparator className="my-1.5" />
                   <DropdownMenuItem
                     onClick={logout}
-                    className="text-red-400 hover:bg-red-500/10 hover:text-red-300 focus:bg-red-500/10 focus:text-red-300 justify-between"
+                    className="text-red-400 hover:bg-red-500/10 hover:text-red-300 focus:bg-red-500/10 focus:text-red-300 justify-between py-2 cursor-pointer"
                   >
-                    <span>Disconnect</span>
-                    <LogOut className="h-3.5 w-3.5" />
+                    <span className="font-medium">Disconnect</span>
+                    <LogOut className="h-4 w-4" />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -207,7 +211,7 @@ export function NavBar() {
       </div>
 
       {/* Mobile nav bar row */}
-      <div className="sm:hidden flex items-center justify-around border-t border-zinc-900 bg-zinc-950/90 py-2 px-3">
+      <div className="sm:hidden flex items-center justify-around border-t border-zinc-900 bg-zinc-950/95 py-2.5 px-3">
         {navLinks.map((link) => {
           const Icon = link.icon;
           const isActive = pathname === link.href;
@@ -215,9 +219,9 @@ export function NavBar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
                 isActive
-                  ? "bg-violet-600 text-white font-semibold"
+                  ? "bg-violet-600 text-white shadow-xs"
                   : "text-zinc-400 hover:text-zinc-200"
               }`}
             >

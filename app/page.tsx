@@ -18,24 +18,27 @@ import {
 const BET_TYPES = [
   {
     name: "Single",
-    desc: "Predict one digit (0-9)",
+    desc: "Predict one digit (0-9) with rapid draw resolution",
     payout: "9x",
     icon: Dice5,
-    badgeColor: "border-violet-500/30 bg-violet-500/10 text-violet-300",
+    iconColor: "bg-violet-500/15 text-violet-400 border-violet-500/30 shadow-md shadow-violet-500/10",
+    badgeColor: "border-violet-500/40 bg-violet-500/20 text-violet-200 shadow-sm shadow-violet-500/20",
   },
   {
     name: "Pair",
-    desc: "Predict two digits (00-99)",
+    desc: "Predict two digits (00-99) for high-probability scaling",
     payout: "90x",
     icon: Sparkles,
-    badgeColor: "border-blue-500/30 bg-blue-500/10 text-blue-300",
+    iconColor: "bg-blue-500/15 text-blue-400 border-blue-500/30 shadow-md shadow-blue-500/10",
+    badgeColor: "border-blue-500/40 bg-blue-500/20 text-blue-200 shadow-sm shadow-blue-500/20",
   },
   {
     name: "Trio",
-    desc: "Predict three digits (000-999)",
+    desc: "Predict three digits (000-999) with Genie-sort ordering",
     payout: "140-600x",
     icon: Trophy,
-    badgeColor: "border-amber-500/30 bg-amber-500/10 text-amber-300",
+    iconColor: "bg-amber-500/15 text-amber-400 border-amber-500/30 shadow-md shadow-amber-500/10",
+    badgeColor: "border-amber-500/40 bg-amber-500/20 text-amber-200 shadow-sm shadow-amber-500/20",
   },
 ];
 
@@ -45,18 +48,24 @@ const FEATURES = [
     title: "No Seed Phrases",
     desc: "Sign in with Google or email. Privy creates a secure embedded wallet for you instantly.",
     badge: "Privy Auth",
+    iconColor: "bg-violet-500/15 text-violet-400 border-violet-500/30 shadow-md shadow-violet-500/10",
+    badgeColor: "border-violet-500/35 bg-violet-500/15 text-violet-200 shadow-sm shadow-violet-500/15",
   },
   {
     icon: Zap,
     title: "Zero Gas Fees",
     desc: "All transaction fees are sponsored. You only wager USDC — no ETH needed for gas.",
     badge: "Gas Sponsored",
+    iconColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30 shadow-md shadow-emerald-500/10",
+    badgeColor: "border-emerald-500/35 bg-emerald-500/15 text-emerald-200 shadow-sm shadow-emerald-500/15",
   },
   {
     icon: Dice5,
     title: "Provably Fair",
     desc: "Chainlink VRF v2.5 provides tamper-proof randomness. Every draw is verifiable onchain.",
     badge: "Chainlink VRF",
+    iconColor: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30 shadow-md shadow-cyan-500/10",
+    badgeColor: "border-cyan-500/35 bg-cyan-500/15 text-cyan-200 shadow-sm shadow-cyan-500/15",
   },
 ];
 
@@ -129,10 +138,10 @@ export default function LandingPage() {
             <Image
               src="/genie-lamp-artwork-LOGO.png"
               alt="Genie Markets Artwork"
-              width={200}
-              height={170}
+              width={280}
+              height={240}
               priority
-              className="relative object-contain drop-shadow-2xl transition-transform group-hover:scale-105"
+              className="relative w-48 sm:w-56 h-auto object-contain drop-shadow-2xl transition-transform group-hover:scale-105"
             />
           </div>
         </div>
@@ -155,22 +164,22 @@ export default function LandingPage() {
             return (
               <Card
                 key={bt.name}
-                className="bg-zinc-900/60 border-zinc-800 hover:border-violet-500/40 transition-all p-6 space-y-4"
+                className="group relative bg-zinc-900/60 border-zinc-800/90 hover:border-violet-500/40 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-5 rounded-2xl shadow-xl shadow-black/30"
               >
                 <div className="flex items-center justify-between">
-                  <div className="rounded-xl bg-violet-600/20 p-3 text-violet-400 border border-violet-500/20">
-                    <Icon className="h-5 w-5" />
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border transition-transform duration-300 group-hover:scale-105 ${bt.iconColor}`}>
+                    <Icon className="h-6 w-6" />
                   </div>
-                  <Badge variant="outline" className={`font-mono font-bold tabular-nums text-xs ${bt.badgeColor}`}>
+                  <Badge variant="outline" className={`font-mono font-bold tabular-nums text-xs px-3.5 py-1 ${bt.badgeColor}`}>
                     {bt.payout}
                   </Badge>
                 </div>
-                <div>
-                  <CardTitle className="text-xl font-bold text-white">{bt.name}</CardTitle>
-                  <p className="mt-1.5 text-xs sm:text-sm text-zinc-400">{bt.desc}</p>
+                <div className="space-y-1.5 pt-1">
+                  <CardTitle className="text-2xl font-bold text-white tracking-tight">{bt.name}</CardTitle>
+                  <p className="text-sm text-zinc-400 leading-relaxed">{bt.desc}</p>
                 </div>
-                <div className="pt-2 border-t border-zinc-800/80 flex items-baseline justify-between">
-                  <span className="text-xs text-zinc-500 font-mono">Max Payout</span>
+                <div className="pt-4 mt-2 border-t border-zinc-800/80 flex items-baseline justify-between">
+                  <span className="text-xs uppercase tracking-wider font-semibold text-zinc-400 font-mono">Max Payout</span>
                   <span className="font-mono text-2xl font-extrabold text-white tabular-nums">
                     {bt.payout}
                   </span>
@@ -198,39 +207,25 @@ export default function LandingPage() {
             return (
               <Card
                 key={f.title}
-                className="bg-zinc-900/60 border-zinc-800 hover:border-zinc-700 transition-all p-6 space-y-3"
+                className="group bg-zinc-900/60 border-zinc-800/90 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all duration-300 p-7 space-y-4 rounded-2xl shadow-xl shadow-black/30"
               >
                 <div className="flex items-center justify-between">
-                  <div className="rounded-xl bg-violet-600/15 p-2.5 text-violet-400 border border-violet-500/20">
-                    <Icon className="h-5 w-5" />
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border transition-transform duration-300 group-hover:scale-105 ${f.iconColor}`}>
+                    <Icon className="h-6 w-6" />
                   </div>
-                  <Badge variant="outline" className="font-mono text-[10px] border-zinc-800 text-zinc-400">
+                  <Badge variant="outline" className={`font-mono text-xs font-semibold px-3 py-1 ${f.badgeColor}`}>
                     {f.badge}
                   </Badge>
                 </div>
-                <CardTitle className="text-lg font-bold text-white pt-1">{f.title}</CardTitle>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{f.desc}</p>
+                <div className="space-y-1.5 pt-1">
+                  <CardTitle className="text-xl font-bold text-white tracking-tight">{f.title}</CardTitle>
+                  <p className="text-sm text-zinc-400 leading-relaxed">{f.desc}</p>
+                </div>
               </Card>
             );
           })}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-zinc-900 py-8 text-center text-xs text-zinc-500 space-y-2">
-        <div className="flex items-center justify-center gap-6 text-zinc-400 text-xs">
-          <Link href="/how-it-works" className="hover:text-white transition-colors">
-            How It Works
-          </Link>
-          <Link href="/play" className="hover:text-white transition-colors">
-            Play Game
-          </Link>
-          <Link href="/history" className="hover:text-white transition-colors">
-            Round History
-          </Link>
-        </div>
-        <p>Genie Markets · Ethereum Sepolia · Powered by Privy & Chainlink VRF</p>
-      </footer>
     </div>
   );
 }
