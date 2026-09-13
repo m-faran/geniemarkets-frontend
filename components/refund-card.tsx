@@ -75,7 +75,7 @@ export function RefundCard() {
                 Escrow Refund Console
               </h3>
               <Badge variant="cyber" className="text-[11px] font-hud uppercase">
-                claimRefund()
+                Claim Refund
               </Badge>
               {refundableBets.length > 0 && (
                 <Badge className="bg-cyan-500 text-black font-hud font-black text-xs animate-pulse px-3 py-1 rounded-xl uppercase">

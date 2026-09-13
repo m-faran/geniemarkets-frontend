@@ -267,33 +267,31 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                     setSelectedBetType(bt);
                     setPick("");
                   }}
-                  className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 cursor-pointer ${
-                    isSelected
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 cursor-pointer ${isSelected
                       ? isJackpot
                         ? "bg-amber-500/15 border-amber-500/60 shadow-lg shadow-amber-500/20 text-white ring-1 ring-amber-400/40"
                         : isPair
                           ? "bg-cyan-500/15 border-cyan-500/60 shadow-lg shadow-cyan-500/20 text-white ring-1 ring-cyan-400/40"
                           : "bg-violet-600/25 border-violet-500/60 shadow-lg shadow-violet-600/20 text-white ring-1 ring-violet-400/40"
                       : "border-white/10 bg-[#07090E]/80 text-slate-400 hover:border-white/25 hover:text-white hover:bg-white/5"
-                  }`}
+                    }`}
                 >
                   <span className="font-hud text-xs sm:text-sm font-bold uppercase tracking-wider">
                     {bt === BetType.OpenSingle || bt === BetType.CloseSingle
                       ? "Single"
                       : bt === BetType.Pair
                         ? "Pair"
-                        : "Trio (Genie)"}
+                        : "Trio"}
                   </span>
                   <span
-                    className={`font-mono text-xs font-extrabold mt-0.5 ${
-                      isSelected
+                    className={`font-mono text-xs font-extrabold mt-0.5 ${isSelected
                         ? isJackpot
                           ? "text-amber-300"
                           : isPair
                             ? "text-cyan-300"
                             : "text-violet-300"
                         : "text-slate-500"
-                    }`}
+                      }`}
                   >
                     {bt === BetType.OpenSingle || bt === BetType.CloseSingle
                       ? "9x Payout"
@@ -315,7 +313,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
             </span>
             <span className="font-mono text-slate-400">
               {activeBetType === BetType.OpenSingle ||
-              activeBetType === BetType.CloseSingle
+                activeBetType === BetType.CloseSingle
                 ? "Digit 0–9"
                 : activeBetType === BetType.Pair
                   ? "Digits 00–99"
@@ -326,26 +324,25 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           {/* Single: Hardware Security Digit Keypad (0-9) */}
           {(activeBetType === BetType.OpenSingle ||
             activeBetType === BetType.CloseSingle) && (
-            <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
-              {Array.from({ length: 10 }, (_, i) => {
-                const isPicked = pick === i.toString();
-                return (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setPick(i.toString())}
-                    className={`h-14 rounded-xl font-hud text-2xl font-extrabold tabular-nums cursor-pointer transition-all duration-200 border relative overflow-hidden ${
-                      isPicked
-                        ? "bg-gradient-to-b from-violet-600 to-indigo-700 text-white border-violet-400 shadow-lg shadow-violet-600/40 ring-2 ring-violet-400/50 scale-[1.04] text-glow-violet"
-                        : "border-white/10 bg-[#07090E] text-slate-300 hover:border-violet-500/50 hover:bg-violet-500/10 hover:text-white"
-                    }`}
-                  >
-                    {i}
-                  </button>
-                );
-              })}
-            </div>
-          )}
+              <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
+                {Array.from({ length: 10 }, (_, i) => {
+                  const isPicked = pick === i.toString();
+                  return (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setPick(i.toString())}
+                      className={`h-14 rounded-xl font-hud text-2xl font-extrabold tabular-nums cursor-pointer transition-all duration-200 border relative overflow-hidden ${isPicked
+                          ? "bg-gradient-to-b from-violet-600 to-indigo-700 text-white border-violet-400 shadow-lg shadow-violet-600/40 ring-2 ring-violet-400/50 scale-[1.04] text-glow-violet"
+                          : "border-white/10 bg-[#07090E] text-slate-300 hover:border-violet-500/50 hover:bg-violet-500/10 hover:text-white"
+                        }`}
+                    >
+                      {i}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
           {/* Pair / Trio: Terminal Numeric Input */}
           {(activeBetType === BetType.Pair || isTrioBet) && (
@@ -428,11 +425,10 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 variant="outline"
                 size="sm"
                 onClick={() => setWager(amt)}
-                className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-9 rounded-xl ${
-                  wager === amt
+                className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-9 rounded-xl ${wager === amt
                     ? "bg-violet-600/30 text-violet-200 border-violet-500 shadow-md shadow-violet-600/20"
                     : "bg-[#07090E] border-white/10 text-slate-400 hover:text-white"
-                }`}
+                  }`}
               >
                 ${amt}
               </Button>

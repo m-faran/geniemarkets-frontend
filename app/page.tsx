@@ -150,6 +150,7 @@ export default function LandingPage() {
         <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-slate-400 font-sans leading-relaxed">
           Predict onchain digits resolved by Chainlink VRF v2.5. Commit USDC, 
           verify cryptographic proofs on Ethereum, and claim up to <span className="text-amber-400 font-bold font-hud">600x</span> instant payouts.
+          Connect your wallet or sign in with email in 5 seconds. Gas fees are 100% sponsored.
         </p>
 
         {/* CTA Button Group */}

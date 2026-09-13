@@ -79,7 +79,7 @@ export function EmergencyRecovery() {
                 Emergency Protocol Recovery
               </h3>
               <Badge variant="outline" className="border-red-500/30 bg-red-500/10 text-red-300 font-hud text-[11px] font-bold px-3 py-1 rounded-xl uppercase">
-                cancelStaleRound()
+                Cancel Stale Round
               </Badge>
               {isEmergencyStale && (
                 <Badge className="bg-red-600 text-white font-hud font-black text-xs animate-pulse px-3 py-1 rounded-xl uppercase">
@@ -96,13 +96,12 @@ export function EmergencyRecovery() {
         <div className="flex items-center gap-3.5">
           <Badge
             variant="outline"
-            className={`text-xs font-hud uppercase tracking-wider h-10 px-4 rounded-xl border hidden sm:inline-flex items-center ${
-              isEmergencyStale
-                ? "bg-red-500/20 border-red-500/40 text-red-300 animate-pulse"
-                : "bg-[#07090E] border-white/10 text-emerald-400"
-            }`}
+            className={`text-xs font-hud uppercase tracking-wider h-10 px-4 rounded-xl border hidden sm:inline-flex items-center ${isEmergencyStale
+              ? "bg-red-500/20 border-red-500/40 text-red-300 animate-pulse"
+              : "bg-[#07090E] border-white/10 text-emerald-400"
+              }`}
           >
-            {isEmergencyStale ? "Recovery Available" : "Protocol L1 Active"}
+            {isEmergencyStale ? "Recovery Available" : "Protocol Active"}
           </Badge>
           <div className="h-10 w-10 rounded-xl bg-[#07090E] border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
             {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
