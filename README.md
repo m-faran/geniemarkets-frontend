@@ -83,6 +83,13 @@ All wagers are locked in a non-custodial smart contract escrow. Payouts are pull
 - `/lib`: Utility functions and ABIs.
 - `/smartcontracts-abis`: Smart contract interfaces for the protocol (e.g., `GenieMarkets.sol`).
 
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
 ## Privy Integration
 
 Privy is used across the codebase for authentication, embedded wallets, and gas-sponsored transactions. Key integration points:
@@ -101,6 +108,10 @@ Privy is used across the codebase for authentication, embedded wallets, and gas-
 12. [`components/providers.tsx` — PrivyProvider & WagmiProvider setup](./components/providers.tsx#L14-L33)
 13. [`hooks/use-smart-transaction.ts` — Smart account gas sponsorship](./hooks/use-smart-transaction.ts#L20-L55)
 14. [`lib/wagmi-config.ts` — Wagmi + Privy chain config](./lib/wagmi-config.ts#L1-L11)
+
+## ⚠️ Known Issues
+
+- **Deposit and Deposit Funds not functional on testnet:** Privy's on-ramp solutions do not work in non-mainnet environments. The "Deposit" and "Deposit Funds" buttons are supposed to open the Privy funding flow but here nothing happens because of the limitations. To test the app, send testnet USDC directly to the embedded wallet address.
 
 ## 📜 License
 
