@@ -3,25 +3,25 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-xl border font-sans text-sm font-medium whitespace-nowrap transition-all duration-200 outline-none select-none cursor-pointer focus-visible:ring-2 focus-visible:ring-violet-500/50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-xl border font-sans text-sm font-medium whitespace-nowrap transition-all duration-200 outline-none select-none cursor-pointer focus-visible:ring-2 focus-visible:ring-sky-500/50 active:scale-[0.985] disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          "border-violet-400/30 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-white font-semibold shadow-lg shadow-violet-600/30 hover:shadow-violet-600/50 hover:brightness-110",
+          "border-sky-500/30 bg-sky-600 text-white font-semibold shadow-sm hover:bg-sky-500 hover:border-sky-400/50",
         cyber:
-          "border-cyan-300/40 bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/45 hover:brightness-110",
+          "border-emerald-500/30 bg-emerald-600 text-white font-semibold shadow-sm hover:bg-emerald-500 hover:border-emerald-400/50",
         gold:
-          "border-yellow-300/40 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-slate-950 font-bold shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:brightness-110",
+          "border-amber-500/30 bg-amber-600 text-white font-semibold shadow-sm hover:bg-amber-500 hover:border-amber-400/50",
         outline:
-          "border-white/10 bg-[#0B0F1A]/80 text-slate-200 hover:border-violet-500/50 hover:bg-violet-500/10 hover:text-white shadow-sm backdrop-blur-md",
+          "border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm",
         secondary:
-          "border-white/10 bg-[#13192B] text-slate-200 hover:bg-[#1C253F] hover:border-white/20 hover:text-white",
+          "border-slate-800 bg-slate-900 text-slate-200 hover:bg-slate-800 hover:border-slate-700 hover:text-white",
         ghost:
           "border-transparent hover:bg-white/5 text-slate-300 hover:text-white",
         destructive:
-          "border-rose-500/30 bg-rose-500/15 text-rose-300 hover:bg-rose-500/25 hover:border-rose-500/50",
-        link: "border-transparent text-violet-400 underline-offset-4 hover:underline hover:text-violet-300",
+          "border-rose-500/30 bg-rose-600 text-white hover:bg-rose-500 shadow-sm",
+        link: "border-transparent text-sky-400 underline-offset-4 hover:underline hover:text-sky-300",
       },
       size: {
         default: "h-10 gap-2 px-4 text-sm",

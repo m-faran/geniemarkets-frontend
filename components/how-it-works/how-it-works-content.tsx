@@ -23,9 +23,9 @@ import {
 } from "lucide-react";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PAYOUTS, isValidTrio } from "@/lib/utils";
+import { PAYOUTS, isValidTrio, cn } from "@/lib/utils";
 
 // Rank helper according to Genie Math: 0 is rank 10 (highest), 1-9 are 1-9
 function getGenieRank(d: number): number {
@@ -195,12 +195,6 @@ export function HowItWorksContent() {
 
   return (
     <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 space-y-16">
-      {/* Background glow effects */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="animate-glow-pulse absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-violet-600/15 blur-3xl" />
-        <div className="animate-glow-pulse absolute top-1/3 right-1/4 h-80 w-80 rounded-full bg-blue-600/10 blur-3xl [animation-delay:1.5s]" />
-        <div className="animate-glow-pulse absolute bottom-1/4 left-1/4 h-80 w-80 rounded-full bg-purple-600/10 blur-3xl [animation-delay:3s]" />
-      </div>
 
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -212,7 +206,7 @@ export function HowItWorksContent() {
           Official Player Guide & Protocol Rules
         </Badge>
 
-        <h1 className="bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-6xl">
+        <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
           How Genie Markets Works
         </h1>
         <p className="text-base sm:text-lg text-zinc-400">
@@ -224,65 +218,65 @@ export function HowItWorksContent() {
 
         {/* Quick Nav Jump Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-6 pb-2 max-w-4xl mx-auto">
-          <a href="#quick-start">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
-            >
-              <Rocket className="h-4 w-4 text-violet-400" />
-              <span>Quick Start</span>
-            </Button>
+          <a
+            href="#quick-start"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm transition-all cursor-pointer"
+            )}
+          >
+            <Rocket className="h-4 w-4 text-sky-400" />
+            <span>Quick Start</span>
           </a>
-          <a href="#game-types">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
-            >
-              <Dice5 className="h-4 w-4 text-violet-400" />
-              <span>Game Types & Multipliers</span>
-            </Button>
+          <a
+            href="#game-types"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm transition-all cursor-pointer"
+            )}
+          >
+            <Dice5 className="h-4 w-4 text-sky-400" />
+            <span>Game Types & Multipliers</span>
           </a>
-          <a href="#genie-math">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
-            >
-              <Scale className="h-4 w-4 text-violet-400" />
-              <span>Genie Math & Demo</span>
-            </Button>
+          <a
+            href="#genie-math"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm transition-all cursor-pointer"
+            )}
+          >
+            <Scale className="h-4 w-4 text-sky-400" />
+            <span>Genie Math & Demo</span>
           </a>
-          <a href="#calculator">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
-            >
-              <Calculator className="h-4 w-4 text-violet-400" />
-              <span>Payout Calculator</span>
-            </Button>
+          <a
+            href="#calculator"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm transition-all cursor-pointer"
+            )}
+          >
+            <Calculator className="h-4 w-4 text-sky-400" />
+            <span>Payout Calculator</span>
           </a>
-          <a href="#timeline">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
-            >
-              <Clock className="h-4 w-4 text-violet-400" />
-              <span>Round Lifecycle</span>
-            </Button>
+          <a
+            href="#timeline"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm transition-all cursor-pointer"
+            )}
+          >
+            <Clock className="h-4 w-4 text-sky-400" />
+            <span>Round Lifecycle</span>
           </a>
-          <a href="#faq">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-zinc-800/90 bg-zinc-900/80 text-zinc-200 hover:border-violet-500/50 hover:bg-zinc-800/90 hover:text-white shadow-sm hover:shadow-md hover:shadow-violet-500/10 transition-all cursor-pointer"
-            >
-              <HelpCircle className="h-4 w-4 text-violet-400" />
-              <span>FAQ</span>
-            </Button>
+          <a
+            href="#faq"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "h-10 px-4 gap-2 text-xs sm:text-sm font-semibold rounded-xl border-slate-800 bg-slate-900/90 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white shadow-sm transition-all cursor-pointer"
+            )}
+          >
+            <HelpCircle className="h-4 w-4 text-sky-400" />
+            <span>FAQ</span>
           </a>
         </div>
       </div>
@@ -635,17 +629,17 @@ export function HowItWorksContent() {
         </div>
 
         {/* Rule explanation alert card */}
-        <Card className="border-purple-500/30 bg-purple-950/20 p-6 sm:p-8 space-y-5 rounded-2xl shadow-xl shadow-purple-950/20">
+        <Card className="border-amber-500/30 bg-amber-950/15 p-6 sm:p-8 space-y-5 rounded-2xl shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-300 shrink-0">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 shrink-0">
               <AlertCircle className="h-5 w-5" />
             </div>
-            <h3 className="text-lg sm:text-xl font-bold font-heading text-purple-200">
+            <h3 className="text-lg sm:text-xl font-bold font-heading text-amber-200">
               The Golden Rule: 0 is the Highest Digit
             </h3>
           </div>
           <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-            In Genie Markets smart contracts (<code className="font-mono text-purple-300 font-semibold bg-purple-950/60 px-2 py-0.5 rounded border border-purple-500/30">GenieMath.sol</code>),
+            In Genie Markets smart contracts (<code className="font-mono text-amber-300 font-semibold bg-amber-950/40 px-2 py-0.5 rounded border border-amber-500/30">GenieMath.sol</code>),
             digits are ranked strictly in Genie order:
           </p>
           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 py-3 font-mono text-base sm:text-lg tabular-nums">
@@ -759,13 +753,13 @@ export function HowItWorksContent() {
             {/* Box 3: Derived Single */}
             <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 space-y-3 text-center shadow-inner flex flex-col justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Derived Single Digit</span>
-              <div className="flex items-center justify-center font-mono text-2xl sm:text-3xl font-extrabold text-violet-400 tabular-nums py-1">
-                <span className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 text-violet-300 shadow-inner">
+              <div className="flex items-center justify-center font-mono text-2xl sm:text-3xl font-extrabold text-sky-400 tabular-nums py-1">
+                <span className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl bg-zinc-900 border border-zinc-700/80 text-sky-300 shadow-inner">
                   {derivedSingle}
                 </span>
               </div>
               <p className="text-xs text-zinc-400 font-mono tabular-nums">
-                ({sortedD1} + {sortedD2} + {sortedD3}) % 10 = <span className="font-bold text-violet-300">{derivedSingle}</span>
+                ({sortedD1} + {sortedD2} + {sortedD3}) % 10 = <span className="font-bold text-sky-300">{derivedSingle}</span>
               </p>
             </div>
           </div>
@@ -870,7 +864,7 @@ export function HowItWorksContent() {
           <div className="grid gap-4 sm:grid-cols-3 pt-3 border-t border-zinc-800/80">
             <div className="rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-6 space-y-2 shadow-inner">
               <p className="text-xs font-bold uppercase tracking-wider text-zinc-400">Payout Multiplier</p>
-              <p className="mt-1 font-mono text-3xl sm:text-4xl font-extrabold text-violet-400 tabular-nums">
+              <p className="mt-1 font-mono text-3xl sm:text-4xl font-extrabold text-sky-400 tabular-nums">
                 {calcMultiplier}x
               </p>
               <p className="text-xs text-zinc-500 mt-1">Contract multiplier</p>
@@ -1088,31 +1082,32 @@ export function HowItWorksContent() {
       {/* ─────────────────────────────────────────────────────────────
           SECTION 7: CALL TO ACTION
       ───────────────────────────────────────────────────────────── */}
-      <section className="rounded-2xl border border-violet-500/30 bg-gradient-to-r from-violet-600/20 via-purple-600/10 to-transparent p-8 sm:p-12 text-center space-y-6">
+      <section className="rounded-2xl border border-slate-800 bg-slate-900/90 p-8 sm:p-12 text-center space-y-6 shadow-xl">
         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
           Ready to Make Your Prediction?
         </h2>
-        <p className="text-sm sm:text-base text-zinc-300 max-w-xl mx-auto">
+        <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto">
           Sign in now, place your bet on the active round, and see if your intuition can land the 600x Jackpot.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link href="/play">
-            <Button
-              size="lg"
-              className="gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold shadow-xl shadow-violet-600/30"
-            >
-              Go to Game
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+          <Link
+            href="/play"
+            className={cn(
+              buttonVariants({ variant: "default", size: "lg" }),
+              "gap-2 font-bold"
+            )}
+          >
+            Go to Game
+            <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link href="/history">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-zinc-800 bg-zinc-900/60 text-zinc-300 hover:bg-zinc-800/80 hover:text-white"
-            >
-              View Past Rounds
-            </Button>
+          <Link
+            href="/history"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "border-slate-800 bg-slate-900 text-slate-200 hover:border-slate-700 hover:bg-slate-800 hover:text-white"
+            )}
+          >
+            View Past Rounds
           </Link>
         </div>
       </section>

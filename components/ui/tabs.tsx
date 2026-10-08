@@ -23,11 +23,11 @@ function Tabs({
 }
 
 const tabsListVariants = cva(
-  "group/tabs-list inline-flex w-fit items-center justify-center rounded-xl p-1 text-slate-400 group-data-horizontal/tabs:h-11 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col border border-white/10 bg-[#07090E]/90 shadow-inner",
+  "group/tabs-list inline-flex w-fit items-center justify-center rounded-xl p-1 text-slate-400 group-data-horizontal/tabs:h-11 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col border border-slate-800 bg-slate-950/90 shadow-inner",
   {
     variants: {
       variant: {
-        default: "bg-[#07090E]/90",
+        default: "bg-slate-950/90",
         line: "gap-1 bg-transparent border-none shadow-none",
       },
     },
@@ -57,7 +57,7 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "relative inline-flex h-full flex-1 items-center justify-center gap-2 rounded-lg px-3 py-1 text-xs sm:text-sm font-sans font-semibold tracking-wide whitespace-nowrap text-slate-400 transition-all duration-200 outline-none select-none cursor-pointer hover:text-slate-100 data-active:bg-gradient-to-r data-active:from-violet-600 data-active:to-purple-600 data-active:text-white data-active:shadow-md data-active:shadow-violet-600/30 data-active:font-bold disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "relative inline-flex h-full flex-1 items-center justify-center gap-2 rounded-lg px-3 py-1 text-xs sm:text-sm font-sans font-semibold tracking-wide whitespace-nowrap text-slate-400 transition-all duration-200 outline-none select-none cursor-pointer hover:text-slate-100 data-active:bg-slate-800 data-active:text-white data-active:border data-active:border-slate-700/80 data-active:shadow-sm data-active:font-bold disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}

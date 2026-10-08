@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePrivy } from "@privy-io/react-auth";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Dice5,
   Sparkles,
@@ -110,12 +111,6 @@ export default function LandingPage() {
 
   return (
     <div className="relative overflow-hidden space-y-24 pb-24">
-      {/* Dynamic atmospheric lighting */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-violet-600/15 blur-[120px]" />
-        <div className="absolute top-1/3 -left-32 h-[500px] w-[500px] rounded-full bg-cyan-600/10 blur-[130px]" />
-        <div className="absolute top-2/3 -right-32 h-[500px] w-[500px] rounded-full bg-amber-600/10 blur-[130px]" />
-      </div>
 
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24 text-center">
@@ -138,11 +133,10 @@ export default function LandingPage() {
           </span>
         </div>
 
-        {/* Hero Title */}
         <h1 className="font-heading font-black tracking-tight text-4xl sm:text-6xl lg:text-7xl text-white max-w-4xl mx-auto leading-[1.08]">
           The Decentralized
           <br />
-          <span className="bg-gradient-to-r from-[#00F2FE] via-[#8B5CF6] to-[#F59E0B] bg-clip-text text-transparent">
+          <span className="text-sky-400">
             Prediction Protocol
           </span>
         </h1>
@@ -155,24 +149,24 @@ export default function LandingPage() {
 
         {/* CTA Button Group */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/play">
-            <Button
-              variant="cyber"
-              size="lg"
-              className="h-13 px-8 text-sm font-hud uppercase tracking-wider gap-2.5 shadow-2xl shadow-cyan-500/20"
-            >
-              {authenticated ? "Enter Prediction Arena" : "Launch Trading Console"}
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+          <Link
+            href="/play"
+            className={cn(
+              buttonVariants({ variant: "cyber", size: "lg" }),
+              "h-12 px-8 text-sm font-hud uppercase tracking-wider gap-2.5"
+            )}
+          >
+            {authenticated ? "Enter Prediction Arena" : "Launch Trading Console"}
+            <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link href="/how-it-works">
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-13 px-8 text-sm font-hud uppercase tracking-wider text-slate-300 hover:text-white border-white/10 hover:border-white/20"
-            >
-              Protocol Architecture
-            </Button>
+          <Link
+            href="/how-it-works"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "h-12 px-8 text-sm font-hud uppercase tracking-wider text-slate-200"
+            )}
+          >
+            Protocol Architecture
           </Link>
         </div>
 
@@ -208,12 +202,8 @@ export default function LandingPage() {
                   { digit: "9", label: "DIGIT 3" },
                 ].map((item, idx) => (
                   <div key={idx} className="flex flex-col items-center gap-2">
-                    <div className="relative h-20 w-16 sm:h-24 sm:w-20 rounded-xl bg-[#05070B] border border-cyan-500/40 flex items-center justify-center shadow-lg shadow-cyan-500/10 overflow-hidden group">
-                      {/* Scanline texture */}
-                      <div className="scanlines absolute inset-0 pointer-events-none opacity-40" />
-                      {/* Filament glow */}
-                      <div className="absolute inset-x-2 top-1.5 h-[1px] bg-cyan-400/40 shadow-[0_0_8px_#00f2fe]" />
-                      <span className="font-hud font-black text-3xl sm:text-4xl text-cyan-300 text-glow-cyan">
+                    <div className="relative h-20 w-16 sm:h-24 sm:w-20 rounded-xl bg-slate-950 border border-slate-700/80 flex items-center justify-center shadow-sm overflow-hidden group">
+                      <span className="font-hud font-black text-3xl sm:text-4xl text-sky-400 tabular-nums">
                         {item.digit}
                       </span>
                     </div>
@@ -425,8 +415,7 @@ export default function LandingPage() {
 
       {/* Final Call to Action */}
       <section className="relative mx-auto max-w-4xl px-4 sm:px-6 text-center">
-        <div className="rounded-3xl border border-amber-500/20 bg-gradient-to-b from-amber-500/10 via-[#0B0F1A]/90 to-[#07090E] p-8 sm:p-12 shadow-2xl space-y-6 relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+        <div className="rounded-3xl border border-slate-800 bg-slate-900/90 p-8 sm:p-12 shadow-xl space-y-6 relative overflow-hidden">
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
             Ready to Predict with Onchain Certainty?
           </h2>
@@ -434,15 +423,15 @@ export default function LandingPage() {
             Connect your wallet or sign in with email in 5 seconds. Gas fees are 100% sponsored.
           </p>
           <div className="flex justify-center pt-2">
-            <Link href="/play">
-              <Button
-                variant="gold"
-                size="lg"
-                className="h-12 px-8 font-hud uppercase tracking-wider text-xs gap-2"
-              >
-                Enter Arena Now
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+            <Link
+              href="/play"
+              className={cn(
+                buttonVariants({ variant: "gold", size: "lg" }),
+                "h-12 px-8 font-hud uppercase tracking-wider text-xs gap-2"
+              )}
+            >
+              Enter Arena Now
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

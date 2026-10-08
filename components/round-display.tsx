@@ -30,11 +30,11 @@ function DigitOrb({
 }) {
   const glowStyles = {
     violet:
-      "border-violet-500/50 bg-gradient-to-b from-violet-600/30 to-[#0B0F1A] text-white shadow-lg shadow-violet-600/30 ring-1 ring-violet-400/40 text-glow-violet",
+      "border-sky-500/50 bg-slate-900 text-sky-300 shadow-sm ring-1 ring-sky-400/30",
     cyan:
-      "border-cyan-500/50 bg-gradient-to-b from-cyan-600/30 to-[#0B0F1A] text-white shadow-lg shadow-cyan-600/30 ring-1 ring-cyan-400/40 text-glow-cyan",
+      "border-cyan-500/50 bg-slate-900 text-cyan-300 shadow-sm ring-1 ring-cyan-400/30",
     gold:
-      "border-amber-500/50 bg-gradient-to-b from-amber-600/30 to-[#0B0F1A] text-amber-300 shadow-lg shadow-amber-600/30 ring-1 ring-amber-400/40 text-glow-gold",
+      "border-amber-500/50 bg-slate-900 text-amber-300 shadow-sm ring-1 ring-amber-400/30",
   };
 
   return (
@@ -205,15 +205,15 @@ export function RoundDisplay() {
           <div
             className={`rounded-2xl border p-5 transition-all shadow-inner relative overflow-hidden ${
               isOpenBettingActive
-                ? "border-violet-500/40 bg-gradient-to-b from-violet-600/10 to-[#07090E]"
+                ? "border-sky-500/40 bg-slate-900/90"
                 : isOpenDrawReady
-                  ? "border-amber-500/40 bg-gradient-to-b from-amber-600/10 to-[#07090E]"
-                  : "border-white/10 bg-[#07090E]"
+                  ? "border-amber-500/40 bg-slate-900/90"
+                  : "border-slate-800 bg-slate-950"
             }`}
           >
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="flex items-center gap-1.5 font-hud uppercase tracking-wider text-slate-300">
-                <Clock className="h-4 w-4 text-violet-400" />
+                <Clock className="h-4 w-4 text-sky-400" />
                 Open Market Lock
               </span>
               <span

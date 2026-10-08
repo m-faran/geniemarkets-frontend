@@ -11,81 +11,47 @@
   --font-hud: "Chakra Petch", monospace;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   
-  --background: oklch(0.06 0.015 260);
-  --foreground: oklch(0.98 0.01 260);
-  --card: oklch(0.11 0.02 260 / 85%);
-  --card-foreground: oklch(0.98 0.01 260);
-  --popover: oklch(0.10 0.02 260);
-  --popover-foreground: oklch(0.98 0.01 260);
-  --primary: oklch(0.62 0.24 285);
+  --background: oklch(0.13 0.015 255);
+  --foreground: oklch(0.98 0.005 255);
+  --card: oklch(0.16 0.016 255);
+  --card-foreground: oklch(0.98 0.005 255);
+  --popover: oklch(0.15 0.016 255);
+  --popover-foreground: oklch(0.98 0.005 255);
+  --primary: oklch(0.62 0.18 245);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.16 0.025 260);
-  --secondary-foreground: oklch(0.92 0.02 260);
-  --muted: oklch(0.14 0.02 260);
-  --muted-foreground: oklch(0.65 0.02 260);
-  --accent: oklch(0.18 0.03 260);
-  --accent-foreground: oklch(0.98 0.01 260);
+  --secondary: oklch(0.20 0.015 255);
+  --secondary-foreground: oklch(0.92 0.01 255);
+  --muted: oklch(0.18 0.012 255);
+  --muted-foreground: oklch(0.70 0.015 255);
+  --accent: oklch(0.22 0.018 255);
+  --accent-foreground: oklch(0.98 0.005 255);
   --destructive: oklch(0.58 0.22 25);
-  --border: oklch(0.24 0.03 260 / 65%);
-  --input: oklch(0.20 0.03 260 / 75%);
-  --ring: oklch(0.62 0.24 285 / 65%);
+  --border: oklch(0.25 0.016 255 / 80%);
+  --input: oklch(0.21 0.016 255);
+  --ring: oklch(0.62 0.18 245 / 55%);
   --radius: 0.75rem;
 
-  --chart-1: oklch(0.75 0.18 200); /* Cyan */
-  --chart-2: oklch(0.65 0.24 285); /* Violet */
-  --chart-3: oklch(0.78 0.18 85);  /* Gold */
-  --chart-4: oklch(0.72 0.20 150); /* Emerald */
+  --chart-1: oklch(0.72 0.16 210); /* Cyan */
+  --chart-2: oklch(0.62 0.18 245); /* Blue */
+  --chart-3: oklch(0.78 0.15 85);  /* Amber */
+  --chart-4: oklch(0.72 0.18 150); /* Emerald */
   --chart-5: oklch(0.60 0.22 25);  /* Red */
 }
 
-/* Custom Web3 scrollbar */
+/* Custom Institutional Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(5, 7, 11, 0.8);
+  background: rgba(10, 15, 26, 0.85);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.25);
+  background: rgba(148, 163, 184, 0.25);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
-}
-
-/* Cyber Matrix Background Grid */
-.cyber-matrix-grid {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 80% 65% at 50% 10%, #000 65%, transparent 100%);
-}
-
-/* Cyber HUD Scanlines */
-.scanlines {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  );
-  background-size: 100% 4px;
-}
-
-/* Glow animations */
-@keyframes neon-pulse {
-  0%, 100% {
-    opacity: 0.5;
-    filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.4));
-  }
-  50% {
-    opacity: 0.9;
-    filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.8));
-  }
-}
-
-.animate-neon-pulse {
-  animation: neon-pulse 3s ease-in-out infinite;
+  background: rgba(148, 163, 184, 0.4);
 }
 
 /* Number input hide spinners */
@@ -98,65 +64,35 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* Glassmorphism & Cyber Chassis */
+/* Institutional Terminal Chassis */
 .cyber-chassis {
-  background: rgba(11, 15, 26, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
-}
-
-.cyber-chassis::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), transparent);
-  pointer-events: none;
-}
-
-.cyber-chassis-cyan::before {
-  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.7), transparent);
-}
-
-.cyber-chassis-gold::before {
-  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.7), transparent);
-}
-
-/* Neon glow helper classes */
-.glow-cyan {
-  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.3);
-}
-
-.glow-violet {
-  box-shadow: 0 0 25px -4px rgba(139, 92, 246, 0.35);
-}
-
-.glow-gold {
-  box-shadow: 0 0 25px -4px rgba(245, 158, 11, 0.35);
-}
-
-.text-glow-cyan {
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
-}
-
-.text-glow-violet {
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
-}
-
-.text-glow-gold {
-  text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
 }
 
 /* Tactile micro-interactions */
 button:active:not(:disabled),
 [data-slot="button"]:active:not(:disabled),
 .cursor-pointer:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
   transition: transform 100ms ease;
+}
+
+/* Intentional reduced motion handling */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-ping,
+  .animate-spin {
+    animation: none !important;
+  }
+  button:active:not(:disabled),
+  [data-slot="button"]:active:not(:disabled),
+  .cursor-pointer:active {
+    transform: none !important;
+  }
 }
 
 @theme inline {
@@ -185,24 +121,24 @@ button:active:not(:disabled),
 }
 
 .dark {
-  --background: oklch(0.06 0.015 260);
-  --foreground: oklch(0.98 0.01 260);
-  --card: oklch(0.11 0.02 260 / 85%);
-  --card-foreground: oklch(0.98 0.01 260);
-  --popover: oklch(0.10 0.02 260);
-  --popover-foreground: oklch(0.98 0.01 260);
-  --primary: oklch(0.62 0.24 285);
+  --background: oklch(0.13 0.015 255);
+  --foreground: oklch(0.98 0.005 255);
+  --card: oklch(0.16 0.016 255);
+  --card-foreground: oklch(0.98 0.005 255);
+  --popover: oklch(0.15 0.016 255);
+  --popover-foreground: oklch(0.98 0.005 255);
+  --primary: oklch(0.62 0.18 245);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.16 0.025 260);
-  --secondary-foreground: oklch(0.92 0.02 260);
-  --muted: oklch(0.14 0.02 260);
-  --muted-foreground: oklch(0.65 0.02 260);
-  --accent: oklch(0.18 0.03 260);
-  --accent-foreground: oklch(0.98 0.01 260);
-  --destructive: oklch(0.60 0.22 25);
-  --border: oklch(0.24 0.03 260 / 65%);
-  --input: oklch(0.20 0.03 260 / 75%);
-  --ring: oklch(0.62 0.24 285 / 65%);
+  --secondary: oklch(0.20 0.015 255);
+  --secondary-foreground: oklch(0.92 0.01 255);
+  --muted: oklch(0.18 0.012 255);
+  --muted-foreground: oklch(0.70 0.015 255);
+  --accent: oklch(0.22 0.018 255);
+  --accent-foreground: oklch(0.98 0.005 255);
+  --destructive: oklch(0.58 0.22 25);
+  --border: oklch(0.25 0.016 255 / 80%);
+  --input: oklch(0.21 0.016 255);
+  --ring: oklch(0.62 0.18 245 / 55%);
 }
 
 @layer base {
@@ -212,7 +148,6 @@ button:active:not(:disabled),
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    background-color: #05070B;
   }
   html {
     font-family: var(--font-sans);

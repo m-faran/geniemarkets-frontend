@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { NavBar } from "@/components/nav-bar";
 import { Footer } from "@/components/footer";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -50,13 +44,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased dark`}>
-      <body className="min-h-full flex flex-col bg-[#05070B] font-sans text-slate-100 selection:bg-violet-600/30 selection:text-violet-200 relative">
-        {/* Global Web3 Ambient Grid & Glow Layer */}
-        <div className="fixed inset-0 pointer-events-none cyber-matrix-grid -z-10" />
-        <div className="fixed -top-48 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-violet-600/10 blur-[130px] rounded-full pointer-events-none -z-10" />
-        <div className="fixed -bottom-48 right-10 w-[500px] h-[300px] bg-cyan-600/5 blur-[120px] rounded-full pointer-events-none -z-10" />
-        
+    <html lang="en" className="h-full antialiased dark">
+      <body className="min-h-full flex flex-col bg-background font-sans text-foreground selection:bg-slate-700 selection:text-white relative">
         <Providers>
           <NavBar />
           <main className="flex-1 relative z-0">{children}</main>

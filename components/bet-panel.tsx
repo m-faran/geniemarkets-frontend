@@ -269,11 +269,11 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                   }}
                   className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all duration-200 cursor-pointer ${isSelected
                       ? isJackpot
-                        ? "bg-amber-500/15 border-amber-500/60 shadow-lg shadow-amber-500/20 text-white ring-1 ring-amber-400/40"
+                        ? "bg-amber-500/15 border-amber-500/60 shadow-sm text-white ring-1 ring-amber-400/40"
                         : isPair
-                          ? "bg-cyan-500/15 border-cyan-500/60 shadow-lg shadow-cyan-500/20 text-white ring-1 ring-cyan-400/40"
-                          : "bg-violet-600/25 border-violet-500/60 shadow-lg shadow-violet-600/20 text-white ring-1 ring-violet-400/40"
-                      : "border-white/10 bg-[#07090E]/80 text-slate-400 hover:border-white/25 hover:text-white hover:bg-white/5"
+                          ? "bg-cyan-500/15 border-cyan-500/60 shadow-sm text-white ring-1 ring-cyan-400/40"
+                          : "bg-sky-500/15 border-sky-500/60 shadow-sm text-white ring-1 ring-sky-400/40"
+                      : "border-slate-800 bg-slate-950/80 text-slate-400 hover:border-slate-700 hover:text-white hover:bg-slate-900"
                     }`}
                 >
                   <span className="font-hud text-xs sm:text-sm font-bold uppercase tracking-wider">
@@ -289,7 +289,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                           ? "text-amber-300"
                           : isPair
                             ? "text-cyan-300"
-                            : "text-violet-300"
+                            : "text-sky-300"
                         : "text-slate-500"
                       }`}
                   >
@@ -333,8 +333,8 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                       type="button"
                       onClick={() => setPick(i.toString())}
                       className={`h-14 rounded-xl font-hud text-2xl font-extrabold tabular-nums cursor-pointer transition-all duration-200 border relative overflow-hidden ${isPicked
-                          ? "bg-gradient-to-b from-violet-600 to-indigo-700 text-white border-violet-400 shadow-lg shadow-violet-600/40 ring-2 ring-violet-400/50 scale-[1.04] text-glow-violet"
-                          : "border-white/10 bg-[#07090E] text-slate-300 hover:border-violet-500/50 hover:bg-violet-500/10 hover:text-white"
+                          ? "bg-sky-600 text-white border-sky-400 shadow-sm ring-1 ring-sky-400/50 scale-[1.02]"
+                          : "border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 hover:bg-slate-900 hover:text-white"
                         }`}
                     >
                       {i}
@@ -409,7 +409,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                     setWager(maxUsdc);
                   }
                 }}
-                className="h-9 px-3 rounded-xl font-mono text-xs font-extrabold text-violet-300 bg-violet-500/15 hover:bg-violet-500/30 hover:text-white"
+                className="h-9 px-3 rounded-xl font-mono text-xs font-extrabold text-sky-300 bg-sky-500/15 hover:bg-sky-500/30 hover:text-white"
               >
                 MAX
               </Button>
@@ -426,8 +426,8 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 size="sm"
                 onClick={() => setWager(amt)}
                 className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-9 rounded-xl ${wager === amt
-                    ? "bg-violet-600/30 text-violet-200 border-violet-500 shadow-md shadow-violet-600/20"
-                    : "bg-[#07090E] border-white/10 text-slate-400 hover:text-white"
+                    ? "bg-sky-600/25 text-sky-200 border-sky-500 shadow-sm"
+                    : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"
                   }`}
               >
                 ${amt}
@@ -442,7 +442,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-500">
                   Multiplier Ratio
                 </span>
-                <p className="font-hud text-base sm:text-lg font-extrabold text-violet-300">
+                <p className="font-hud text-base sm:text-lg font-extrabold text-sky-300">
                   {multiplier}x
                 </p>
               </div>
