@@ -259,10 +259,24 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
               const isSelected = activeBetType === bt;
               const isJackpot = bt === BetType.OpenTrio || bt === BetType.CloseTrio;
               const isPair = bt === BetType.Pair;
+              const typeName =
+                bt === BetType.OpenSingle || bt === BetType.CloseSingle
+                  ? "Single"
+                  : bt === BetType.Pair
+                    ? "Pair"
+                    : "Trio";
+              const payoutText =
+                bt === BetType.OpenSingle || bt === BetType.CloseSingle
+                  ? "9x Payout"
+                  : bt === BetType.Pair
+                    ? "90x Payout"
+                    : "Up to 600x Payout";
               return (
                 <button
                   key={bt}
                   type="button"
+                  aria-pressed={isSelected}
+                  aria-label={`${typeName} prediction derivative, ${payoutText}`}
                   onClick={() => {
                     setSelectedBetType(bt);
                     setPick("");
@@ -277,11 +291,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                     }`}
                 >
                   <span className="font-hud text-xs sm:text-sm font-bold uppercase tracking-wider">
-                    {bt === BetType.OpenSingle || bt === BetType.CloseSingle
-                      ? "Single"
-                      : bt === BetType.Pair
-                        ? "Pair"
-                        : "Trio"}
+                    {typeName}
                   </span>
                   <span
                     className={`font-mono text-xs font-extrabold mt-0.5 ${isSelected
@@ -293,11 +303,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                         : "text-slate-500"
                       }`}
                   >
-                    {bt === BetType.OpenSingle || bt === BetType.CloseSingle
-                      ? "9x Payout"
-                      : bt === BetType.Pair
-                        ? "90x Payout"
-                        : "Up to 600x"}
+                    {payoutText}
                   </span>
                 </button>
               );
@@ -324,13 +330,15 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           {/* Single: Hardware Security Digit Keypad (0-9) */}
           {(activeBetType === BetType.OpenSingle ||
             activeBetType === BetType.CloseSingle) && (
-              <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
+              <div className="grid grid-cols-5 gap-2 sm:grid-cols-10" role="group" aria-label="Single digit selector">
                 {Array.from({ length: 10 }, (_, i) => {
                   const isPicked = pick === i.toString();
                   return (
                     <button
                       key={i}
                       type="button"
+                      aria-label={`Select digit ${i}`}
+                      aria-pressed={isPicked}
                       onClick={() => setPick(i.toString())}
                       className={`h-14 rounded-xl font-hud text-2xl font-extrabold tabular-nums cursor-pointer transition-all duration-200 border relative overflow-hidden ${isPicked
                           ? "bg-sky-600 text-white border-sky-400 shadow-sm ring-1 ring-sky-400/50 scale-[1.02]"
@@ -347,17 +355,24 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           {/* Pair / Trio: Terminal Numeric Input */}
           {(activeBetType === BetType.Pair || isTrioBet) && (
             <div className="space-y-2">
+              <label htmlFor="bet-pick-input" className="sr-only">
+                {activeBetType === BetType.Pair ? "Pair numeric pick (00 to 99)" : "Trio numeric pick (3 digits in Genie order)"}
+              </label>
               <Input
+                id="bet-pick-input"
                 type="number"
                 value={pick}
                 onChange={(e) => setPick(e.target.value)}
                 placeholder={activeBetType === BetType.Pair ? "Enter 00–99 (e.g. 42)" : "Enter 3 digits in Genie order (e.g. 123)"}
                 min={0}
                 max={getPickMax()}
+                aria-label={activeBetType === BetType.Pair ? "Pair numeric pick, enter digits 00 to 99" : "Trio numeric pick, enter 3 digits in Genie order"}
+                aria-invalid={isTrioBet && pick !== "" && !isPickValid}
+                aria-describedby={isTrioBet && pick !== "" && !isPickValid ? "trio-sort-error" : undefined}
                 className="h-14 rounded-2xl bg-[#07090E] border-white/10 font-hud text-xl font-bold tabular-nums text-white focus:border-violet-500 shadow-inner px-4"
               />
               {isTrioBet && pick !== "" && !isPickValid && (
-                <div className="flex items-center gap-1.5 text-xs text-rose-400 font-mono">
+                <div id="trio-sort-error" role="alert" className="flex items-center gap-1.5 text-xs text-rose-400 font-mono">
                   <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                   <span>Trio must adhere to Genie-sort rule: 1 &lt; 2 &lt; ... &lt; 9 &lt; 0 (Rank 0 is highest)</span>
                 </div>
@@ -369,9 +384,9 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
         {/* Wager Input Section */}
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-hud font-bold uppercase tracking-wider text-slate-300">
+            <label htmlFor="wager-amount-input" className="font-hud font-bold uppercase tracking-wider text-slate-300">
               Wager Stake (USDC)
-            </span>
+            </label>
             {balance !== undefined && (
               <span className="font-mono text-slate-400 font-semibold tabular-nums">
                 Vault: <span className="text-emerald-400 font-bold">{formatUsdcDollar(balance)}</span>
@@ -381,7 +396,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
 
           {/* Input with Token Badge & Max Button */}
           <div className="relative flex items-center">
-            <div className="absolute left-3.5 flex items-center pointer-events-none">
+            <div className="absolute left-3.5 flex items-center pointer-events-none" aria-hidden="true">
               <Badge
                 variant="outline"
                 className="font-mono text-xs border-white/15 bg-white/5 text-slate-200 px-2.5 py-1 font-bold"
@@ -390,7 +405,9 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
               </Badge>
             </div>
             <Input
+              id="wager-amount-input"
               type="number"
+              aria-label="Wager stake in USDC"
               value={wager}
               onChange={(e) => setWager(e.target.value)}
               placeholder="0.00"
@@ -403,6 +420,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 type="button"
                 variant="ghost"
                 size="sm"
+                aria-label="Set maximum wager from available vault balance"
                 onClick={() => {
                   if (balance) {
                     const maxUsdc = (Number(balance) / 1_000_000).toFixed(2);
@@ -417,13 +435,15 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           </div>
 
           {/* Quick Amounts Chips */}
-          <div className="flex gap-2">
+          <div className="flex gap-2" role="group" aria-label="Quick wager amounts">
             {QUICK_AMOUNTS.map((amt) => (
               <Button
                 key={amt}
                 type="button"
                 variant="outline"
                 size="sm"
+                aria-label={`Set wager to $${amt} USDC`}
+                aria-pressed={wager === amt}
                 onClick={() => setWager(amt)}
                 className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-9 rounded-xl ${wager === amt
                     ? "bg-sky-600/25 text-sky-200 border-sky-500 shadow-sm"

@@ -231,10 +231,11 @@ export function EmergencyRecovery() {
 
             <form onSubmit={handleCancelTargetStale} className="space-y-4">
               <div>
-                <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="target-stale-round-id" className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
                   Target Round ID (uint256)
                 </label>
                 <Input
+                  id="target-stale-round-id"
                   type="number"
                   min="1"
                   step="1"

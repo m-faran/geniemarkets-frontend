@@ -161,6 +161,7 @@ export function WalletPanel() {
             size="xs"
             onClick={handleCopy}
             className="text-slate-400 hover:text-white cursor-pointer px-2"
+            aria-label="Copy wallet address to clipboard"
             title="Copy address"
           >
             {copied ? (
@@ -200,6 +201,8 @@ export function WalletPanel() {
           </Button>
           <Button
             variant="outline"
+            aria-expanded={showTransfer}
+            aria-controls="withdraw-transfer-form"
             onClick={() => setShowTransfer(!showTransfer)}
             className="flex-1 h-11 rounded-xl gap-2 border-white/10 bg-[#07090E] text-slate-200 hover:border-violet-500/50 hover:bg-violet-500/10 font-hud font-bold text-xs uppercase tracking-wider"
           >
@@ -210,9 +213,9 @@ export function WalletPanel() {
 
         {/* Transfer Out Form */}
         {showTransfer && (
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-[#07090E] p-4 shadow-inner">
+          <div id="withdraw-transfer-form" className="space-y-3 rounded-2xl border border-white/10 bg-[#07090E] p-4 shadow-inner">
             {transferSuccess ? (
-              <div className="flex items-center justify-center gap-2 py-4">
+              <div className="flex items-center justify-center gap-2 py-4" role="status">
                 <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                 <span className="font-hud text-sm font-bold text-emerald-400 uppercase tracking-wide">
                   Transfer sent onchain
@@ -220,22 +223,36 @@ export function WalletPanel() {
               </div>
             ) : (
               <>
-                <Input
-                  type="text"
-                  value={transferTo}
-                  onChange={(e) => setTransferTo(e.target.value)}
-                  placeholder="Recipient address (0x…)"
-                  className="font-mono text-xs bg-[#05070B] border-white/10"
-                />
-                <Input
-                  type="number"
-                  value={transferAmount}
-                  onChange={(e) => setTransferAmount(e.target.value)}
-                  placeholder="Amount (USDC)"
-                  min={0}
-                  step="0.01"
-                  className="font-mono text-xs bg-[#05070B] border-white/10"
-                />
+                <div>
+                  <label htmlFor="transfer-recipient-input" className="sr-only">
+                    Recipient Ethereum address
+                  </label>
+                  <Input
+                    id="transfer-recipient-input"
+                    type="text"
+                    aria-label="Recipient Ethereum address (0x…)"
+                    value={transferTo}
+                    onChange={(e) => setTransferTo(e.target.value)}
+                    placeholder="Recipient address (0x…)"
+                    className="font-mono text-xs bg-[#05070B] border-white/10"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="transfer-amount-input" className="sr-only">
+                    Transfer amount in USDC
+                  </label>
+                  <Input
+                    id="transfer-amount-input"
+                    type="number"
+                    aria-label="Transfer amount in USDC"
+                    value={transferAmount}
+                    onChange={(e) => setTransferAmount(e.target.value)}
+                    placeholder="Amount (USDC)"
+                    min={0}
+                    step="0.01"
+                    className="font-mono text-xs bg-[#05070B] border-white/10"
+                  />
+                </div>
                 <Button
                   onClick={handleTransfer}
                   size="default"

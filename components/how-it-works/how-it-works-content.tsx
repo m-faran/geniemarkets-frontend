@@ -696,8 +696,10 @@ export function HowItWorksContent() {
               { val: digit3, setter: setDigit3, label: "Digit 3" },
             ].map((d, i) => (
               <div key={i} className="text-center space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-400">{d.label}</label>
+                <label htmlFor={`genie-calc-digit-${i + 1}`} className="text-xs font-bold uppercase tracking-wider text-zinc-400">{d.label}</label>
                 <select
+                  id={`genie-calc-digit-${i + 1}`}
+                  aria-label={d.label}
                   value={d.val}
                   onChange={(e) => d.setter(parseInt(e.target.value))}
                   className="w-full h-14 rounded-2xl border border-zinc-800/90 bg-zinc-950/90 py-3 text-center font-mono text-2xl font-extrabold text-white focus:border-violet-500 focus:outline-none shadow-inner cursor-pointer"
@@ -821,12 +823,14 @@ export function HowItWorksContent() {
 
           {/* Wager Input & Quick Chips */}
           <div>
-            <label className="mb-3 block text-xs font-bold uppercase tracking-wider text-zinc-300">
+            <label htmlFor="genie-calc-wager" className="mb-3 block text-xs font-bold uppercase tracking-wider text-zinc-300">
               Wager Amount (USDC)
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
                 <Input
+                  id="genie-calc-wager"
+                  aria-label="Wager Amount in USDC"
                   type="number"
                   min="0.1"
                   step="1"
@@ -835,17 +839,19 @@ export function HowItWorksContent() {
                   placeholder="10"
                   className="font-mono text-lg font-bold tabular-nums bg-[#07090E] border-white/10 rounded-xl pl-9 pr-4 py-3 h-13 text-white focus:border-violet-500 shadow-inner"
                 />
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-base font-bold text-zinc-500">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-base font-bold text-zinc-500" aria-hidden="true">
                   $
                 </span>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2" role="group" aria-label="Sample wager amounts">
                 {["1", "5", "10", "25", "50", "100"].map((amt) => (
                   <Button
                     key={amt}
                     variant="outline"
                     size="sm"
+                    aria-label={`Set sample wager to $${amt} USDC`}
+                    aria-pressed={calcWager === amt}
                     onClick={() => setCalcWager(amt)}
                     className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-13 px-3.5 rounded-xl border-zinc-800/90 cursor-pointer transition-all ${
                       calcWager === amt

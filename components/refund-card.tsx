@@ -217,10 +217,11 @@ export function RefundCard() {
             <form onSubmit={handleManualRefund} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label htmlFor="manual-refund-round-id" className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
                     Round ID (uint256)
                   </label>
                   <Input
+                    id="manual-refund-round-id"
                     type="number"
                     min="1"
                     step="1"
@@ -232,10 +233,11 @@ export function RefundCard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
+                  <label htmlFor="manual-refund-bet-index" className="block text-[11px] font-hud uppercase tracking-wider text-slate-400 mb-1.5">
                     Bet Index (uint256)
                   </label>
                   <Input
+                    id="manual-refund-bet-index"
                     type="number"
                     min="0"
                     step="1"
