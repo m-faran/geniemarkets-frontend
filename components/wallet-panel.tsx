@@ -110,7 +110,7 @@ export function WalletPanel() {
   if (!authenticated || !walletAddress) return null;
 
   return (
-    <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 space-y-5 shadow-2xl shadow-black/80">
+    <Card className="rounded-2xl border border-white/10 bg-surface-card/90 p-6 space-y-5 shadow-2xl shadow-black/80">
       <CardHeader className="p-0 flex flex-row items-center justify-between border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shadow-sm">
@@ -149,7 +149,7 @@ export function WalletPanel() {
         )}
 
         {/* Address Pill */}
-        <div className="flex items-center justify-between rounded-xl bg-[#07090E] border border-white/10 px-4 py-2.5 shadow-inner">
+        <div className="flex items-center justify-between rounded-xl bg-surface-panel border border-white/10 px-4 py-2.5 shadow-inner">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="font-mono text-xs text-slate-200 tabular-nums font-bold">
@@ -173,7 +173,7 @@ export function WalletPanel() {
         </div>
 
         {/* Balance Display */}
-        <div className="rounded-2xl bg-[#07090E] border border-white/10 p-5 text-center shadow-inner space-y-1.5">
+        <div className="rounded-2xl bg-surface-panel border border-white/10 p-5 text-center shadow-inner space-y-1.5">
           <p className="font-hud text-[11px] font-bold uppercase tracking-wider text-slate-400">
             Available USDC Liquidity
           </p>
@@ -204,7 +204,7 @@ export function WalletPanel() {
             aria-expanded={showTransfer}
             aria-controls="withdraw-transfer-form"
             onClick={() => setShowTransfer(!showTransfer)}
-            className="flex-1 h-11 rounded-xl gap-2 border-white/10 bg-[#07090E] text-slate-200 hover:border-violet-500/50 hover:bg-violet-500/10 font-hud font-bold text-xs uppercase tracking-wider"
+            className="flex-1 h-11 rounded-xl gap-2 border-white/10 bg-surface-panel text-slate-200 hover:border-violet-500/50 hover:bg-violet-500/10 font-hud font-bold text-xs uppercase tracking-wider"
           >
             <ArrowUpRight className="h-4 w-4" />
             Withdraw
@@ -213,7 +213,7 @@ export function WalletPanel() {
 
         {/* Transfer Out Form */}
         {showTransfer && (
-          <div id="withdraw-transfer-form" className="space-y-3 rounded-2xl border border-white/10 bg-[#07090E] p-4 shadow-inner">
+          <div id="withdraw-transfer-form" className="space-y-3 rounded-2xl border border-white/10 bg-surface-panel p-4 shadow-inner">
             {transferSuccess ? (
               <div className="flex items-center justify-center gap-2 py-4" role="status">
                 <CheckCircle2 className="h-5 w-5 text-emerald-400" />
@@ -234,7 +234,7 @@ export function WalletPanel() {
                     value={transferTo}
                     onChange={(e) => setTransferTo(e.target.value)}
                     placeholder="Recipient address (0x…)"
-                    className="font-mono text-xs bg-[#05070B] border-white/10"
+                    className="font-mono text-xs bg-surface-well border-white/10"
                   />
                 </div>
                 <div>
@@ -250,7 +250,7 @@ export function WalletPanel() {
                     placeholder="Amount (USDC)"
                     min={0}
                     step="0.01"
-                    className="font-mono text-xs bg-[#05070B] border-white/10"
+                    className="font-mono text-xs bg-surface-well border-white/10"
                   />
                 </div>
                 <Button

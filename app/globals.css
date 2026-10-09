@@ -31,6 +31,11 @@
   --ring: oklch(0.62 0.18 245 / 55%);
   --radius: 0.75rem;
 
+  /* Semantic Depth Surfaces */
+  --surface-card: #0B0F1A;
+  --surface-panel: #07090E;
+  --surface-well: #05070B;
+
   --chart-1: oklch(0.72 0.16 210); /* Cyan */
   --chart-2: oklch(0.62 0.18 245); /* Blue */
   --chart-3: oklch(0.78 0.15 85);  /* Amber */
@@ -81,27 +86,33 @@ button:active:not(:disabled),
   transition: transform 100ms ease;
 }
 
-/* Intentional reduced motion handling */
+/* Intentional reduced-motion handling: eliminate spatial displacement while preserving calm cross-fades */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    /* Disable spatial smooth scrolling */
     scroll-behavior: auto !important;
+    /* Soften state changes to gentle cross-fades instead of jarring snaps */
+    transition-duration: 150ms !important;
+    transition-timing-function: ease !important;
   }
 
+  /* Eliminate infinite, looping, or jarring keyframe animations */
   .animate-pulse,
   .animate-ping,
   .animate-spin {
     animation: none !important;
   }
 
+  /* Neutralize all tactile and spatial transforms (scales, translations, rotations) */
   button:active:not(:disabled),
   [data-slot="button"]:active:not(:disabled),
   .cursor-pointer:active,
-  .group:hover .group-hover\:scale-105,
-  .group-hover\:translate-x-1,
+  [class*="hover:-translate"],
+  [class*="group-hover:translate"],
+  [class*="hover:scale"],
+  [class*="group-hover:scale"],
   .scale-\[1\.02\],
   .scale-105 {
     transform: none !important;
@@ -132,6 +143,9 @@ button:active:not(:disabled),
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-surface-card: var(--surface-card);
+  --color-surface-panel: var(--surface-panel);
+  --color-surface-well: var(--surface-well);
 }
 
 .dark {
@@ -153,6 +167,9 @@ button:active:not(:disabled),
   --border: oklch(0.25 0.016 255 / 80%);
   --input: oklch(0.21 0.016 255);
   --ring: oklch(0.62 0.18 245 / 55%);
+  --surface-card: #0B0F1A;
+  --surface-panel: #07090E;
+  --surface-well: #05070B;
 }
 
 /* Crisp Tabular Numerals for Exchange Metrics, Counters, and Financial Columns */

@@ -55,7 +55,7 @@ export function RefundCard() {
   };
 
   return (
-    <Card className="rounded-2xl border-cyan-500/25 bg-[#0B0F1A]/85 backdrop-blur-xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden">
+    <Card className="rounded-2xl border-cyan-500/25 bg-surface-card/85 backdrop-blur-xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden">
       {/* Top highlight gradient */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
 
@@ -95,7 +95,7 @@ export function RefundCard() {
               {formatUsdcDollar(totalRefundable)} Available
             </span>
           )}
-          <div className="h-10 w-10 rounded-xl bg-[#07090E] border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+          <div className="h-10 w-10 rounded-xl bg-surface-panel border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
             {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </div>
         </div>
@@ -152,11 +152,11 @@ export function RefundCard() {
               {refundableBets.map((bet) => (
                 <div
                   key={`refund-${bet.roundId.toString()}-${bet.betIndex.toString()}`}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-cyan-500/20 bg-[#07090E]/90 px-5 py-4"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-cyan-500/20 bg-surface-panel/90 px-5 py-4"
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="font-mono text-xs tabular-nums border-white/10 bg-[#05070B] text-slate-300">
+                      <Badge variant="outline" className="font-mono text-xs tabular-nums border-white/10 bg-surface-well text-slate-300">
                         Round #{bet.roundId.toString()}
                       </Badge>
                       <p className="text-sm font-bold text-white font-heading">
@@ -195,7 +195,7 @@ export function RefundCard() {
             </div>
           ) : (
             /* Empty State */
-            <div className="rounded-xl border border-white/5 bg-[#07090E]/80 p-6 text-center space-y-1">
+            <div className="rounded-xl border border-white/5 bg-surface-panel/80 p-6 text-center space-y-1">
               <CheckCircle2 className="mx-auto h-6 w-6 text-slate-500" />
               <p className="text-xs font-bold font-hud uppercase tracking-wider text-slate-300">No Pending Refunds</p>
               <p className="text-xs text-slate-400 max-w-sm mx-auto">
@@ -205,13 +205,13 @@ export function RefundCard() {
           )}
 
           {/* Manual Refund Form */}
-          <div className="rounded-xl border border-white/10 bg-[#07090E] p-5 space-y-3">
+          <div className="rounded-xl border border-white/10 bg-surface-panel p-5 space-y-3">
             <div className="flex items-center gap-2 text-xs font-hud font-bold uppercase tracking-wider text-slate-300">
               <Search className="h-3.5 w-3.5 text-cyan-400" />
               Manual Refund Claim
             </div>
             <p className="text-xs text-slate-400">
-              If you hold an unsettled position in an older round, enter Round ID and Bet Index to call <code className="font-mono text-cyan-300 bg-[#05070B] px-1.5 py-0.5 rounded border border-cyan-500/20">claimRefund(roundId, betIndex)</code> directly.
+              If you hold an unsettled position in an older round, enter Round ID and Bet Index to call <code className="font-mono text-cyan-300 bg-surface-well px-1.5 py-0.5 rounded border border-cyan-500/20">claimRefund(roundId, betIndex)</code> directly.
             </p>
 
             <form onSubmit={handleManualRefund} className="space-y-4">
@@ -229,7 +229,7 @@ export function RefundCard() {
                     placeholder="e.g. 1"
                     value={manualRoundId}
                     onChange={(e) => setManualRoundId(e.target.value)}
-                    className="font-mono text-xs tabular-nums bg-[#05070B] border-white/10 h-10"
+                    className="font-mono text-xs tabular-nums bg-surface-well border-white/10 h-10"
                   />
                 </div>
                 <div>
@@ -245,7 +245,7 @@ export function RefundCard() {
                     placeholder="e.g. 0"
                     value={manualBetIndex}
                     onChange={(e) => setManualBetIndex(e.target.value)}
-                    className="font-mono text-xs tabular-nums bg-[#05070B] border-white/10 h-10"
+                    className="font-mono text-xs tabular-nums bg-surface-well border-white/10 h-10"
                   />
                 </div>
               </div>

@@ -54,7 +54,7 @@ export function ClaimCard() {
 
   if (!authenticated) {
     return (
-      <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-amber-500/25 p-8 text-center space-y-4 shadow-2xl relative overflow-hidden">
+      <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-amber-500/25 p-8 text-center space-y-4 shadow-2xl relative overflow-hidden">
         <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-32 bg-amber-500/10 blur-3xl pointer-events-none" />
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 mx-auto shadow-lg shadow-amber-500/20">
           <Trophy className="h-7 w-7 text-amber-400" />
@@ -80,7 +80,7 @@ export function ClaimCard() {
   }
 
   return (
-    <Card className="rounded-2xl border-amber-500/30 bg-[#0B0F1A]/90 backdrop-blur-xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+    <Card className="rounded-2xl border-amber-500/30 bg-surface-card/90 backdrop-blur-xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
       <div className="absolute -top-24 -right-24 w-80 h-80 bg-amber-500/10 blur-3xl pointer-events-none" />
       {/* Top highlight gradient */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
@@ -147,11 +147,11 @@ export function ClaimCard() {
             {winningBets.map((bet) => (
               <div
                 key={`win-${bet.roundId.toString()}-${bet.betIndex.toString()}`}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-amber-500/30 bg-[#07090E]/90 p-5 sm:p-6 hover:border-amber-500/50 transition-all shadow-md group"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-amber-500/30 bg-surface-panel/90 p-5 sm:p-6 hover:border-amber-500/50 transition-all shadow-md group"
               >
                 <div>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <Badge variant="outline" className="font-mono text-xs tabular-nums rounded-lg px-2.5 py-1 border-white/10 bg-[#05070B] text-slate-300">
+                    <Badge variant="outline" className="font-mono text-xs tabular-nums rounded-lg px-2.5 py-1 border-white/10 bg-surface-well text-slate-300">
                       Round #{bet.roundId.toString()}
                     </Badge>
                     <p className="text-base font-bold text-white font-heading">
@@ -189,7 +189,7 @@ export function ClaimCard() {
           </div>
         ) : (
           /* Empty State */
-          <div className="rounded-2xl border border-white/5 bg-[#07090E]/80 p-8 sm:p-10 text-center space-y-3">
+          <div className="rounded-2xl border border-white/5 bg-surface-panel/80 p-8 sm:p-10 text-center space-y-3">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-lg shadow-amber-500/10">
               <CheckCircle2 className="h-7 w-7" />
             </div>
@@ -209,7 +209,7 @@ export function ClaimCard() {
           <button
             type="button"
             onClick={() => setShowManual(!showManual)}
-            className="group flex items-center justify-between w-full rounded-xl bg-[#07090E]/80 hover:bg-[#07090E] border border-white/5 px-4 py-3.5 text-xs font-hud uppercase tracking-wider text-slate-300 hover:text-white transition-all cursor-pointer"
+            className="group flex items-center justify-between w-full rounded-xl bg-surface-panel/80 hover:bg-surface-panel border border-white/5 px-4 py-3.5 text-xs font-hud uppercase tracking-wider text-slate-300 hover:text-white transition-all cursor-pointer"
           >
             <span className="flex items-center gap-2.5">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-400">
@@ -225,9 +225,9 @@ export function ClaimCard() {
           </button>
 
           {showManual && (
-            <form onSubmit={handleManualClaim} className="mt-3 space-y-4 rounded-xl border border-white/10 bg-[#07090E] p-5">
+            <form onSubmit={handleManualClaim} className="mt-3 space-y-4 rounded-xl border border-white/10 bg-surface-panel p-5">
               <p className="text-xs text-slate-400">
-                Directly execute contract function <code className="font-mono text-amber-400 font-bold bg-[#05070B] px-1.5 py-0.5 rounded border border-amber-500/20">claimWinnings(roundId, betIndex)</code> for any settled round.
+                Directly execute contract function <code className="font-mono text-amber-400 font-bold bg-surface-well px-1.5 py-0.5 rounded border border-amber-500/20">claimWinnings(roundId, betIndex)</code> for any settled round.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
@@ -243,7 +243,7 @@ export function ClaimCard() {
                     placeholder="e.g. 1"
                     value={manualRoundId}
                     onChange={(e) => setManualRoundId(e.target.value)}
-                    className="h-10 rounded-xl font-mono text-xs tabular-nums bg-[#05070B] border-white/10 px-3.5 focus:border-amber-500"
+                    className="h-10 rounded-xl font-mono text-xs tabular-nums bg-surface-well border-white/10 px-3.5 focus:border-amber-500"
                   />
                 </div>
                 <div>
@@ -259,7 +259,7 @@ export function ClaimCard() {
                     placeholder="e.g. 0"
                     value={manualBetIndex}
                     onChange={(e) => setManualBetIndex(e.target.value)}
-                    className="h-10 rounded-xl font-mono text-xs tabular-nums bg-[#05070B] border-white/10 px-3.5 focus:border-amber-500"
+                    className="h-10 rounded-xl font-mono text-xs tabular-nums bg-surface-well border-white/10 px-3.5 focus:border-amber-500"
                   />
                 </div>
               </div>

@@ -115,7 +115,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24 text-center">
         {/* Network & Live Telemetry Pill */}
-        <div className="inline-flex items-center gap-2.5 rounded-full bg-[#0B0F1A]/90 border border-white/10 px-4 py-1.5 shadow-2xl backdrop-blur-xl mb-8">
+        <div className="inline-flex items-center gap-2.5 rounded-full bg-surface-card/90 border border-white/10 px-4 py-1.5 shadow-2xl backdrop-blur-xl mb-8">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -172,7 +172,7 @@ export default function LandingPage() {
 
         {/* Interactive Terminal Demo Preview Card */}
         <div className="mt-16 mx-auto max-w-3xl">
-          <div className="relative rounded-2xl border border-white/10 bg-[#0B0F1A]/85 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl overflow-hidden">
+          <div className="relative rounded-2xl border border-white/10 bg-surface-card/85 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl overflow-hidden">
             {/* Top highlight bar */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
             
@@ -245,7 +245,7 @@ export default function LandingPage() {
           {PROTOCOL_METRICS.map((metric, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/10 bg-[#0B0F1A]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden"
+              className="rounded-2xl border border-white/10 bg-surface-card/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               <p className="font-hud uppercase tracking-wider text-[11px] text-slate-400">
@@ -265,7 +265,7 @@ export default function LandingPage() {
       {/* Prediction Modes Grid */}
       <section className="relative mx-auto max-w-6xl px-4 sm:px-6 space-y-10">
         <div className="text-center space-y-2">
-          <Badge variant="outline" className="text-xs font-hud uppercase tracking-widest text-slate-300 border-white/10 bg-[#0B0F1A]">
+          <Badge variant="outline" className="text-xs font-hud uppercase tracking-widest text-slate-300 border-white/10 bg-surface-card">
             Dynamic Market Profiles
           </Badge>
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
@@ -282,11 +282,11 @@ export default function LandingPage() {
             return (
               <Card
                 key={mode.name}
-                className={`rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border p-6 sm:p-7 shadow-2xl transition-all duration-300 hover:-translate-y-1 ${mode.accent} flex flex-col justify-between relative overflow-hidden`}
+                className={`rounded-2xl bg-surface-card/85 backdrop-blur-xl border p-6 sm:p-7 shadow-2xl transition-all duration-300 hover:-translate-y-1 ${mode.accent} flex flex-col justify-between relative overflow-hidden`}
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#07090E] border border-white/10">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-panel border border-white/10">
                       <Icon className="h-6 w-6 text-white" />
                     </div>
                     <Badge variant={mode.badgeVariant} className="text-[10px] font-hud uppercase tracking-wider">
@@ -330,7 +330,7 @@ export default function LandingPage() {
 
       {/* Protocol Architecture Workflow */}
       <section className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="rounded-3xl border border-white/10 bg-[#0B0F1A]/80 backdrop-blur-2xl p-8 sm:p-12 shadow-2xl space-y-10 relative overflow-hidden">
+        <div className="rounded-3xl border border-white/10 bg-surface-card/80 backdrop-blur-2xl p-8 sm:p-12 shadow-2xl space-y-10 relative overflow-hidden">
           <div className="text-center space-y-2 max-w-xl mx-auto">
             <Badge variant="cyber" className="text-[10px] font-hud uppercase tracking-widest">
               Smart Contract Lifecycle
@@ -349,7 +349,7 @@ export default function LandingPage() {
               return (
                 <div
                   key={step.step}
-                  className="rounded-2xl border border-white/5 bg-[#07090E]/90 p-6 space-y-4 relative"
+                  className="rounded-2xl border border-white/5 bg-surface-panel/90 p-6 space-y-4 relative"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-hud font-black text-2xl text-cyan-400">
@@ -375,7 +375,7 @@ export default function LandingPage() {
       {/* Trust & Security Highlights */}
       <section className="relative mx-auto max-w-6xl px-4 sm:px-6 space-y-8">
         <div className="text-center space-y-2">
-          <Badge variant="outline" className="text-xs font-hud uppercase tracking-widest text-slate-300 border-white/10 bg-[#0B0F1A]">
+          <Badge variant="outline" className="text-xs font-hud uppercase tracking-widest text-slate-300 border-white/10 bg-surface-card">
             Decentralized Standards
           </Badge>
           <h2 className="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">
@@ -389,13 +389,13 @@ export default function LandingPage() {
             return (
               <div
                 key={p.title}
-                className="rounded-2xl border border-white/10 bg-[#0B0F1A]/80 backdrop-blur-xl p-6 sm:p-7 space-y-4 shadow-xl"
+                className="rounded-2xl border border-white/10 bg-surface-card/80 backdrop-blur-xl p-6 sm:p-7 space-y-4 shadow-xl"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#07090E] border border-white/10 text-cyan-400">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-panel border border-white/10 text-cyan-400">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <Badge variant="outline" className="font-mono text-[10px] text-slate-300 border-white/10 bg-[#05070B]">
+                  <Badge variant="outline" className="font-mono text-[10px] text-slate-300 border-white/10 bg-surface-well">
                     {p.tag}
                   </Badge>
                 </div>

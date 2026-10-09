@@ -5,7 +5,7 @@ import { Sparkles, Shield, Cpu, Terminal, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="mt-auto border-t border-white/5 bg-[#05070B]/90 backdrop-blur-xl relative overflow-hidden">
+    <footer className="mt-auto border-t border-white/5 bg-surface-well/90 backdrop-blur-xl relative overflow-hidden">
       {/* Top highlight bar */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
 
@@ -163,13 +163,13 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap items-center gap-2 text-slate-400">
             <span className="font-hud uppercase tracking-wider text-[10px] text-slate-400">Security Stack:</span>
-            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#07090E] border border-white/5 text-slate-300">
+            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-surface-panel border border-white/5 text-slate-300">
               Chainlink VRF v2.5
             </span>
-            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#07090E] border border-white/5 text-slate-300">
+            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-surface-panel border border-white/5 text-slate-300">
               ERC-4337 AA
             </span>
-            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#07090E] border border-white/5 text-slate-300">
+            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-surface-panel border border-white/5 text-slate-300">
               ERC-20 USDC
             </span>
           </div>

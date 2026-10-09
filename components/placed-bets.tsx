@@ -87,7 +87,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
   }, [currentRoundId]);
 
   return (
-    <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 sm:p-8 space-y-6 shadow-2xl shadow-black/80">
+    <Card className="rounded-2xl border border-white/10 bg-surface-card/90 p-6 sm:p-8 space-y-6 shadow-2xl shadow-black/80">
       {/* Header */}
       <CardHeader className="p-0 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-white/10 pb-6">
         <div className="flex items-center gap-4">
@@ -117,7 +117,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
           {roundPhase !== undefined && (
             <Badge
               variant="outline"
-              className={`font-mono text-xs font-bold border-white/10 bg-[#07090E] px-3 py-1.5 rounded-xl ${PHASE_COLORS[roundPhase]}`}
+              className={`font-mono text-xs font-bold border-white/10 bg-surface-panel px-3 py-1.5 rounded-xl ${PHASE_COLORS[roundPhase]}`}
             >
               {PHASE_LABELS[roundPhase]}
             </Badge>
@@ -127,16 +127,16 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
             <select
               value={activeRoundId ? Number(activeRoundId) : ""}
               onChange={(e) => setSelectedRoundId(BigInt(e.target.value))}
-              className="h-10 rounded-xl border border-white/10 bg-[#07090E] px-3.5 font-mono text-xs font-semibold text-slate-200 focus:border-violet-500 focus:outline-none shadow-sm cursor-pointer"
+              className="h-10 rounded-xl border border-white/10 bg-surface-panel px-3.5 font-mono text-xs font-semibold text-slate-200 focus:border-violet-500 focus:outline-none shadow-sm cursor-pointer"
             >
               {roundOptions.map((r) => (
-                <option key={r} value={r} className="bg-[#07090E] text-slate-200">
+                <option key={r} value={r} className="bg-surface-panel text-slate-200">
                   Round #{r} {currentRoundId && BigInt(r) === currentRoundId ? "(Current)" : ""}
                 </option>
               ))}
             </select>
           ) : (
-            <Badge variant="outline" className="h-10 px-3.5 rounded-xl font-mono text-xs font-semibold border-white/10 bg-[#07090E] text-slate-300 tabular-nums flex items-center">
+            <Badge variant="outline" className="h-10 px-3.5 rounded-xl font-mono text-xs font-semibold border-white/10 bg-surface-panel text-slate-300 tabular-nums flex items-center">
               Round #{activeRoundId ? activeRoundId.toString() : "—"}
             </Badge>
           )}
@@ -151,7 +151,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
             variant="outline"
             size="icon"
             onClick={() => refetch()}
-            className="h-10 w-10 rounded-xl border-white/10 bg-[#07090E] text-slate-400 hover:text-white hover:border-violet-500/50"
+            className="h-10 w-10 rounded-xl border-white/10 bg-surface-panel text-slate-400 hover:text-white hover:border-violet-500/50"
             title="Refresh positions"
           >
             <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin text-violet-400" : ""}`} />
@@ -162,7 +162,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
       <CardContent className="p-0 space-y-4">
         {/* Unauthenticated State */}
         {!authenticated ? (
-          <div className="rounded-2xl border border-white/10 bg-[#07090E] p-8 text-center space-y-3">
+          <div className="rounded-2xl border border-white/10 bg-surface-panel p-8 text-center space-y-3">
             <Ticket className="mx-auto h-8 w-8 text-slate-500" />
             <p className="text-base font-hud font-bold text-white uppercase tracking-wide">
               Wallet Required for Position Ledger
@@ -187,7 +187,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
           </div>
         ) : userBets.length === 0 ? (
           /* Empty State */
-          <div className="rounded-2xl border border-white/10 bg-[#07090E] p-8 text-center space-y-2.5 shadow-inner">
+          <div className="rounded-2xl border border-white/10 bg-surface-panel p-8 text-center space-y-2.5 shadow-inner">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 text-slate-400 border border-white/10">
               <Dice5 className="h-6 w-6" />
             </div>
@@ -202,7 +202,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
           /* User Bets List */
           <div className="space-y-4">
             {/* Summary Row */}
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-[#07090E] border border-white/10 px-5 py-3.5 text-xs shadow-inner">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-surface-panel border border-white/10 px-5 py-3.5 text-xs shadow-inner">
               <div className="flex items-center gap-2.5 text-slate-400 font-mono">
                 <span className="font-hud uppercase tracking-wider text-slate-300">Total Staked:</span>
                 <span className="font-mono font-extrabold text-white text-sm tabular-nums">
@@ -271,11 +271,11 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                 return (
                   <div
                     key={`${bet.roundId.toString()}-${bet.betIndex.toString()}`}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-white/10 bg-[#07090E] p-4 sm:p-5 hover:border-violet-500/30 transition-all shadow-inner"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-white/10 bg-surface-panel p-4 sm:p-5 hover:border-violet-500/30 transition-all shadow-inner"
                   >
                     {/* Left: Bet Info & Pick */}
                     <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-[#0B0F1A] border border-white/10 text-center font-mono shadow-inner">
+                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-surface-card border border-white/10 text-center font-mono shadow-inner">
                         <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Pick</span>
                         <span className="text-xl sm:text-2xl font-extrabold text-white tabular-nums tracking-tight">
                           {formatPick(bet.betType, bet.pick)}
@@ -440,7 +440,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                             </Button>
                           )
                         ) : (
-                          <Badge variant="outline" className="border-white/10 bg-[#07090E] text-slate-500 text-xs py-1.5 px-3 rounded-xl font-hud uppercase">
+                          <Badge variant="outline" className="border-white/10 bg-surface-panel text-slate-500 text-xs py-1.5 px-3 rounded-xl font-hud uppercase">
                             Settled
                           </Badge>
                         )}

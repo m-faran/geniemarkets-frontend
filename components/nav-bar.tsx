@@ -166,7 +166,7 @@ export function NavBar() {
           {authenticated && walletAddress && (
             <>
               {/* Live USDC Balance Badge */}
-              <div className="hidden xs:flex items-center gap-2 rounded-xl border border-white/10 bg-[#0B0F1A] px-3.5 py-1.5 shadow-inner">
+              <div className="hidden xs:flex items-center gap-2 rounded-xl border border-white/10 bg-surface-card px-3.5 py-1.5 shadow-inner">
                 <span className="font-mono text-xs text-slate-400 font-semibold">USDC</span>
                 <span className="font-mono text-sm font-extrabold text-emerald-400 tabular-nums">
                   {usdcBalance !== undefined ? formatUsdcDollar(usdcBalance) : "…"}
@@ -198,7 +198,7 @@ export function NavBar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 p-2">
                   <DropdownMenuLabel>Onchain Account</DropdownMenuLabel>
-                  <div className="px-3 py-2 font-mono text-[11px] text-slate-300 bg-[#07090E] rounded-xl mx-1 break-all select-all border border-white/10 shadow-inner">
+                  <div className="px-3 py-2 font-mono text-[11px] text-slate-300 bg-surface-panel rounded-xl mx-1 break-all select-all border border-white/10 shadow-inner">
                     {walletAddress}
                   </div>
                   <DropdownMenuSeparator className="my-2" />

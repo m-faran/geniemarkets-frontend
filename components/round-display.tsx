@@ -40,7 +40,7 @@ function DigitOrb({
       className={`relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-xl font-mono text-2xl sm:text-3xl font-extrabold tabular-nums transition-all duration-500 overflow-hidden border ${
         revealed
           ? `${glowStyles[theme]} scale-100`
-          : "border-white/10 bg-[#07090E] text-slate-500 shadow-inner"
+          : "border-white/10 bg-surface-panel text-slate-500 shadow-inner"
       }`}
     >
       {/* Background scanline & LED filament effect */}
@@ -73,7 +73,7 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
   ];
 
   return (
-    <div className="flex items-center gap-2 sm:gap-3 flex-wrap bg-[#07090E]/80 p-2 rounded-xl border border-white/10 shadow-inner">
+    <div className="flex items-center gap-2 sm:gap-3 flex-wrap bg-surface-panel/80 p-2 rounded-xl border border-white/10 shadow-inner">
       {steps.map((s, i) => {
         const isActive = s.phases.includes(phase);
         const isPast =
@@ -142,7 +142,7 @@ export function RoundDisplay() {
 
   if (!roundId || !round) {
     return (
-      <Card className="rounded-2xl border-white/10 bg-[#0B0F1A]/85 p-7 space-y-6 shadow-2xl">
+      <Card className="rounded-2xl border-white/10 bg-surface-card/85 p-7 space-y-6 shadow-2xl">
         <Skeleton className="h-7 w-48 bg-white/5 rounded-xl" />
         <Skeleton className="h-14 w-full bg-white/5 rounded-xl" />
         <Skeleton className="h-28 w-full bg-white/5 rounded-xl" />
@@ -162,7 +162,7 @@ export function RoundDisplay() {
 
   return (
     <div className="space-y-4">
-      <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-5 sm:p-6 space-y-4 shadow-2xl shadow-black/80">
+      <Card className="rounded-2xl border border-white/10 bg-surface-card/90 p-5 sm:p-6 space-y-4 shadow-2xl shadow-black/80">
         {/* Header with Semantic H2 Landmark */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div>
@@ -242,10 +242,10 @@ export function RoundDisplay() {
           <div
             className={`rounded-xl border p-4 transition-all shadow-inner relative overflow-hidden ${
               isCloseBettingActive
-                ? "border-cyan-500/40 bg-gradient-to-b from-cyan-600/10 to-[#07090E]"
+                ? "border-cyan-500/40 bg-gradient-to-b from-cyan-600/10 to-surface-panel"
                 : isCloseDrawReady
-                  ? "border-amber-500/40 bg-gradient-to-b from-amber-600/10 to-[#07090E]"
-                  : "border-white/10 bg-[#07090E]"
+                  ? "border-amber-500/40 bg-gradient-to-b from-amber-600/10 to-surface-panel"
+                  : "border-white/10 bg-surface-panel"
             }`}
           >
             <div className="flex items-center justify-between text-xs font-semibold">
@@ -419,7 +419,7 @@ export function RoundDisplay() {
         {/* Digit Displays */}
         <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
           {/* Open Draw */}
-          <div className="rounded-xl border border-white/10 bg-[#07090E]/90 p-4 shadow-inner">
+          <div className="rounded-xl border border-white/10 bg-surface-panel/90 p-4 shadow-inner">
             <p className="mb-3 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
               <Zap className="h-3.5 w-3.5 text-sky-400" />
               Open Draw Cryptographic Digits
@@ -444,7 +444,7 @@ export function RoundDisplay() {
           </div>
 
           {/* Close Draw */}
-          <div className="rounded-xl border border-white/10 bg-[#07090E]/90 p-4 shadow-inner">
+          <div className="rounded-xl border border-white/10 bg-surface-panel/90 p-4 shadow-inner">
             <p className="mb-3 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
               <Zap className="h-3.5 w-3.5 text-cyan-400" />
               Close Draw Cryptographic Digits
@@ -484,7 +484,7 @@ export function RoundDisplay() {
 
       {/* Previous Round Summary Strip */}
       {prevRoundId && previousRound && previousRound.phase === RoundPhase.Settled && (
-        <div className="rounded-2xl border border-white/10 bg-[#07090E]/90 px-5 py-3.5 text-xs shadow-xl">
+        <div className="rounded-2xl border border-white/10 bg-surface-panel/90 px-5 py-3.5 text-xs shadow-xl">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <span className="text-slate-400 font-hud text-xs font-bold uppercase tracking-wide">

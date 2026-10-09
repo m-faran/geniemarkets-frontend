@@ -11,6 +11,7 @@ import {
   PAYOUTS,
   getTrioPayoutMultiplier,
   isValidTrio,
+  sortTrioToGenieOrder,
   formatUsdcDollar,
   parseUsdc,
 } from "@/lib/utils";
@@ -53,6 +54,13 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
   );
   const [pick, setPick] = useState<string>("");
   const [wager, setWager] = useState<string>("");
+  const [autoSortedNotice, setAutoSortedNotice] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!autoSortedNotice) return;
+    const timer = setTimeout(() => setAutoSortedNotice(null), 4000);
+    return () => clearTimeout(timer);
+  }, [autoSortedNotice]);
 
   const hasBalance = balance && balance > 0n;
 
@@ -187,7 +195,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
   // Success state
   if (step === "success") {
     return (
-      <Card className="border-emerald-500/30 bg-[#0B0F1A]/90 p-8 text-center space-y-5 rounded-2xl shadow-2xl">
+      <Card className="border-emerald-500/30 bg-surface-card/90 p-8 text-center space-y-5 rounded-2xl shadow-2xl">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/15 border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
           <CheckCircle2 className="h-8 w-8 text-emerald-400" />
         </div>
@@ -215,7 +223,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
   }
 
   return (
-    <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-5 sm:p-6 space-y-5 shadow-2xl shadow-black/80">
+    <Card className="rounded-2xl border border-white/10 bg-surface-card/90 p-5 sm:p-6 space-y-5 shadow-2xl shadow-black/80">
       <CardHeader className="p-0 flex flex-row items-center justify-between border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shadow-sm">
@@ -232,7 +240,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
         </div>
         <Badge
           variant="outline"
-          className="font-mono text-xs px-3 py-1 bg-[#07090E] text-slate-300 font-semibold border-white/10"
+          className="font-mono text-xs px-3 py-1 bg-surface-panel text-slate-300 font-semibold border-white/10"
         >
           Round #{roundId ? roundId.toString() : "—"}
         </Badge>
@@ -270,7 +278,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
             }}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-2 h-14 bg-[#07090E] p-1.5 rounded-2xl border border-white/10">
+            <TabsList className="grid w-full grid-cols-2 h-14 bg-surface-panel p-1.5 rounded-2xl border border-white/10">
               <TabsTrigger
                 value="open"
                 className="flex items-center justify-center gap-2 h-11 font-hud font-bold uppercase tracking-wider text-xs sm:text-sm rounded-xl"
@@ -425,19 +433,62 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 id="bet-pick-input"
                 type="number"
                 value={pick}
-                onChange={(e) => setPick(e.target.value)}
+                onChange={(e) => {
+                  if (autoSortedNotice) setAutoSortedNotice(null);
+                  setPick(e.target.value);
+                }}
+                onBlur={() => {
+                  if (isTrioBet && pick.trim().length > 0) {
+                    const rawDigits = pick.trim().padStart(3, "0").slice(-3);
+                    const sorted = sortTrioToGenieOrder(rawDigits);
+                    if (sorted !== pick) {
+                      setPick(sorted);
+                      setAutoSortedNotice(`Auto-sorted ${pick} → ${sorted} (Genie order: 1 < ... < 9 < 0)`);
+                    }
+                  }
+                }}
                 placeholder={activeBetType === BetType.Pair ? "Enter 00–99 (e.g. 42)" : "Enter 3 digits in Genie order (e.g. 123)"}
                 min={0}
                 max={getPickMax()}
                 aria-label={activeBetType === BetType.Pair ? "Pair numeric pick, enter digits 00 to 99" : "Trio numeric pick, enter 3 digits in Genie order"}
                 aria-invalid={isTrioBet && pick !== "" && !isPickValid}
-                aria-describedby={isTrioBet && pick !== "" && !isPickValid ? "trio-sort-error" : undefined}
-                className="h-14 rounded-2xl bg-[#07090E] border-white/10 font-mono text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner px-4"
+                aria-describedby={
+                  autoSortedNotice
+                    ? "trio-sort-notice"
+                    : isTrioBet && pick !== "" && !isPickValid
+                      ? "trio-sort-error"
+                      : undefined
+                }
+                className="h-14 rounded-2xl bg-surface-panel border-white/10 font-mono text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner px-4"
               />
-              {isTrioBet && pick !== "" && !isPickValid && (
-                <div id="trio-sort-error" role="alert" className="flex items-center gap-1.5 text-xs text-rose-400 font-mono">
-                  <AlertCircle className="h-3.5 w-3.5 shrink-0" />
-                  <span>Trio must adhere to Genie-sort rule: 1 &lt; 2 &lt; ... &lt; 9 &lt; 0 (Rank 0 is highest)</span>
+              {autoSortedNotice && (
+                <div
+                  id="trio-sort-notice"
+                  role="status"
+                  aria-live="polite"
+                  className="flex items-center gap-1.5 text-xs text-sky-300 font-mono bg-sky-950/40 border border-sky-500/30 px-3 py-1.5 rounded-lg"
+                >
+                  <Sparkles className="h-3.5 w-3.5 shrink-0 text-sky-400" />
+                  <span>{autoSortedNotice}</span>
+                </div>
+              )}
+              {isTrioBet && pick !== "" && !isPickValid && !autoSortedNotice && (
+                <div id="trio-sort-error" role="alert" className="flex items-center justify-between gap-2 text-xs text-rose-400 font-mono bg-rose-950/20 border border-rose-500/20 px-3 py-1.5 rounded-lg">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <AlertCircle className="h-3.5 w-3.5 shrink-0 text-rose-400" />
+                    <span className="truncate">Genie rule: 1 &lt; 2 &lt; ... &lt; 9 &lt; 0</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const sorted = sortTrioToGenieOrder(pick.trim().padStart(3, "0").slice(-3));
+                      setPick(sorted);
+                      setAutoSortedNotice(`Auto-sorted ${pick} → ${sorted} (Genie order)`);
+                    }}
+                    className="text-sky-300 hover:text-sky-200 underline font-bold cursor-pointer shrink-0 ml-1 text-[11px]"
+                  >
+                    Sort to {sortTrioToGenieOrder(pick.trim().padStart(3, "0").slice(-3))}
+                  </button>
                 </div>
               )}
             </div>
@@ -476,7 +527,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
               placeholder="0.00"
               min={0}
               step="0.01"
-              className="h-14 rounded-2xl bg-[#07090E] border-white/10 pl-24 pr-20 font-mono text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner"
+              className="h-14 rounded-2xl bg-surface-panel border-white/10 pl-24 pr-20 font-mono text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner"
             />
             <div className="absolute right-2.5 flex items-center">
               <Button
@@ -508,7 +559,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 aria-label={`Set wager to $${amt} USDC`}
                 aria-pressed={wager === amt}
                 onClick={() => setWager(amt)}
-                className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-9 rounded-xl ${wager === amt
+                className={`flex-1 font-mono text-xs sm:text-sm font-bold tabular-nums h-11 sm:h-9 rounded-xl ${wager === amt
                     ? "bg-sky-600/25 text-sky-200 border-sky-500 shadow-sm"
                     : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"
                   }`}
@@ -519,7 +570,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           </div>
 
           {/* Power User Keyboard Accelerator Banner (Alex Persona) */}
-          <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#07090E] border border-white/5 text-[11px] font-mono text-slate-400">
+          <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-surface-panel border border-white/5 text-[11px] font-mono text-slate-400">
             <div className="flex items-center gap-1.5">
               <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-slate-200 font-bold text-[10px]">0–9</kbd>
               <span>Instant Pick</span>
@@ -535,7 +586,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           </div>
 
           {/* High-Tech Profit & Payout Terminal Breakdown */}
-          <div className="rounded-2xl border border-white/10 bg-[#07090E] p-4 shadow-inner">
+          <div className="rounded-2xl border border-white/10 bg-surface-panel p-4 shadow-inner">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
               <div className="space-y-1">
                 <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -587,7 +638,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
 
         {/* Main Execution Button */}
         {!ready ? (
-          <Button disabled className="w-full h-14 rounded-2xl bg-[#07090E] text-slate-400 font-hud">
+          <Button disabled className="w-full h-14 rounded-2xl bg-surface-panel text-slate-400 font-hud">
             Connecting Vault Engine…
           </Button>
         ) : !authenticated ? (
@@ -627,7 +678,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
         ) : !isMarketOpenForBet ? (
           <Button
             disabled
-            className="w-full h-14 rounded-2xl bg-[#07090E] border border-white/10 text-slate-500 font-hud font-bold uppercase tracking-wider"
+            className="w-full h-14 rounded-2xl bg-surface-panel border border-white/10 text-slate-500 font-hud font-bold uppercase tracking-wider"
           >
             {isOpenBet ? "Open Market Lock Elapsed" : "Close Market Lock Elapsed"}
           </Button>

@@ -97,7 +97,7 @@ export function HistoryPageContent() {
       {/* Metric Overview HUD Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Card 1: Total Rounds */}
-        <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 p-5 shadow-xl flex items-center gap-4 relative overflow-hidden">
+        <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-white/10 p-5 shadow-xl flex items-center gap-4 relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400">
             <Hash className="h-6 w-6" />
@@ -112,7 +112,7 @@ export function HistoryPageContent() {
         </Card>
 
         {/* Card 2: VRF Engine */}
-        <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 p-5 shadow-xl flex items-center gap-4 relative overflow-hidden">
+        <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-white/10 p-5 shadow-xl flex items-center gap-4 relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
             <ShieldCheck className="h-6 w-6" />
@@ -131,7 +131,7 @@ export function HistoryPageContent() {
         </Card>
 
         {/* Card 3: Settlement Cadence */}
-        <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 p-5 shadow-xl flex items-center gap-4 relative overflow-hidden">
+        <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-white/10 p-5 shadow-xl flex items-center gap-4 relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 border border-violet-500/30 text-violet-400">
             <Clock className="h-6 w-6" />
@@ -148,14 +148,14 @@ export function HistoryPageContent() {
 
       {/* Main Table Card */}
       {isLoading ? (
-        <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 p-7 space-y-4 shadow-2xl">
+        <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-white/10 p-7 space-y-4 shadow-2xl">
           <Skeleton className="h-10 w-full bg-white/5 rounded-xl" />
           {Array.from({ length: 5 }).map((_, i) => (
             <Skeleton key={i} className="h-14 w-full bg-white/5 rounded-xl" />
           ))}
         </Card>
       ) : totalRounds === 0 ? (
-        <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 p-12 text-center text-slate-400 shadow-2xl space-y-3">
+        <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-white/10 p-12 text-center text-slate-400 shadow-2xl space-y-3">
           <History className="mx-auto h-12 w-12 text-slate-500" />
           <p className="font-heading font-bold text-lg text-white">No Rounds Recorded Yet</p>
           <p className="text-xs text-slate-400 max-w-sm mx-auto">
@@ -163,13 +163,13 @@ export function HistoryPageContent() {
           </p>
         </Card>
       ) : (
-        <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden relative">
+        <Card className="rounded-2xl bg-surface-card/85 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden relative">
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
           {/* Table Container */}
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm border-collapse">
               <thead>
-                <tr className="border-b border-white/5 bg-[#07090E]/90 text-[11px] font-hud font-bold uppercase tracking-wider text-slate-400">
+                <tr className="border-b border-white/5 bg-surface-panel/90 text-[11px] font-hud font-bold uppercase tracking-wider text-slate-400">
                   <th className="px-6 py-4">Round</th>
                   <th className="px-6 py-4">Protocol State</th>
                   <th className="px-6 py-4 text-center">Open Draw (3 Digits + Single)</th>
@@ -206,14 +206,14 @@ export function HistoryPageContent() {
                       className="hover:bg-white/[0.02] transition-colors"
                     >
                       <td className="px-6 py-4 font-mono">
-                        <span className="inline-flex h-9 px-3 items-center justify-center rounded-xl bg-[#05070B] border border-white/10 font-mono font-bold text-sm text-cyan-400 tabular-nums">
+                        <span className="inline-flex h-9 px-3 items-center justify-center rounded-xl bg-surface-well border border-white/10 font-mono font-bold text-sm text-cyan-400 tabular-nums">
                           #{id.toString()}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         <Badge
                           variant="outline"
-                          className={`font-mono text-xs font-semibold h-9 px-3 rounded-xl border-white/10 bg-[#05070B] inline-flex items-center gap-1.5 ${PHASE_COLORS[phase]}`}
+                          className={`font-mono text-xs font-semibold h-9 px-3 rounded-xl border-white/10 bg-surface-well inline-flex items-center gap-1.5 ${PHASE_COLORS[phase]}`}
                         >
                           {phase === RoundPhase.Settled ? (
                             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
@@ -229,7 +229,7 @@ export function HistoryPageContent() {
                       <td className="px-6 py-4 text-center">
                         {showOpen ? (
                           <div className="inline-flex items-center justify-center gap-2.5 font-mono tabular-nums">
-                            <span className="font-mono font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-[#05070B] border border-white/10 tabular-nums">
+                            <span className="font-mono font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-surface-well border border-white/10 tabular-nums">
                               {openD1} · {openD2} · {openD3}
                             </span>
                             <span className="font-mono text-xs font-bold px-2.5 py-1.5 rounded-xl bg-violet-500/15 border border-violet-500/30 text-violet-300 flex items-center gap-1.5 tabular-nums">
@@ -238,7 +238,7 @@ export function HistoryPageContent() {
                             </span>
                           </div>
                         ) : (
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-surface-well border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
                             Awaiting VRF
                           </span>
                         )}
@@ -246,7 +246,7 @@ export function HistoryPageContent() {
                       <td className="px-6 py-4 text-center">
                         {showClose ? (
                           <div className="inline-flex items-center justify-center gap-2.5 font-mono tabular-nums">
-                            <span className="font-mono font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-[#05070B] border border-white/10 tabular-nums">
+                            <span className="font-mono font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-surface-well border border-white/10 tabular-nums">
                               {closeD1} · {closeD2} · {closeD3}
                             </span>
                             <span className="font-mono text-xs font-bold px-2.5 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center gap-1.5 tabular-nums">
@@ -255,7 +255,7 @@ export function HistoryPageContent() {
                             </span>
                           </div>
                         ) : (
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-surface-well border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
                             Awaiting VRF
                           </span>
                         )}
@@ -266,7 +266,7 @@ export function HistoryPageContent() {
                             {pairResult.toString().padStart(2, "0")}
                           </span>
                         ) : (
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-surface-well border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
                             Awaiting VRF
                           </span>
                         )}
@@ -280,13 +280,13 @@ export function HistoryPageContent() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="border-t border-white/5 bg-[#07090E]/90 p-4 px-6 flex items-center justify-between flex-wrap gap-3">
+            <div className="border-t border-white/5 bg-surface-panel/90 p-4 px-6 flex items-center justify-between flex-wrap gap-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="h-9 px-4 rounded-xl border-white/10 bg-[#05070B] hover:bg-white/5 text-slate-300 font-hud uppercase tracking-wider text-xs gap-1.5"
+                className="h-9 px-4 rounded-xl border-white/10 bg-surface-well hover:bg-white/5 text-slate-300 font-hud uppercase tracking-wider text-xs gap-1.5"
               >
                 <ChevronLeft className="h-4 w-4" />
                 Newer Rounds
@@ -299,7 +299,7 @@ export function HistoryPageContent() {
                 size="sm"
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="h-9 px-4 rounded-xl border-white/10 bg-[#05070B] hover:bg-white/5 text-slate-300 font-hud uppercase tracking-wider text-xs gap-1.5"
+                className="h-9 px-4 rounded-xl border-white/10 bg-surface-well hover:bg-white/5 text-slate-300 font-hud uppercase tracking-wider text-xs gap-1.5"
               >
                 Older Rounds
                 <ChevronRight className="h-4 w-4" />

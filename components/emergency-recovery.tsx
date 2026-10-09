@@ -59,7 +59,7 @@ export function EmergencyRecovery() {
   };
 
   return (
-    <Card className="rounded-2xl border-red-500/25 bg-[#0B0F1A]/85 backdrop-blur-xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden">
+    <Card className="rounded-2xl border-red-500/25 bg-surface-card/85 backdrop-blur-xl p-6 sm:p-8 shadow-2xl transition-all relative overflow-hidden">
       {/* Top highlight gradient */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/40 to-transparent" />
 
@@ -98,12 +98,12 @@ export function EmergencyRecovery() {
             variant="outline"
             className={`text-xs font-hud uppercase tracking-wider h-10 px-4 rounded-xl border hidden sm:inline-flex items-center ${isEmergencyStale
               ? "bg-red-500/20 border-red-500/40 text-red-300 animate-pulse"
-              : "bg-[#07090E] border-white/10 text-emerald-400"
+              : "bg-surface-panel border-white/10 text-emerald-400"
               }`}
           >
             {isEmergencyStale ? "Recovery Available" : "Protocol Active"}
           </Badge>
-          <div className="h-10 w-10 rounded-xl bg-[#07090E] border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+          <div className="h-10 w-10 rounded-xl bg-surface-panel border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
             {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </div>
         </div>
@@ -151,7 +151,7 @@ export function EmergencyRecovery() {
           )}
 
           {/* Current Round Health Monitor */}
-          <div className="rounded-xl border border-white/10 bg-[#07090E] p-4 space-y-3">
+          <div className="rounded-xl border border-white/10 bg-surface-panel p-4 space-y-3">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-slate-400 font-hud uppercase tracking-wider">Active Round:</span>
@@ -161,7 +161,7 @@ export function EmergencyRecovery() {
                 {round && (
                   <Badge
                     variant="outline"
-                    className={`font-mono text-xs font-semibold ${PHASE_COLORS[round.phase]} border-white/10 bg-[#05070B]`}
+                    className={`font-mono text-xs font-semibold ${PHASE_COLORS[round.phase]} border-white/10 bg-surface-well`}
                   >
                     {PHASE_LABELS[round.phase]}
                   </Badge>
@@ -213,20 +213,20 @@ export function EmergencyRecovery() {
                 </Button>
               </div>
             ) : (
-              <div className="rounded-lg bg-[#05070B] border border-white/5 p-3 text-xs text-slate-400 font-sans">
+              <div className="rounded-lg bg-surface-well border border-white/5 p-3 text-xs text-slate-400 font-sans">
                 Current round #{roundId ? roundId.toString() : "—"} is healthy. The 24-hour emergency timeout unlocks only if a VRF request hangs past 24 hours.
               </div>
             )}
           </div>
 
           {/* Manual Round Recovery Form */}
-          <div className="rounded-xl border border-white/10 bg-[#07090E] p-5 space-y-3">
+          <div className="rounded-xl border border-white/10 bg-surface-panel p-5 space-y-3">
             <div className="flex items-center gap-2 text-xs font-hud font-bold uppercase tracking-wider text-red-400">
               <ShieldAlert className="h-3.5 w-3.5" />
               Manual Stale Round Recovery
             </div>
             <p className="text-xs text-slate-400">
-              Enter any past or target Round ID to invoke <code className="font-mono text-red-400 bg-[#05070B] px-1.5 py-0.5 rounded border border-red-500/20">cancelStaleRound(roundId)</code>.
+              Enter any past or target Round ID to invoke <code className="font-mono text-red-400 bg-surface-well px-1.5 py-0.5 rounded border border-red-500/20">cancelStaleRound(roundId)</code>.
             </p>
 
             <form onSubmit={handleCancelTargetStale} className="space-y-4">
@@ -243,7 +243,7 @@ export function EmergencyRecovery() {
                   placeholder={roundId ? `e.g. ${roundId.toString()}` : "e.g. 1"}
                   value={targetRoundId}
                   onChange={(e) => setTargetRoundId(e.target.value)}
-                  className="font-mono text-xs tabular-nums bg-[#05070B] border-white/10 h-10"
+                  className="font-mono text-xs tabular-nums bg-surface-well border-white/10 h-10"
                 />
               </div>
 

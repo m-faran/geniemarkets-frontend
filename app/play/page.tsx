@@ -38,13 +38,13 @@ export default function PlayPage() {
 
         {/* Quick Protocol Telemetry Chips */}
         <div className="flex items-center gap-2 font-mono text-xs text-slate-400 flex-wrap">
-          <span className="px-2.5 py-1 rounded-lg bg-[#07090E] border border-white/10 text-slate-300">
+          <span className="px-2.5 py-1 rounded-lg bg-surface-panel border border-white/10 text-slate-300">
             Escrow: <strong className="text-emerald-400 font-bold">USDC</strong>
           </span>
-          <span className="px-2.5 py-1 rounded-lg bg-[#07090E] border border-white/10 text-slate-300">
+          <span className="px-2.5 py-1 rounded-lg bg-surface-panel border border-white/10 text-slate-300">
             Oracle: <strong className="text-sky-300 font-bold">VRF v2.5</strong>
           </span>
-          <span className="px-2.5 py-1 rounded-lg bg-[#07090E] border border-white/10 text-slate-300">
+          <span className="px-2.5 py-1 rounded-lg bg-surface-panel border border-white/10 text-slate-300">
             Max Payout: <strong className="text-amber-400 font-bold">600x</strong>
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function PlayPage() {
           <WalletPanel />
 
           {/* Quick Rules & Multiplier Reference Widget */}
-          <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-5 space-y-4 shadow-2xl shadow-black/80">
+          <Card className="rounded-2xl border border-white/10 bg-surface-card/90 p-5 space-y-4 shadow-2xl shadow-black/80">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400">
@@ -82,7 +82,7 @@ export default function PlayPage() {
             </div>
 
             {/* Compact Multiplier Quick Reference */}
-            <div className="space-y-2 rounded-xl bg-[#07090E] border border-white/10 p-3.5 text-xs font-mono shadow-inner">
+            <div className="space-y-2 rounded-xl bg-surface-panel border border-white/10 p-3.5 text-xs font-mono shadow-inner">
               <div className="flex items-center justify-between py-1.5 border-b border-white/5">
                 <span className="text-slate-300 font-sans">Single (0–9)</span>
                 <span className="font-bold text-sky-300 tabular-nums">9x Payout</span>
@@ -103,7 +103,7 @@ export default function PlayPage() {
 
             <Link
               href="/how-it-works"
-              className="group flex items-center justify-between rounded-xl bg-[#07090E] border border-white/10 px-4 py-3 text-xs font-hud font-bold uppercase tracking-wider text-sky-300 hover:text-white hover:border-sky-500/40 hover:bg-sky-600/15 transition-all shadow-sm"
+              className="group flex items-center justify-between rounded-xl bg-surface-panel border border-white/10 px-4 py-3 text-xs font-hud font-bold uppercase tracking-wider text-sky-300 hover:text-white hover:border-sky-500/40 hover:bg-sky-600/15 transition-all shadow-sm"
             >
               <span>View Technical Whitepaper</span>
               <ArrowRight className="h-3.5 w-3.5 text-sky-400 transition-transform group-hover:translate-x-1" />

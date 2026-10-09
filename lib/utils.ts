@@ -130,6 +130,15 @@ export function isValidTrio(pick: number): boolean {
   return genieRank(a) <= genieRank(b) && genieRank(b) <= genieRank(c);
 }
 
+/** Sort three digits into Genie order (1 < 2 < ... < 9 < 0) */
+export function sortTrioToGenieOrder(val: string | number): string {
+  const str = val.toString().padStart(3, "0").slice(-3);
+  const digits = str.split("").map(Number);
+  if (digits.length !== 3 || digits.some(isNaN)) return str;
+  digits.sort((x, y) => genieRank(x) - genieRank(y));
+  return digits.join("");
+}
+
 // ── General shadcn/ui utility ───────────────────────────
 
 export function cn(...inputs: ClassValue[]) {
