@@ -177,7 +177,7 @@ export function WalletPanel() {
           <p className="font-hud text-[11px] font-bold uppercase tracking-wider text-slate-400">
             Available USDC Liquidity
           </p>
-          <p className="font-hud font-extrabold text-3xl sm:text-4xl text-emerald-400 tabular-nums tracking-tight text-glow-cyan">
+          <p className="font-mono font-extrabold text-3xl sm:text-4xl text-emerald-400 tabular-nums tracking-tight text-glow-cyan">
             {usdcBalance !== undefined
               ? formatUsdcDollar(usdcBalance)
               : "…"}

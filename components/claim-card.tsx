@@ -110,7 +110,7 @@ export function ClaimCard() {
           <div className="flex items-center gap-3 rounded-xl bg-amber-500/15 border border-amber-500/30 px-5 py-2.5 shadow-lg shadow-amber-500/10">
             <Coins className="h-5 w-5 text-amber-400" />
             <span className="text-xs font-hud uppercase tracking-wider text-amber-300">Total Unclaimed:</span>
-            <span className="font-hud text-xl font-black text-amber-300 tabular-nums">
+            <span className="font-mono text-xl font-black text-amber-300 tabular-nums">
               {formatUsdcDollar(totalWinnings)}
             </span>
           </div>
@@ -157,7 +157,7 @@ export function ClaimCard() {
                     <p className="text-base font-bold text-white font-heading">
                       {BET_TYPE_LABELS[bet.betType]} · <span className="text-amber-400 font-hud">Pick {bet.pick}</span>
                     </p>
-                    <span className="text-xs text-slate-500 font-mono tabular-nums">
+                    <span className="text-xs text-slate-400 font-mono tabular-nums">
                       (Bet #{bet.betIndex.toString()})
                     </span>
                   </div>
@@ -167,7 +167,7 @@ export function ClaimCard() {
                 </div>
 
                 <div className="flex items-center justify-between sm:justify-end gap-5">
-                  <span className="font-hud text-2xl sm:text-3xl font-black text-amber-400 tabular-nums">
+                  <span className="font-mono text-2xl sm:text-3xl font-black text-amber-400 tabular-nums">
                     {formatUsdcDollar(bet.payout)}
                   </span>
                   <Button

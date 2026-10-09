@@ -83,7 +83,7 @@ export function NavBar() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
             <span className="font-semibold text-slate-300">Sepolia EVM</span>
-            <span className="text-slate-500">(11155111)</span>
+            <span className="text-slate-400">(11155111)</span>
           </span>
           <span className="h-2.5 w-px bg-white/10" />
           <span className="flex items-center gap-1.5 text-cyan-400">
@@ -167,7 +167,7 @@ export function NavBar() {
             <>
               {/* Live USDC Balance Badge */}
               <div className="hidden xs:flex items-center gap-2 rounded-xl border border-white/10 bg-[#0B0F1A] px-3.5 py-1.5 shadow-inner">
-                <span className="font-mono text-xs text-slate-500 font-semibold">USDC</span>
+                <span className="font-mono text-xs text-slate-400 font-semibold">USDC</span>
                 <span className="font-mono text-sm font-extrabold text-emerald-400 tabular-nums">
                   {usdcBalance !== undefined ? formatUsdcDollar(usdcBalance) : "…"}
                 </span>

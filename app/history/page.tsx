@@ -156,9 +156,9 @@ export function HistoryPageContent() {
         </Card>
       ) : totalRounds === 0 ? (
         <Card className="rounded-2xl bg-[#0B0F1A]/85 backdrop-blur-xl border border-white/10 p-12 text-center text-slate-400 shadow-2xl space-y-3">
-          <History className="mx-auto h-12 w-12 text-slate-600" />
+          <History className="mx-auto h-12 w-12 text-slate-500" />
           <p className="font-heading font-bold text-lg text-white">No Rounds Recorded Yet</p>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <p className="text-xs text-slate-400 max-w-sm mx-auto">
             Once round #1 completes initialization, cryptographic draws and historical settlements will populate this ledger.
           </p>
         </Card>
@@ -206,7 +206,7 @@ export function HistoryPageContent() {
                       className="hover:bg-white/[0.02] transition-colors"
                     >
                       <td className="px-6 py-4 font-mono">
-                        <span className="inline-flex h-9 px-3 items-center justify-center rounded-xl bg-[#05070B] border border-white/10 font-hud font-black text-sm text-cyan-400 tabular-nums">
+                        <span className="inline-flex h-9 px-3 items-center justify-center rounded-xl bg-[#05070B] border border-white/10 font-mono font-bold text-sm text-cyan-400 tabular-nums">
                           #{id.toString()}
                         </span>
                       </td>
@@ -229,16 +229,16 @@ export function HistoryPageContent() {
                       <td className="px-6 py-4 text-center">
                         {showOpen ? (
                           <div className="inline-flex items-center justify-center gap-2.5 font-mono tabular-nums">
-                            <span className="font-hud font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-[#05070B] border border-white/10">
+                            <span className="font-mono font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-[#05070B] border border-white/10 tabular-nums">
                               {openD1} · {openD2} · {openD3}
                             </span>
-                            <span className="font-hud text-xs font-bold px-2.5 py-1.5 rounded-xl bg-violet-500/15 border border-violet-500/30 text-violet-300 flex items-center gap-1.5">
-                              <span className="text-[10px] uppercase text-violet-400/80">Single</span>
+                            <span className="font-mono text-xs font-bold px-2.5 py-1.5 rounded-xl bg-violet-500/15 border border-violet-500/30 text-violet-300 flex items-center gap-1.5 tabular-nums">
+                              <span className="text-[10px] uppercase text-violet-400/80 font-sans">Single</span>
                               <span className="text-sm font-black text-white">{openSingle}</span>
                             </span>
                           </div>
                         ) : (
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-hud text-slate-500 uppercase">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
                             Awaiting VRF
                           </span>
                         )}
@@ -246,27 +246,27 @@ export function HistoryPageContent() {
                       <td className="px-6 py-4 text-center">
                         {showClose ? (
                           <div className="inline-flex items-center justify-center gap-2.5 font-mono tabular-nums">
-                            <span className="font-hud font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-[#05070B] border border-white/10">
+                            <span className="font-mono font-bold text-sm tracking-widest text-white px-3 py-1.5 rounded-xl bg-[#05070B] border border-white/10 tabular-nums">
                               {closeD1} · {closeD2} · {closeD3}
                             </span>
-                            <span className="font-hud text-xs font-bold px-2.5 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center gap-1.5">
-                              <span className="text-[10px] uppercase text-cyan-400/80">Single</span>
+                            <span className="font-mono text-xs font-bold px-2.5 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center gap-1.5 tabular-nums">
+                              <span className="text-[10px] uppercase text-cyan-400/80 font-sans">Single</span>
                               <span className="text-sm font-black text-white">{closeSingle}</span>
                             </span>
                           </div>
                         ) : (
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-hud text-slate-500 uppercase">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
                             Awaiting VRF
                           </span>
                         )}
                       </td>
                       <td className="px-6 py-4 text-center">
                         {showClose ? (
-                          <span className="font-hud text-base font-black text-amber-400 tabular-nums px-3.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 inline-flex items-center justify-center tracking-wide">
+                          <span className="font-mono text-base font-bold text-amber-400 tabular-nums px-3.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 inline-flex items-center justify-center tracking-wider">
                             {pairResult.toString().padStart(2, "0")}
                           </span>
                         ) : (
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-hud text-slate-500 uppercase">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-xl bg-[#05070B] border border-white/5 text-xs font-mono tracking-wider text-slate-400 uppercase">
                             Awaiting VRF
                           </span>
                         )}

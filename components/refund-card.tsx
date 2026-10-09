@@ -91,7 +91,7 @@ export function RefundCard() {
 
         <div className="flex items-center gap-3.5">
           {totalRefundable > 0n && (
-            <span className="font-hud text-xs font-bold text-cyan-300 hidden sm:inline tabular-nums px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 uppercase tracking-wider">
+            <span className="font-mono text-xs font-bold text-cyan-300 hidden sm:inline tabular-nums px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 uppercase tracking-wider">
               {formatUsdcDollar(totalRefundable)} Available
             </span>
           )}
@@ -162,7 +162,7 @@ export function RefundCard() {
                       <p className="text-sm font-bold text-white font-heading">
                         {BET_TYPE_LABELS[bet.betType]} · <span className="text-cyan-400 font-hud">Pick {bet.pick}</span>
                       </p>
-                      <span className="text-xs text-slate-500 font-mono tabular-nums">
+                      <span className="text-xs text-slate-400 font-mono tabular-nums">
                         (Bet #{bet.betIndex.toString()})
                       </span>
                     </div>
@@ -172,7 +172,7 @@ export function RefundCard() {
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-4">
-                    <span className="font-hud text-lg font-black text-cyan-300 tabular-nums">
+                    <span className="font-mono text-lg font-bold text-cyan-300 tabular-nums">
                       {formatUsdcDollar(bet.amount)}
                     </span>
                     <Button
@@ -198,7 +198,7 @@ export function RefundCard() {
             <div className="rounded-xl border border-white/5 bg-[#07090E]/80 p-6 text-center space-y-1">
               <CheckCircle2 className="mx-auto h-6 w-6 text-slate-500" />
               <p className="text-xs font-bold font-hud uppercase tracking-wider text-slate-300">No Pending Refunds</p>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+              <p className="text-xs text-slate-400 max-w-sm mx-auto">
                 No bets in cancelled or partially settled rounds were detected in recent history.
               </p>
             </div>

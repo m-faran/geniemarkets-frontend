@@ -95,7 +95,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/admin"
-                  className="inline-flex items-center gap-2 text-slate-500 transition-colors hover:text-slate-300"
+                  className="inline-flex items-center gap-2 text-slate-400 transition-colors hover:text-slate-200"
                 >
                   <span className="h-1 w-1 rounded-full bg-slate-600" />
                   Operator Console
@@ -157,12 +157,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Sub-footer */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-xs text-slate-500 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-xs text-slate-400 sm:flex-row">
           <p className="font-mono text-[11px]">
             © {new Date().getFullYear()} Genie Markets Protocol. Built on Ethereum Sepolia.
           </p>
           <div className="flex flex-wrap items-center gap-2 text-slate-400">
-            <span className="font-hud uppercase tracking-wider text-[10px] text-slate-500">Security Stack:</span>
+            <span className="font-hud uppercase tracking-wider text-[10px] text-slate-400">Security Stack:</span>
             <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#07090E] border border-white/5 text-slate-300">
               Chainlink VRF v2.5
             </span>

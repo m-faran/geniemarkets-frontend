@@ -142,7 +142,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
           )}
 
           {totalRoundBets > 0 && (
-            <span className="hidden sm:inline text-xs text-slate-500 font-mono tabular-nums px-1">
+            <span className="hidden sm:inline text-xs text-slate-400 font-mono tabular-nums px-1">
               ({totalRoundBets} pool {totalRoundBets === 1 ? "ticket" : "tickets"})
             </span>
           )}
@@ -163,7 +163,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
         {/* Unauthenticated State */}
         {!authenticated ? (
           <div className="rounded-2xl border border-white/10 bg-[#07090E] p-8 text-center space-y-3">
-            <Ticket className="mx-auto h-8 w-8 text-slate-600" />
+            <Ticket className="mx-auto h-8 w-8 text-slate-500" />
             <p className="text-base font-hud font-bold text-white uppercase tracking-wide">
               Wallet Required for Position Ledger
             </p>
@@ -211,7 +211,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
               </div>
 
               {totalUserWinnings > 0n && (
-                <div className="flex items-center gap-2 text-emerald-400 font-hud font-bold text-sm tabular-nums">
+                <div className="flex items-center gap-2 text-emerald-400 font-mono font-bold text-sm tabular-nums">
                   <Trophy className="h-4 w-4" />
                   <span>Realized Winnings: {formatUsdcDollar(totalUserWinnings)}</span>
                 </div>
@@ -275,8 +275,8 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                   >
                     {/* Left: Bet Info & Pick */}
                     <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-[#0B0F1A] border border-white/10 text-center font-hud shadow-inner">
-                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Pick</span>
+                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-[#0B0F1A] border border-white/10 text-center font-mono shadow-inner">
+                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Pick</span>
                         <span className="text-xl sm:text-2xl font-extrabold text-white tabular-nums tracking-tight">
                           {formatPick(bet.betType, bet.pick)}
                         </span>
@@ -304,7 +304,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                             </strong>
                           </span>
                           <span className="text-slate-600">•</span>
-                          <span className="text-slate-500 tabular-nums">
+                          <span className="text-slate-400 tabular-nums">
                             Index #{bet.betIndex.toString()}
                           </span>
                         </div>
@@ -321,14 +321,14 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                                 <Trophy className="h-3.5 w-3.5" />
                                 Won Payout
                               </span>
-                              <p className="font-hud text-lg sm:text-xl font-extrabold text-emerald-400 tabular-nums text-glow-cyan">
+                              <p className="font-mono text-lg sm:text-xl font-extrabold text-emerald-400 tabular-nums text-glow-cyan">
                                 {formatUsdcDollar(bet.payout)}
                               </p>
                             </div>
                           ) : isRefundable ? (
                             <div>
                               <span className="text-xs text-cyan-400 font-hud font-bold uppercase">Refund Due</span>
-                              <p className="font-hud text-base font-extrabold text-cyan-300 tabular-nums">
+                              <p className="font-mono text-base font-extrabold text-cyan-300 tabular-nums">
                                 {formatUsdcDollar(bet.amount)}
                               </p>
                             </div>
@@ -343,7 +343,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                         ) : isCancelled ? (
                           <div>
                             <span className="text-xs text-cyan-400 font-hud font-bold uppercase">Cancelled</span>
-                            <p className="font-hud text-base font-extrabold text-cyan-300 tabular-nums">
+                            <p className="font-mono text-base font-extrabold text-cyan-300 tabular-nums">
                               {formatUsdcDollar(bet.amount)} Refund
                             </p>
                           </div>
@@ -353,9 +353,9 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                               <TrendingUp className="h-3.5 w-3.5 text-violet-400" />
                               <span className="font-hud uppercase text-[10px] font-bold text-slate-400">Projected Return</span>
                             </div>
-                            <p className="font-hud text-base sm:text-lg font-extrabold text-amber-300 tabular-nums text-glow-gold">
+                            <p className="font-mono text-base sm:text-lg font-extrabold text-amber-300 tabular-nums text-glow-gold">
                               {formatUsdcDollar(potentialPayout)}
-                              <span className="ml-1.5 text-xs font-semibold text-slate-500 font-mono">
+                              <span className="ml-1.5 text-xs font-semibold text-slate-400 font-mono">
                                 ({multiplier}x)
                               </span>
                             </p>

@@ -45,6 +45,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full antialiased dark">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-full flex flex-col bg-background font-sans text-foreground selection:bg-slate-700 selection:text-white relative">
         <Providers>
           <NavBar />

@@ -354,7 +354,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                           : isPair
                             ? "text-cyan-300"
                             : "text-sky-300"
-                        : "text-slate-500"
+                        : "text-slate-400"
                       }`}
                   >
                     {payoutText}
@@ -404,7 +404,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                         className={`text-[9px] font-mono font-bold mt-0.5 tracking-tight transition-colors ${
                           isPicked
                             ? "text-sky-200 font-black"
-                            : "text-slate-600 group-hover:text-slate-400"
+                            : "text-slate-400 group-hover:text-slate-200"
                         }`}
                       >
                         [{i}]
@@ -432,7 +432,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 aria-label={activeBetType === BetType.Pair ? "Pair numeric pick, enter digits 00 to 99" : "Trio numeric pick, enter 3 digits in Genie order"}
                 aria-invalid={isTrioBet && pick !== "" && !isPickValid}
                 aria-describedby={isTrioBet && pick !== "" && !isPickValid ? "trio-sort-error" : undefined}
-                className="h-14 rounded-2xl bg-[#07090E] border-white/10 font-hud text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner px-4"
+                className="h-14 rounded-2xl bg-[#07090E] border-white/10 font-mono text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner px-4"
               />
               {isTrioBet && pick !== "" && !isPickValid && (
                 <div id="trio-sort-error" role="alert" className="flex items-center gap-1.5 text-xs text-rose-400 font-mono">
@@ -476,7 +476,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
               placeholder="0.00"
               min={0}
               step="0.01"
-              className="h-14 rounded-2xl bg-[#07090E] border-white/10 pl-24 pr-20 font-hud text-xl font-bold text-white focus:border-sky-500 shadow-inner"
+              className="h-14 rounded-2xl bg-[#07090E] border-white/10 pl-24 pr-20 font-mono text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner"
             />
             <div className="absolute right-2.5 flex items-center">
               <Button
@@ -538,15 +538,15 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           <div className="rounded-2xl border border-white/10 bg-[#07090E] p-4 shadow-inner">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
               <div className="space-y-1">
-                <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Multiplier Ratio
                 </span>
-                <p className="font-hud text-base sm:text-lg font-extrabold text-sky-300">
+                <p className="font-mono text-base sm:text-lg font-bold text-sky-300 tabular-nums">
                   {multiplier}x
                 </p>
               </div>
               <div className="space-y-1">
-                <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Estimated Net Profit
                 </span>
                 <p className="font-mono text-base sm:text-lg font-bold text-emerald-400 tabular-nums">
@@ -556,10 +556,10 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 </p>
               </div>
               <div className="space-y-1 col-span-2 sm:col-span-1 border-t sm:border-t-0 sm:border-l border-white/10 pt-2 sm:pt-0">
-                <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                <span className="font-hud text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Total Projected Payout
                 </span>
-                <p className="font-hud text-xl sm:text-2xl font-extrabold text-amber-300 tabular-nums text-glow-gold">
+                <p className="font-mono text-xl sm:text-2xl font-extrabold text-amber-300 tabular-nums text-glow-gold">
                   {potentialPayout}
                 </p>
               </div>
@@ -587,7 +587,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
 
         {/* Main Execution Button */}
         {!ready ? (
-          <Button disabled className="w-full h-14 rounded-2xl bg-[#07090E] text-slate-600 font-hud">
+          <Button disabled className="w-full h-14 rounded-2xl bg-[#07090E] text-slate-400 font-hud">
             Connecting Vault Engine…
           </Button>
         ) : !authenticated ? (

@@ -52,7 +52,7 @@ function DigitOrb({
         </div>
       )}
 
-      <span className="relative z-10 font-hud">
+      <span className="relative z-10 font-mono font-extrabold tabular-nums">
         {revealed ? digit : "?"}
       </span>
 
@@ -221,7 +221,7 @@ export function RoundDisplay() {
                     ? "text-emerald-400"
                     : isOpenDrawReady
                       ? "text-amber-400"
-                      : "text-slate-500"
+                      : "text-slate-400"
                 }`}
               >
                 {isOpenBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />}
@@ -229,7 +229,7 @@ export function RoundDisplay() {
               </span>
             </div>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-hud text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
                 {isOpenBettingActive ? formatCountdown(openTimeRemaining) : "00:00"}
               </span>
               <span className="font-mono text-xs text-slate-400">
@@ -259,7 +259,7 @@ export function RoundDisplay() {
                     ? "text-cyan-400"
                     : isCloseDrawReady
                       ? "text-amber-400"
-                      : "text-slate-500"
+                      : "text-slate-400"
                 }`}
               >
                 {isCloseBettingActive && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />}
@@ -267,7 +267,7 @@ export function RoundDisplay() {
               </span>
             </div>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-hud text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
+              <span className="font-mono text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
                 {isCloseBettingActive ? formatCountdown(closeTimeRemaining) : "00:00"}
               </span>
               <span className="font-mono text-xs text-slate-400">
@@ -437,7 +437,7 @@ export function RoundDisplay() {
                 </span>
               </p>
             ) : (
-              <p className="mt-3 text-xs text-slate-500 font-mono">
+              <p className="mt-3 text-xs text-slate-400 font-mono">
                 Awaiting VRF verification
               </p>
             )}
@@ -462,7 +462,7 @@ export function RoundDisplay() {
                 </span>
               </p>
             ) : (
-              <p className="mt-3 text-xs text-slate-500 font-mono">
+              <p className="mt-3 text-xs text-slate-400 font-mono">
                 Awaiting VRF verification
               </p>
             )}
@@ -499,10 +499,10 @@ export function RoundDisplay() {
             </div>
             <div className="flex items-center gap-4 text-slate-300 font-mono tabular-nums flex-wrap">
               <span>
-                Open: <span className="font-bold text-violet-400">{previousRound.openD1}-{previousRound.openD2}-{previousRound.openD3}</span> <span className="text-slate-500">(Single: {previousRound.openSingle})</span>
+                Open: <span className="font-bold text-violet-400">{previousRound.openD1}-{previousRound.openD2}-{previousRound.openD3}</span> <span className="text-slate-400">(Single: {previousRound.openSingle})</span>
               </span>
               <span>
-                Close: <span className="font-bold text-cyan-400">{previousRound.closeD1}-{previousRound.closeD2}-{previousRound.closeD3}</span> <span className="text-slate-500">(Single: {previousRound.closeSingle})</span>
+                Close: <span className="font-bold text-cyan-400">{previousRound.closeD1}-{previousRound.closeD2}-{previousRound.closeD3}</span> <span className="text-slate-400">(Single: {previousRound.closeSingle})</span>
               </span>
               <span>
                 Pair: <span className="font-black text-amber-400 text-glow-gold">{previousRound.pairResult.toString().padStart(2, "0")}</span>

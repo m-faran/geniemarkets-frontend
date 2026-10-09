@@ -207,7 +207,7 @@ export default function LandingPage() {
                         {item.digit}
                       </span>
                     </div>
-                    <span className="font-hud text-[9px] uppercase tracking-wider text-slate-500">
+                    <span className="font-hud text-[9px] uppercase tracking-wider text-slate-400">
                       {item.label}
                     </span>
                   </div>
@@ -254,7 +254,7 @@ export default function LandingPage() {
               <p className={`font-hud font-black text-2xl sm:text-3xl mt-1 ${metric.color}`}>
                 {metric.value}
               </p>
-              <p className="font-mono text-[11px] text-slate-500 mt-1">
+              <p className="font-mono text-[11px] text-slate-400 mt-1">
                 {metric.detail}
               </p>
             </div>
@@ -306,7 +306,7 @@ export default function LandingPage() {
 
                 <div className="pt-6 mt-6 border-t border-white/5 flex items-end justify-between">
                   <div>
-                    <span className="font-hud uppercase tracking-wider text-[10px] text-slate-500 block">
+                    <span className="font-hud uppercase tracking-wider text-[10px] text-slate-400 block">
                       Target Odds
                     </span>
                     <span className="font-mono text-xs text-slate-400">
@@ -314,7 +314,7 @@ export default function LandingPage() {
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="font-hud uppercase tracking-wider text-[10px] text-slate-500 block">
+                    <span className="font-hud uppercase tracking-wider text-[10px] text-slate-400 block">
                       Max Multiplier
                     </span>
                     <span className={`font-hud font-black text-3xl ${mode.payoutColor}`}>

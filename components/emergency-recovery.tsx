@@ -213,7 +213,7 @@ export function EmergencyRecovery() {
                 </Button>
               </div>
             ) : (
-              <div className="rounded-lg bg-[#05070B] border border-white/5 p-3 text-xs text-slate-500">
+              <div className="rounded-lg bg-[#05070B] border border-white/5 p-3 text-xs text-slate-400 font-sans">
                 Current round #{roundId ? roundId.toString() : "—"} is healthy. The 24-hour emergency timeout unlocks only if a VRF request hangs past 24 hours.
               </div>
             )}

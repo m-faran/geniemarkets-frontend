@@ -422,7 +422,7 @@ export function HowItWorksContent() {
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-500 pt-3 border-t border-zinc-800/80">
+              <p className="text-xs text-zinc-400 pt-3 border-t border-zinc-800/80">
                 Example: VRF draws 3, 5, 6. The sum is 14. 14 mod 10 is <strong className="text-zinc-200">4</strong>.
                 If your pick was 4, you win 9x.
               </p>
@@ -467,7 +467,7 @@ export function HowItWorksContent() {
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-500 pt-3 border-t border-zinc-800/80">
+              <p className="text-xs text-zinc-400 pt-3 border-t border-zinc-800/80">
                 Example: Open Single derives to <strong className="text-zinc-200">4</strong> and Close Single derives to <strong className="text-zinc-200">7</strong>.
                 The winning Pair is <strong className="text-zinc-200">47</strong>.
               </p>
@@ -512,7 +512,7 @@ export function HowItWorksContent() {
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-500 pt-3 border-t border-zinc-800/80">
+              <p className="text-xs text-zinc-400 pt-3 border-t border-zinc-800/80">
                 Digits must be entered in valid Genie order: 1 &lt; 2 &lt; ... &lt; 9 &lt; 0.
               </p>
             </Card>
@@ -839,7 +839,7 @@ export function HowItWorksContent() {
                   placeholder="10"
                   className="font-mono text-lg font-bold tabular-nums bg-[#07090E] border-white/10 rounded-xl pl-9 pr-4 py-3 h-13 text-white focus:border-violet-500 shadow-inner"
                 />
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-base font-bold text-zinc-500" aria-hidden="true">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-base font-bold text-zinc-400" aria-hidden="true">
                   $
                 </span>
               </div>
@@ -873,7 +873,7 @@ export function HowItWorksContent() {
               <p className="mt-1 font-mono text-3xl sm:text-4xl font-extrabold text-sky-400 tabular-nums">
                 {calcMultiplier}x
               </p>
-              <p className="text-xs text-zinc-500 mt-1">Contract multiplier</p>
+              <p className="text-xs text-zinc-400 mt-1">Contract multiplier</p>
             </div>
 
             <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-6 space-y-2 shadow-inner">
