@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { usePrivy, useFundWallet } from "@privy-io/react-auth";
 import { useAccount } from "wagmi";
 import { useCurrentRound, formatCountdown } from "@/hooks/use-current-round";
@@ -31,7 +31,7 @@ import {
   Zap,
 } from "lucide-react";
 
-const QUICK_AMOUNTS = ["1", "5", "10", "25"];
+const QUICK_AMOUNTS = ["1", "5", "10", "25", "50", "100"];
 
 export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
   const { login, authenticated, ready } = usePrivy();
@@ -105,10 +105,64 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
       ? formatUsdcDollar(parseUsdc((parseFloat(wager) * multiplier).toString()))
       : "$0.00";
 
-  const handlePlaceBet = async () => {
+  const handlePlaceBet = useCallback(async () => {
     if (!roundId || !isPickValid || !isWagerValid || !isMarketOpenForBet) return;
     await placeBet(roundId, activeBetType, pickNum, wager);
-  };
+  }, [roundId, isPickValid, isWagerValid, isMarketOpenForBet, placeBet, activeBetType, pickNum, wager]);
+
+  // Power User / Alex Persona: Rapid Keyboard Accelerators
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't intercept if user is typing in an input or textarea
+      const target = e.target as HTMLElement | null;
+      const isInput =
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable);
+
+      if (isInput) {
+        if (
+          e.key === "Enter" &&
+          isPickValid &&
+          isWagerValid &&
+          isMarketOpenForBet &&
+          authenticated &&
+          step === "idle"
+        ) {
+          e.preventDefault();
+          handlePlaceBet();
+        }
+        return;
+      }
+
+      // Quick digit selection for Single derivative (0-9)
+      if (
+        (activeBetType === BetType.OpenSingle || activeBetType === BetType.CloseSingle) &&
+        /^[0-9]$/.test(e.key)
+      ) {
+        e.preventDefault();
+        setPick(e.key);
+        return;
+      }
+
+      // Enter key to commit bet
+      if (
+        e.key === "Enter" &&
+        isPickValid &&
+        isWagerValid &&
+        isMarketOpenForBet &&
+        authenticated &&
+        step === "idle"
+      ) {
+        e.preventDefault();
+        handlePlaceBet();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeBetType, isPickValid, isWagerValid, isMarketOpenForBet, authenticated, step, handlePlaceBet]);
 
   const handleAddFunds = async () => {
     if (!walletAddress) return;
@@ -138,9 +192,9 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
           <CheckCircle2 className="h-8 w-8 text-emerald-400" />
         </div>
         <div className="space-y-1.5">
-          <CardTitle className="text-2xl font-hud font-bold text-white uppercase tracking-wide">
+          <h2 className="text-2xl font-hud font-bold text-white uppercase tracking-wide">
             Prediction Confirmed Onchain
-          </CardTitle>
+          </h2>
           <p className="text-sm font-mono text-slate-400">
             Smart contract escrow committed. Verified on Ethereum Sepolia.
           </p>
@@ -161,16 +215,16 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
   }
 
   return (
-    <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 sm:p-7 space-y-6 shadow-2xl shadow-black/80">
+    <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-5 sm:p-6 space-y-5 shadow-2xl shadow-black/80">
       <CardHeader className="p-0 flex flex-row items-center justify-between border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shadow-sm">
             <Sparkles className="h-5 w-5" />
           </div>
           <div>
-            <CardTitle className="text-lg sm:text-xl font-hud font-bold text-white uppercase tracking-wide">
+            <h2 className="text-lg sm:text-xl font-hud font-bold text-white uppercase tracking-wide">
               Prediction Terminal
-            </CardTitle>
+            </h2>
             <p className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
               Autonomous Non-Custodial Pool
             </p>
@@ -327,7 +381,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
             </span>
           </div>
 
-          {/* Single: Hardware Security Digit Keypad (0-9) */}
+          {/* Single: Hardware Security Digit Keypad (0-9) with Keyboard Accelerators */}
           {(activeBetType === BetType.OpenSingle ||
             activeBetType === BetType.CloseSingle) && (
               <div className="grid grid-cols-5 gap-2 sm:grid-cols-10" role="group" aria-label="Single digit selector">
@@ -337,15 +391,24 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                     <button
                       key={i}
                       type="button"
-                      aria-label={`Select digit ${i}`}
+                      aria-label={`Select digit ${i} (keyboard shortcut: ${i})`}
                       aria-pressed={isPicked}
                       onClick={() => setPick(i.toString())}
-                      className={`h-14 rounded-xl font-hud text-2xl font-extrabold tabular-nums cursor-pointer transition-all duration-200 border relative overflow-hidden ${isPicked
+                      className={`h-14 rounded-xl font-hud text-2xl font-extrabold tabular-nums cursor-pointer transition-all duration-200 border relative overflow-hidden group flex flex-col items-center justify-center ${isPicked
                           ? "bg-sky-600 text-white border-sky-400 shadow-sm ring-1 ring-sky-400/50 scale-[1.02]"
                           : "border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 hover:bg-slate-900 hover:text-white"
                         }`}
                     >
-                      {i}
+                      <span className="leading-none">{i}</span>
+                      <span
+                        className={`text-[9px] font-mono font-bold mt-0.5 tracking-tight transition-colors ${
+                          isPicked
+                            ? "text-sky-200 font-black"
+                            : "text-slate-600 group-hover:text-slate-400"
+                        }`}
+                      >
+                        [{i}]
+                      </span>
                     </button>
                   );
                 })}
@@ -369,7 +432,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 aria-label={activeBetType === BetType.Pair ? "Pair numeric pick, enter digits 00 to 99" : "Trio numeric pick, enter 3 digits in Genie order"}
                 aria-invalid={isTrioBet && pick !== "" && !isPickValid}
                 aria-describedby={isTrioBet && pick !== "" && !isPickValid ? "trio-sort-error" : undefined}
-                className="h-14 rounded-2xl bg-[#07090E] border-white/10 font-hud text-xl font-bold tabular-nums text-white focus:border-violet-500 shadow-inner px-4"
+                className="h-14 rounded-2xl bg-[#07090E] border-white/10 font-hud text-xl font-bold tabular-nums text-white focus:border-sky-500 shadow-inner px-4"
               />
               {isTrioBet && pick !== "" && !isPickValid && (
                 <div id="trio-sort-error" role="alert" className="flex items-center gap-1.5 text-xs text-rose-400 font-mono">
@@ -413,7 +476,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
               placeholder="0.00"
               min={0}
               step="0.01"
-              className="h-14 rounded-2xl bg-[#07090E] border-white/10 pl-24 pr-20 font-hud text-xl font-bold text-white focus:border-violet-500 shadow-inner"
+              className="h-14 rounded-2xl bg-[#07090E] border-white/10 pl-24 pr-20 font-hud text-xl font-bold text-white focus:border-sky-500 shadow-inner"
             />
             <div className="absolute right-2.5 flex items-center">
               <Button
@@ -453,6 +516,22 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
                 ${amt}
               </Button>
             ))}
+          </div>
+
+          {/* Power User Keyboard Accelerator Banner (Alex Persona) */}
+          <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#07090E] border border-white/5 text-[11px] font-mono text-slate-400">
+            <div className="flex items-center gap-1.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-slate-200 font-bold text-[10px]">0–9</kbd>
+              <span>Instant Pick</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-slate-200 font-bold text-[10px]">Enter</kbd>
+              <span>Commit Wager</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-1.5">
+              <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-slate-200 font-bold text-[10px]">$1–$100</kbd>
+              <span>1-Click Stake</span>
+            </div>
           </div>
 
           {/* High-Tech Profit & Payout Terminal Breakdown */}
@@ -532,7 +611,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
         ) : step === "approving" ? (
           <Button
             disabled
-            className="w-full h-14 rounded-2xl gap-2 bg-violet-600/60 font-hud font-bold text-white uppercase tracking-wider"
+            className="w-full h-14 rounded-2xl gap-2 bg-sky-600/60 font-hud font-bold text-white uppercase tracking-wider"
           >
             <Loader2 className="h-4 w-4 animate-spin" />
             Approving USDC in Smart Account…
@@ -540,7 +619,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
         ) : step === "betting" ? (
           <Button
             disabled
-            className="w-full h-14 rounded-2xl gap-2 bg-violet-600/60 font-hud font-bold text-white uppercase tracking-wider"
+            className="w-full h-14 rounded-2xl gap-2 bg-sky-600/60 font-hud font-bold text-white uppercase tracking-wider"
           >
             <Loader2 className="h-4 w-4 animate-spin" />
             Committing Wager to Smart Contract…
@@ -557,7 +636,7 @@ export function BetPanel({ onBetPlaced }: { onBetPlaced?: () => void } = {}) {
             onClick={handlePlaceBet}
             disabled={!isPickValid || !isWagerValid}
             variant="default"
-            className="w-full h-14 rounded-2xl gap-2 font-hud font-bold text-base uppercase tracking-wider shadow-2xl shadow-violet-600/30 transition-all active:scale-[0.99]"
+            className="w-full h-14 rounded-2xl gap-2 font-hud font-bold text-base uppercase tracking-wider shadow-2xl shadow-sky-600/30 transition-all active:scale-[0.99]"
           >
             <ShieldCheck className="h-5 w-5" />
             Commit Prediction ({BET_TYPE_LABELS[activeBetType]})

@@ -91,11 +91,11 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
       {/* Header */}
       <CardHeader className="p-0 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-white/10 pb-6">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-xl shadow-violet-600/20">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shadow-xl shadow-sky-500/15">
             <Ticket className="h-6 w-6" />
           </div>
           <div>
-            <CardTitle className="text-xl sm:text-2xl font-hud font-bold text-white uppercase flex items-center gap-3 tracking-wide">
+            <h2 className="text-xl sm:text-2xl font-hud font-bold text-white uppercase flex items-center gap-3 tracking-wide">
               Position Ledger
               {userBets.length > 0 && (
                 <Badge
@@ -105,7 +105,7 @@ export function PlacedBets({ onRefetchNeeded }: { onRefetchNeeded?: () => void }
                   {userBets.length} {userBets.length === 1 ? "position" : "positions"}
                 </Badge>
               )}
-            </CardTitle>
+            </h2>
             <p className="text-xs text-slate-400 mt-1 leading-relaxed font-sans">
               Onchain prediction orders, potential payouts, and smart settlement claims.
             </p>

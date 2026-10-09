@@ -22,24 +22,22 @@ import {
 function DigitOrb({
   digit,
   revealed,
-  theme = "violet",
+  theme = "sky",
 }: {
   digit: number;
   revealed: boolean;
-  theme?: "violet" | "cyan" | "gold";
+  theme?: "sky" | "cyan" | "gold" | "violet";
 }) {
   const glowStyles = {
-    violet:
-      "border-sky-500/50 bg-slate-900 text-sky-300 shadow-sm ring-1 ring-sky-400/30",
-    cyan:
-      "border-cyan-500/50 bg-slate-900 text-cyan-300 shadow-sm ring-1 ring-cyan-400/30",
-    gold:
-      "border-amber-500/50 bg-slate-900 text-amber-300 shadow-sm ring-1 ring-amber-400/30",
+    sky: "border-sky-500/50 bg-slate-900 text-sky-300 shadow-sm ring-1 ring-sky-400/30",
+    violet: "border-sky-500/50 bg-slate-900 text-sky-300 shadow-sm ring-1 ring-sky-400/30",
+    cyan: "border-cyan-500/50 bg-slate-900 text-cyan-300 shadow-sm ring-1 ring-cyan-400/30",
+    gold: "border-amber-500/50 bg-slate-900 text-amber-300 shadow-sm ring-1 ring-amber-400/30",
   };
 
   return (
     <div
-      className={`relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl font-mono text-3xl sm:text-4xl font-extrabold tabular-nums transition-all duration-700 overflow-hidden border ${
+      className={`relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-xl font-mono text-2xl sm:text-3xl font-extrabold tabular-nums transition-all duration-500 overflow-hidden border ${
         revealed
           ? `${glowStyles[theme]} scale-100`
           : "border-white/10 bg-[#07090E] text-slate-500 shadow-inner"
@@ -50,7 +48,7 @@ function DigitOrb({
       
       {!revealed && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="h-8 w-8 rounded-full bg-cyan-500/10 animate-ping" />
+          <div className="h-6 w-6 rounded-full bg-cyan-500/10 animate-ping" />
         </div>
       )}
 
@@ -86,9 +84,9 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
         return (
           <div key={s.label} className="flex items-center gap-2 sm:gap-3">
             <div
-              className={`flex items-center gap-2 rounded-lg px-3.5 py-1.5 font-hud text-xs font-bold uppercase tracking-wider transition-all ${
+              className={`flex items-center gap-2 rounded-lg px-3 py-1 font-hud text-xs font-bold uppercase tracking-wider transition-all ${
                 isActive
-                  ? "bg-violet-600/25 text-violet-300 border border-violet-500/50 shadow-md shadow-violet-500/20"
+                  ? "bg-sky-600/25 text-sky-300 border border-sky-500/50 shadow-md shadow-sky-500/20"
                   : isPast
                     ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
                     : "bg-white/5 border border-white/5 text-slate-500"
@@ -97,8 +95,8 @@ function PhaseIndicator({ phase }: { phase: RoundPhase }) {
               {isPast && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />}
               {isActive && (
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500" />
                 </span>
               )}
               {s.label}
@@ -164,9 +162,9 @@ export function RoundDisplay() {
 
   return (
     <div className="space-y-4">
-      <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 sm:p-7 space-y-6 shadow-2xl shadow-black/80">
-        {/* Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+      <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-5 sm:p-6 space-y-4 shadow-2xl shadow-black/80">
+        {/* Header with Semantic H2 Landmark */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="font-hud text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -178,9 +176,10 @@ export function RoundDisplay() {
                 </Badge>
               )}
             </div>
-            <p className="font-hud font-extrabold text-3xl sm:text-5xl text-white tracking-tight tabular-nums mt-0.5 text-glow-violet">
-              #{roundId.toString()}
-            </p>
+            <h2 className="font-hud font-extrabold text-2xl sm:text-4xl text-white tracking-tight tabular-nums mt-0.5 text-glow-cyan flex items-baseline gap-2">
+              <span>#{roundId.toString()}</span>
+              <span className="font-mono text-xs font-semibold text-slate-400 tracking-normal font-sans">(24h VRF Settlement)</span>
+            </h2>
           </div>
           <div className="text-right">
             <p className="font-hud text-[11px] font-bold uppercase tracking-wider text-slate-400">
@@ -199,11 +198,11 @@ export function RoundDisplay() {
         {/* Phase Progress Indicator */}
         <PhaseIndicator phase={round.phase} />
 
-        {/* Dual Timers Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {/* Dual Timers Grid - High Density Layout */}
+        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
           {/* Open Market Timer Card */}
           <div
-            className={`rounded-2xl border p-5 transition-all shadow-inner relative overflow-hidden ${
+            className={`rounded-xl border p-4 transition-all shadow-inner relative overflow-hidden ${
               isOpenBettingActive
                 ? "border-sky-500/40 bg-slate-900/90"
                 : isOpenDrawReady
@@ -213,7 +212,7 @@ export function RoundDisplay() {
           >
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="flex items-center gap-1.5 font-hud uppercase tracking-wider text-slate-300">
-                <Clock className="h-4 w-4 text-sky-400" />
+                <Clock className="h-3.5 w-3.5 text-sky-400" />
                 Open Market Lock
               </span>
               <span
@@ -229,8 +228,8 @@ export function RoundDisplay() {
                 {isOpenBettingActive ? "Betting Open" : isOpenDrawReady ? "Draw Due" : "Cutoff Passed"}
               </span>
             </div>
-            <div className="mt-3 flex items-baseline gap-2">
-              <span className="font-hud text-3xl sm:text-4xl font-extrabold text-white tabular-nums tracking-tight">
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className="font-hud text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
                 {isOpenBettingActive ? formatCountdown(openTimeRemaining) : "00:00"}
               </span>
               <span className="font-mono text-xs text-slate-400">
@@ -241,7 +240,7 @@ export function RoundDisplay() {
 
           {/* Close Market Timer Card */}
           <div
-            className={`rounded-2xl border p-5 transition-all shadow-inner relative overflow-hidden ${
+            className={`rounded-xl border p-4 transition-all shadow-inner relative overflow-hidden ${
               isCloseBettingActive
                 ? "border-cyan-500/40 bg-gradient-to-b from-cyan-600/10 to-[#07090E]"
                 : isCloseDrawReady
@@ -251,7 +250,7 @@ export function RoundDisplay() {
           >
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="flex items-center gap-1.5 font-hud uppercase tracking-wider text-slate-300">
-                <Clock className="h-4 w-4 text-cyan-400" />
+                <Clock className="h-3.5 w-3.5 text-cyan-400" />
                 Close Market Lock
               </span>
               <span
@@ -267,8 +266,8 @@ export function RoundDisplay() {
                 {isCloseBettingActive ? "Betting Open" : isCloseDrawReady ? "Settlement Due" : "Cutoff Passed"}
               </span>
             </div>
-            <div className="mt-3 flex items-baseline gap-2">
-              <span className="font-hud text-3xl sm:text-4xl font-extrabold text-white tabular-nums tracking-tight">
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className="font-hud text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">
                 {isCloseBettingActive ? formatCountdown(closeTimeRemaining) : "00:00"}
               </span>
               <span className="font-mono text-xs text-slate-400">
@@ -418,52 +417,52 @@ export function RoundDisplay() {
         )}
 
         {/* Digit Displays */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
           {/* Open Draw */}
-          <div className="rounded-2xl border border-white/10 bg-[#07090E]/90 p-5 shadow-inner">
-            <p className="mb-4 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
-              <Zap className="h-4 w-4 text-violet-400" />
+          <div className="rounded-xl border border-white/10 bg-[#07090E]/90 p-4 shadow-inner">
+            <p className="mb-3 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
+              <Zap className="h-3.5 w-3.5 text-sky-400" />
               Open Draw Cryptographic Digits
             </p>
-            <div className="flex gap-3">
-              <DigitOrb digit={round.openD1} revealed={showOpenDigits} theme="violet" />
-              <DigitOrb digit={round.openD2} revealed={showOpenDigits} theme="violet" />
-              <DigitOrb digit={round.openD3} revealed={showOpenDigits} theme="violet" />
+            <div className="flex gap-2.5">
+              <DigitOrb digit={round.openD1} revealed={showOpenDigits} theme="sky" />
+              <DigitOrb digit={round.openD2} revealed={showOpenDigits} theme="sky" />
+              <DigitOrb digit={round.openD3} revealed={showOpenDigits} theme="sky" />
             </div>
             {showOpenDigits ? (
-              <p className="mt-4 font-mono text-xs text-slate-400 flex items-center gap-2">
+              <p className="mt-3 font-mono text-xs text-slate-400 flex items-center gap-2">
                 <span>Derived Single (Last Digit):</span>
-                <span className="font-hud text-base font-extrabold text-violet-400 tabular-nums text-glow-violet">
+                <span className="font-hud text-base font-extrabold text-sky-300 tabular-nums">
                   [{round.openSingle}]
                 </span>
               </p>
             ) : (
-              <p className="mt-4 text-xs text-slate-500 font-mono">
+              <p className="mt-3 text-xs text-slate-500 font-mono">
                 Awaiting VRF verification
               </p>
             )}
           </div>
 
           {/* Close Draw */}
-          <div className="rounded-2xl border border-white/10 bg-[#07090E]/90 p-5 shadow-inner">
-            <p className="mb-4 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
-              <Zap className="h-4 w-4 text-cyan-400" />
+          <div className="rounded-xl border border-white/10 bg-[#07090E]/90 p-4 shadow-inner">
+            <p className="mb-3 flex items-center gap-2 font-hud text-xs font-bold uppercase tracking-wider text-slate-300">
+              <Zap className="h-3.5 w-3.5 text-cyan-400" />
               Close Draw Cryptographic Digits
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2.5">
               <DigitOrb digit={round.closeD1} revealed={showCloseDigits} theme="cyan" />
               <DigitOrb digit={round.closeD2} revealed={showCloseDigits} theme="cyan" />
               <DigitOrb digit={round.closeD3} revealed={showCloseDigits} theme="cyan" />
             </div>
             {showCloseDigits ? (
-              <p className="mt-4 font-mono text-xs text-slate-400 flex items-center gap-2">
+              <p className="mt-3 font-mono text-xs text-slate-400 flex items-center gap-2">
                 <span>Derived Single (Last Digit):</span>
                 <span className="font-hud text-base font-extrabold text-cyan-400 tabular-nums text-glow-cyan">
                   [{round.closeSingle}]
                 </span>
               </p>
             ) : (
-              <p className="mt-4 text-xs text-slate-500 font-mono">
+              <p className="mt-3 text-xs text-slate-500 font-mono">
                 Awaiting VRF verification
               </p>
             )}

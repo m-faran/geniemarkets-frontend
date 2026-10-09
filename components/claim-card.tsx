@@ -93,9 +93,9 @@ export function ClaimCard() {
           </div>
           <div>
             <div className="flex items-center gap-3 flex-wrap">
-              <CardTitle className="text-xl sm:text-2xl font-black text-white font-heading tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-white font-heading tracking-tight">
                 Winning Claims Portal
-              </CardTitle>
+              </h2>
               <Badge variant="gold" className="text-[11px] font-hud uppercase">
                 claimWinnings()
               </Badge>

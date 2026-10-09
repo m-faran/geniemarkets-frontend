@@ -18,13 +18,42 @@ export default function PlayPage() {
   const handleRefresh = () => setRefreshKey((k) => k + 1);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-10">
-      <h1 className="sr-only">Genie Markets — Live Betting Arena</h1>
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
+      {/* Executive Command Header & Landmark */}
+      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight">
+              Live Prediction Arena
+            </h1>
+            <Badge variant="emerald" className="gap-1.5 font-mono text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Sepolia Testnet
+            </Badge>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 font-sans">
+            Verifiable onchain number markets settled cryptographically via Chainlink VRF v2.5. Gas sponsored on Smart Accounts.
+          </p>
+        </div>
+
+        {/* Quick Protocol Telemetry Chips */}
+        <div className="flex items-center gap-2 font-mono text-xs text-slate-400 flex-wrap">
+          <span className="px-2.5 py-1 rounded-lg bg-[#07090E] border border-white/10 text-slate-300">
+            Escrow: <strong className="text-emerald-400 font-bold">USDC</strong>
+          </span>
+          <span className="px-2.5 py-1 rounded-lg bg-[#07090E] border border-white/10 text-slate-300">
+            Oracle: <strong className="text-sky-300 font-bold">VRF v2.5</strong>
+          </span>
+          <span className="px-2.5 py-1 rounded-lg bg-[#07090E] border border-white/10 text-slate-300">
+            Max Payout: <strong className="text-amber-400 font-bold">600x</strong>
+          </span>
+        </div>
+      </header>
 
       {/* Top Section: Interactive Betting Arena & Sticky Wallet HUD */}
-      <div className="grid gap-8 lg:grid-cols-[1fr_390px] items-start">
+      <div className="grid gap-6 lg:grid-cols-[1fr_380px] items-start">
         {/* Main Betting Column */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           <RoundDisplay />
           <BetPanel onBetPlaced={handleRefresh} />
         </div>
@@ -34,16 +63,16 @@ export default function PlayPage() {
           <WalletPanel />
 
           {/* Quick Rules & Multiplier Reference Widget */}
-          <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 space-y-5 shadow-2xl shadow-black/80">
+          <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-5 space-y-4 shadow-2xl shadow-black/80">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400">
                   <Dice5 className="h-5 w-5" />
                 </div>
                 <div>
-                  <span className="font-hud text-base font-bold text-white tracking-wide uppercase">
+                  <h2 className="font-hud text-base font-bold text-white tracking-wide uppercase">
                     Protocol Odds
-                  </span>
+                  </h2>
                   <p className="font-mono text-[10px] text-slate-400">Fixed Math Multipliers</p>
                 </div>
               </div>
@@ -84,13 +113,13 @@ export default function PlayPage() {
       </div>
 
       {/* Activity Section: Your Placed Bets & Claims Portal */}
-      <div className="space-y-6 pt-4">
+      <div className="space-y-6 pt-2">
         <PlacedBets key={refreshKey} onRefetchNeeded={handleRefresh} />
         <ClaimCard />
       </div>
 
       {/* Bottom Section: Safeguards & Recovery */}
-      <div className="space-y-6 pt-10 border-t border-white/10">
+      <section className="space-y-6 pt-8 border-t border-white/10" aria-labelledby="safeguards-heading">
         <div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-cyan-400" />
@@ -98,9 +127,9 @@ export default function PlayPage() {
               Decentralized Recovery Escrow
             </span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mt-1">
+          <h2 id="safeguards-heading" className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight mt-1">
             Contract Safeguards & Stale VRF Exit
-          </h3>
+          </h2>
           <p className="text-sm sm:text-base text-slate-400 mt-1 max-w-3xl leading-relaxed">
             Autonomous onchain recovery mechanisms allowing any participant to claim refunds from cancelled rounds or force resolution on stalled oracles.
           </p>
@@ -110,7 +139,7 @@ export default function PlayPage() {
           <RefundCard />
           <EmergencyRecovery />
         </div>
-      </div>
+      </section>
     </div>
   );
 }

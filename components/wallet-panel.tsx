@@ -113,13 +113,13 @@ export function WalletPanel() {
     <Card className="rounded-2xl border border-white/10 bg-[#0B0F1A]/90 p-6 space-y-5 shadow-2xl shadow-black/80">
       <CardHeader className="p-0 flex flex-row items-center justify-between border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600/15 border border-violet-500/30 text-violet-400 shadow-sm">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 shadow-sm">
             <Wallet className="h-5 w-5" />
           </div>
           <div>
-            <CardTitle className="text-lg font-hud font-bold text-white uppercase tracking-wide">
+            <h2 className="text-lg font-hud font-bold text-white uppercase tracking-wide">
               Onchain Vault
-            </CardTitle>
+            </h2>
             <p className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
               Smart Account Interface
             </p>
